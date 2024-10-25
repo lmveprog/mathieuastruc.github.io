@@ -55,6 +55,19 @@ header.scrolled {
 	align-items: center;
 	/* margin-right: 25px; */
 }
+.rectangle-image {
+    width: 80%;  
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Espacement au-dessus */
+}
+
+.rectangle-image img {
+    width: 40%; /* Ajuste la largeur pour un effet de rectangle */
+    height: auto;  
+    border-radius: 10px; /* Coins arrondis pour garder le style */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre pour style */
+}
 
 .logo .main-icon {
 	width: 0.7rem;
