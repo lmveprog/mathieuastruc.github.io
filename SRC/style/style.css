@@ -52,7 +52,7 @@ header.scrolled {
 }
 .logo {
 	display: flex;
-	align-items: center;
+	align-items: left;
 	/* margin-right: 25px; */
 }
 .rectangle-image {
