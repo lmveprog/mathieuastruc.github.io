@@ -52,21 +52,23 @@ header.scrolled {
 }
 .logo {
 	display: flex;
-	align-items: left;
+	align-items: center;
 	/* margin-right: 25px; */
 }
 .rectangle-image {
-    width: 80%;  
+    width: 100%; /* Largeur du conteneur ajustée pour prendre toute la largeur disponible */
+    max-width: 500px; /* Largeur maximale pour s'adapter aux écrans plus larges */
     display: flex;
     justify-content: center;
-    margin-top: 20px; /* Espacement au-dessus */
+    margin: 20px auto; /* Centrage avec marges automatiques */
 }
 
 .rectangle-image img {
-    width: 40%; /* Ajuste la largeur pour un effet de rectangle */
-    height: auto;  
-    border-radius: 10px; /* Coins arrondis pour garder le style */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre pour style */
+    width: 100%; /* Ajuste l'image pour qu'elle prenne la largeur du conteneur */
+    max-width: 400px; /* Limite la largeur maximale pour éviter les images trop grandes */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logo .main-icon {
