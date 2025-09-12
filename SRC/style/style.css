@@ -160,9 +160,44 @@ header.scrolled {
 	font-size: 28px;
 	margin-right: 7px;
 }
+.more-details {
+    font-size: 0.8em;       /* plus petit */
+    font-weight: normal;    /* pas en gras comme le header */
+    margin-left: 8px;       /* petit espace à gauche */
+    text-decoration: none;  /* supprime le soulignement */
+    color: #555;            /* gris discret, tu peux changer */
+}
+.study.upm {
+    display: flex;
+    flex-direction: row-reverse; /* force l'image à droite */
+    align-items: center;
+}
+
+/* pour éviter l’écrasement de l’image */
+.study.upm .image img {
+    max-width: 300px;   /* adapte selon ta mise en page */
+    height: auto;       /* garde les proportions originales */
+    border-radius: 8px; /* optionnel: coins arrondis */
+}
+
+.more-details:hover {
+    text-decoration: underline; /* soulignement au survol */
+    color: #000;               /* noir au survol */
+}
 
 .main a:hover {
 	color: var(--main-color);
+}
+/* Style spécial pour les liens "texte" */
+.text-link {
+  color: #1a73e8;         /* bleu discret */
+  text-decoration: none;  /* pas de soulignement par défaut */
+  font-weight: 500;       /* un peu plus visible que le texte normal */
+}
+
+.text-link:hover {
+  text-decoration: underline; /* souligné au survol */
+  color: #0c47a1;             /* bleu foncé au hover */
 }
 
 #menu-icon {
@@ -464,6 +499,8 @@ header.scrolled {
 	position: absolute;
 	visibility: hidden;
 }
+
+
 
 .contact-main .contact-section {
 	width: 400px;
@@ -1808,4 +1845,16 @@ header.scrolled {
 		flex-direction: column;
 		row-gap: 10px;
 	}
+}
+
+.study .image {
+    border: none;       /* supprime le cadre externe */
+    padding: 0;         /* évite un contour bleu ou gris */
+}
+
+.study .image img {
+    border-radius: 12px;   /* arrondi harmonieux */
+    width: 100%;           /* photo prend toute la largeur dispo */
+    height: auto;          /* garde les proportions */
+    object-fit: cover;     /* remplit si jamais tu fixes une hauteur */
 }
