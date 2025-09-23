@@ -1858,3 +1858,68 @@ header.scrolled {
     height: auto;          /* garde les proportions */
     object-fit: cover;     /* remplit si jamais tu fixes une hauteur */
 }
+
+/* Testimonial / Quote */
+.testimonial {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  background: #fafafa;
+  border: 1px solid #e9e9e9;
+  border-radius: 14px;
+}
+
+.testimonial blockquote {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 4px solid #d9d9d9;
+  font-style: italic;
+  line-height: 1.6;
+  color: #333;
+}
+
+.testimonial blockquote p:first-child {
+  margin-top: 0.25rem;
+}
+
+.testimonial ul {
+  margin: 0.75rem 0 0.75rem 1.25rem;
+}
+
+.testimonial figcaption {
+  margin-top: 1rem;
+  font-style: normal;
+  color: #555;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 0.6rem;
+  align-items: center;
+}
+
+.testimonial .quote-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+}
+
+.testimonial .quote-mark i {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Optional: subtle opening quote decoration */
+.testimonial::before {
+  content: "“";
+  position: absolute;
+  top: -12px;
+  left: 12px;
+  font-size: 4rem;
+  line-height: 1;
+  color: rgba(0,0,0,0.06);
+  pointer-events: none;
+}
