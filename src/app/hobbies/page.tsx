@@ -14,7 +14,7 @@ export default function Hobbies() {
           if (item.layout === "full-width") return (
             <div key={item.title} style={{ border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-lg)",overflow:"hidden" }}>
               <div style={{ position:"relative",width:"100%",aspectRatio:"21/6",overflow:"hidden" }}>
-                <Image src={item.image} alt={item.title} fill style={{ objectFit:"cover",objectPosition:"center 40%" }} />
+                <Image src={item.image} alt={item.title} fill style={{ objectFit:"cover",objectPosition:"center 15%" }} />
               </div>
               <div style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"rgba(255,255,255,0.6)",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"clamp(1rem, 2vw, 2rem)",alignItems:"start" }}>
                 <div style={{ display:"flex",flexDirection:"column",gap:"6px" }}>
@@ -27,15 +27,14 @@ export default function Hobbies() {
             </div>
           );
           const imageFirst = item.layout === "image-right";
-          const cols = imageFirst ? "1fr 1fr" : "1fr 1fr";
           return (
-            <div key={item.title} style={{ display:"grid",gridTemplateColumns:cols,gap:"1px",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-lg)",overflow:"hidden" }}>
+            <div key={item.title} className="hobby-split">
               {imageFirst ? (
                 <>
-                  <div style={{ position:"relative",aspectRatio:"4/3",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
-                    <Image src={item.image} alt={item.title} fill style={{ objectFit:item.imageFit??"cover",padding:item.imageFit==="contain"?"clamp(1.5rem, 4vw, 3rem)":undefined }} />
+                  <div className="hobby-split-image" style={{ position:"relative",minHeight:"clamp(220px, 35vw, 380px)",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
+                    <Image src={item.image} alt={item.title} fill style={{ objectFit:item.imageFit??"cover",objectPosition:item.imagePosition??"center",padding:item.imageFit==="contain"?"clamp(1.5rem, 4vw, 3rem)":undefined }} />
                   </div>
-                  <div style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"rgba(255,255,255,0.6)",display:"flex",flexDirection:"column",justifyContent:"center",gap:"var(--space-sm)" }}>
+                  <div className="hobby-split-text" style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"rgba(255,255,255,0.6)",display:"flex",flexDirection:"column",justifyContent:"center",gap:"var(--space-sm)" }}>
                     <span style={labelStyle}>{item.label}</span>
                     <h2 style={titleStyle}>{item.title}</h2>
                     <p style={detailStyle}>{item.detail}</p>
@@ -44,14 +43,14 @@ export default function Hobbies() {
                 </>
               ) : (
                 <>
-                  <div style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"rgba(255,255,255,0.6)",display:"flex",flexDirection:"column",justifyContent:"center",gap:"var(--space-sm)" }}>
+                  <div className="hobby-split-text" style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"rgba(255,255,255,0.6)",display:"flex",flexDirection:"column",justifyContent:"center",gap:"var(--space-sm)" }}>
                     <span style={labelStyle}>{item.label}</span>
                     <h2 style={titleStyle}>{item.title}</h2>
                     <p style={detailStyle}>{item.detail}</p>
                     <p style={descStyle}>{item.description}</p>
                   </div>
-                  <div style={{ position:"relative",aspectRatio:"4/3",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
-                    <Image src={item.image} alt={item.title} fill style={{ objectFit:item.imageFit??"cover",padding:item.imageFit==="contain"?"clamp(1.5rem, 4vw, 3rem)":undefined }} />
+                  <div className="hobby-split-image" style={{ position:"relative",minHeight:"clamp(220px, 35vw, 380px)",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
+                    <Image src={item.image} alt={item.title} fill style={{ objectFit:item.imageFit??"cover",objectPosition:item.imagePosition??"center",padding:item.imageFit==="contain"?"clamp(1.5rem, 4vw, 3rem)":undefined }} />
                   </div>
                 </>
               )}
