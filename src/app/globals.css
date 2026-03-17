@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f5f5f7;
+  --color-text: #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-text-tertiary: #aeaeb2;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-strong: rgba(0, 0, 0, 0.14);
+
+  --space-xs: clamp(0.375rem, 0.8vw, 0.5rem);
+  --space-sm: clamp(0.625rem, 1.2vw, 0.875rem);
+  --space-md: clamp(1rem, 2vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 3vw, 2.5rem);
+  --space-xl: clamp(2.5rem, 5vw, 4rem);
+  --space-2xl: clamp(4rem, 8vw, 7rem);
+
+  --text-xs:   clamp(0.6875rem, 1vw,    0.75rem);
+  --text-sm:   clamp(0.8125rem, 1.2vw,  0.9375rem);
+  --text-base: clamp(0.9375rem, 1.5vw,  1.0625rem);
+  --text-lg:   clamp(1.0625rem, 1.8vw,  1.25rem);
+  --text-xl:   clamp(1.25rem,   2.2vw,  1.625rem);
+  --text-2xl:  clamp(1.5rem,    2.8vw,  2.125rem);
+  --text-3xl:  clamp(2rem,      4vw,    3rem);
+  --text-hero: clamp(2.75rem,   6.5vw,  5.5rem);
+
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-full: 9999px;
+}
+
+/* ─── Reset ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Subtle dot grid — Linear / Vercel style */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Ccircle cx='1' cy='1' r='0.7' fill='rgba(0%2C0%2C0%2C0.045)'/%3E%3C/svg%3E");
+  background-size: 28px 28px;
+}
+
+/* ─── Aurora blobs ─────────────────────────────────────── */
+.blob {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+  will-change: transform, filter;
+}
+
+/* Large blue-violet, top-right */
+.blob-1 {
+  width: clamp(600px, 72vw, 980px);
+  height: clamp(600px, 72vw, 980px);
+  background: radial-gradient(
+    circle at 38% 38%,
+    rgba(0, 90, 255, 0.13) 0%,
+    rgba(100, 50, 240, 0.07) 42%,
+    transparent 68%
+  );
+  top: -24%;
+  right: -18%;
+  animation: b1move 32s ease-in-out infinite, b1hue 20s ease-in-out infinite;
+}
+
+/* Teal-green, bottom-left */
+.blob-2 {
+  width: clamp(500px, 60vw, 820px);
+  height: clamp(500px, 60vw, 820px);
+  background: radial-gradient(
+    circle at 62% 62%,
+    rgba(0, 200, 170, 0.10) 0%,
+    rgba(0, 130, 255, 0.06) 44%,
+    transparent 68%
+  );
+  bottom: -4%;
+  left: -14%;
+  animation: b2move 38s ease-in-out infinite, b2hue 25s ease-in-out infinite;
+}
+
+/* Warm amber, center */
+.blob-3 {
+  width: clamp(320px, 38vw, 560px);
+  height: clamp(320px, 38vw, 560px);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 140, 60, 0.07) 0%,
+    rgba(255, 60, 120, 0.04) 44%,
+    transparent 68%
+  );
+  top: 32%;
+  left: 22%;
+  animation: b3move 26s ease-in-out infinite;
+}
+
+/* Soft lavender, mid-right */
+.blob-4 {
+  width: clamp(280px, 32vw, 480px);
+  height: clamp(280px, 32vw, 480px);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(160, 100, 255, 0.07) 0%,
+    transparent 65%
+  );
+  top: 55%;
+  right: 8%;
+  animation: b4move 22s ease-in-out infinite;
+}
+
+@keyframes b1move {
+  0%, 100% { transform: translate(0, 0) scale(1);     filter: blur(80px) hue-rotate(0deg); }
+  25%       { transform: translate(-35px, 45px) scale(1.05); filter: blur(88px) hue-rotate(12deg); }
+  55%       { transform: translate(22px, -28px) scale(0.96); filter: blur(76px) hue-rotate(-8deg); }
+  80%       { transform: translate(-18px, 22px) scale(1.03); filter: blur(85px) hue-rotate(18deg); }
+}
+@keyframes b1hue {
+  0%, 100% { filter: blur(82px) hue-rotate(0deg); }
+  50%       { filter: blur(90px) hue-rotate(35deg); }
+}
+@keyframes b2move {
+  0%, 100% { transform: translate(0, 0) scale(1);     filter: blur(90px) hue-rotate(0deg); }
+  33%       { transform: translate(45px, -35px) scale(1.07); filter: blur(80px) hue-rotate(-18deg); }
+  68%       { transform: translate(-28px, 22px) scale(0.94); filter: blur(100px) hue-rotate(14deg); }
+}
+@keyframes b2hue {
+  0%, 100% { filter: blur(92px) hue-rotate(0deg); }
+  50%       { filter: blur(82px) hue-rotate(-28deg); }
+}
+@keyframes b3move {
+  0%, 100% { transform: translate(0, 0) scale(1);   filter: blur(70px); }
+  40%       { transform: translate(38px, -48px) scale(1.1); filter: blur(80px); }
+  70%       { transform: translate(-20px, 30px) scale(0.92); filter: blur(65px); }
+}
+@keyframes b4move {
+  0%, 100% { transform: translate(0, 0) scale(1);   filter: blur(75px); }
+  50%       { transform: translate(-30px, -40px) scale(1.08); filter: blur(85px); }
+}
+
+/* ─── Grain overlay ────────────────────────────────────── */
+/* Film grain using animated SVG noise — gives depth & texture */
+.grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 11;
+  pointer-events: none;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='360' height='360' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  animation: grainDrift 0.9s steps(8) infinite;
+}
+
+@keyframes grainDrift {
+  0%   { transform: translate(0, 0); }
+  12%  { transform: translate(-4%, -8%); }
+  25%  { transform: translate(-9%, 4%); }
+  37%  { transform: translate(5%, -6%); }
+  50%  { transform: translate(-4%, 12%); }
+  62%  { transform: translate(-11%, 7%); }
+  75%  { transform: translate(9%, 0%); }
+  87%  { transform: translate(0%, 9%); }
+}
+
+/* ─── UI Animations ────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.72); opacity: 0.35; }
+  40%           { transform: scale(1.12); opacity: 1; }
+}
+
+/* ─── Nav center links (responsive) ───────────────────── */
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+ @media (max-width: 680px) {
+  .nav-center { display: none; }
+}
+
+/* ─── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.10); border-radius: var(--radius-full); }
+
+::selection { background: rgba(0, 100, 255, 0.12); }
+
+/* ─── Hobby link hover ─────────────────────────────────── */
+.hobby-link { color: var(--color-text-secondary); transition: color 120ms ease; }
+.hobby-link:hover { color: var(--color-text); }
+
+/* ─── Button hover ─────────────────────────────────────── */
+.btn-dark { transition: opacity 150ms ease; }
+.btn-dark:hover { opacity: 0.82; }
