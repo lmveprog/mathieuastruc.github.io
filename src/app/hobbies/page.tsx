@@ -1,134 +1,69 @@
+"use client";
 import PageLayout from "@/components/PageLayout";
 import Image from "next/image";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = { title: "Hobbies — Mathieu Astruc" };
+import { useLanguage } from "@/context/LanguageContext";
+import { T } from "@/lib/translations";
 
 export default function Hobbies() {
+  const { lang } = useLanguage();
+  const t = T[lang].hobbies;
   return (
-    <PageLayout title="Hobbies" subtitle="Beyond work">
-      <div style={{ display: "flex", flexDirection: "column", gap: "clamp(2rem, 4vw, 3rem)" }}>
-
-        {/* ── Basketball ─────────────────────────────── */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "1px",
-          border: "0.5px solid var(--color-border)",
-          borderRadius: "var(--radius-lg)",
-          overflow: "hidden",
-        }}>
-          <div style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden" }}>
-            <Image
-              src="/images/hobbies/basketball.png"
-              alt="Basketball"
-              fill
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-          <div style={{
-            padding: "clamp(1.5rem, 3vw, 2.5rem)",
-            background: "rgba(255,255,255,0.6)",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: "var(--space-sm)",
-          }}>
-            <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-tertiary)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-              Sport
-            </span>
-            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 500, color: "var(--color-text)", letterSpacing: "-0.03em", margin: 0, lineHeight: 1.15 }}>
-              Basketball
-            </h2>
-            <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-tertiary)", letterSpacing: "-0.01em", margin: 0 }}>
-              Top-level athlete · Training Academy
-            </p>
-            <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)", lineHeight: 1.72, letterSpacing: "-0.01em", margin: 0 }}>
-              The Basketball Training Academy at Lycée Jean Perrin shaped my competitive drive, leadership instincts, and team communication — skills I carry into every project.
-            </p>
-          </div>
-        </div>
-
-        {/* ── Content Creation ───────────────────────── */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "1px",
-          border: "0.5px solid var(--color-border)",
-          borderRadius: "var(--radius-lg)",
-          overflow: "hidden",
-        }}>
-          <div style={{
-            padding: "clamp(1.5rem, 3vw, 2.5rem)",
-            background: "rgba(255,255,255,0.6)",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: "var(--space-sm)",
-          }}>
-            <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-tertiary)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-              Content
-            </span>
-            <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 500, color: "var(--color-text)", letterSpacing: "-0.03em", margin: 0, lineHeight: 1.15 }}>
-              Content Creator
-            </h2>
-            <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-tertiary)", letterSpacing: "-0.01em", margin: 0 }}>
-              ~80k subscribers · 15M+ views
-            </p>
-            <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)", lineHeight: 1.72, letterSpacing: "-0.01em", margin: 0 }}>
-              YouTube channels covering AI, technology and education. I handle the full production cycle: scripting, filming, editing, publishing and audience engagement — with a deep algorithmic understanding built through systematic iteration.
-            </p>
-          </div>
-          <div style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden", background: "#fff" }}>
-            <Image
-              src="/images/hobbies/youtube.png"
-              alt="YouTube"
-              fill
-              style={{ objectFit: "contain", padding: "clamp(1.5rem, 4vw, 3rem)" }}
-            />
-          </div>
-        </div>
-
-        {/* ── Associations ───────────────────────────── */}
-        <div style={{
-          border: "0.5px solid var(--color-border)",
-          borderRadius: "var(--radius-lg)",
-          overflow: "hidden",
-        }}>
-          <div style={{ position: "relative", width: "100%", aspectRatio: "21/6", overflow: "hidden" }}>
-            <Image
-              src="/images/hobbies/associations.jpg"
-              alt="School Associations"
-              fill
-              style={{ objectFit: "cover", objectPosition: "center 40%" }}
-            />
-          </div>
-          <div style={{
-            padding: "clamp(1.5rem, 3vw, 2.5rem)",
-            background: "rgba(255,255,255,0.6)",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(1rem, 2vw, 2rem)",
-            alignItems: "start",
-          }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-tertiary)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                Leadership
-              </span>
-              <h2 style={{ fontSize: "var(--text-xl)", fontWeight: 500, color: "var(--color-text)", letterSpacing: "-0.03em", margin: 0, lineHeight: 1.15 }}>
-                School Associations
-              </h2>
-              <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-tertiary)", letterSpacing: "-0.01em", margin: 0 }}>
-                Founder & President
-              </p>
+    <PageLayout title={t.title} subtitle={t.subtitle}>
+      <div style={{ display:"flex",flexDirection:"column",gap:"clamp(2rem, 4vw, 3rem)" }}>
+        {t.items.map((item) => {
+          if (item.layout === "full-width") return (
+            <div key={item.title} style={{ border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-lg)",overflow:"hidden" }}>
+              <div style={{ position:"relative",width:"100%",aspectRatio:"21/6",overflow:"hidden" }}>
+                <Image src={item.image} alt={item.title} fill style={{ objectFit:"cover",objectPosition:"center 40%" }} />
+              </div>
+              <div style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"rgba(255,255,255,0.6)",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"clamp(1rem, 2vw, 2rem)",alignItems:"start" }}>
+                <div style={{ display:"flex",flexDirection:"column",gap:"6px" }}>
+                  <span style={labelStyle}>{item.label}</span>
+                  <h2 style={titleStyle}>{item.title}</h2>
+                  <p style={detailStyle}>{item.detail}</p>
+                </div>
+                <p style={descStyle}>{item.description}</p>
+              </div>
             </div>
-            <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-secondary)", lineHeight: 1.72, letterSpacing: "-0.01em", margin: 0 }}>
-              Founded and led the Sports Association at ESAIP, enabling the school&apos;s entry into the Grandes Écoles Championship. Also improved quality processes and KPI monitoring at Junior Conseil AQSE.
-            </p>
-          </div>
-        </div>
-
+          );
+          const imageFirst = item.layout === "image-right";
+          const cols = imageFirst ? "1fr 1fr" : "1fr 1fr";
+          return (
+            <div key={item.title} style={{ display:"grid",gridTemplateColumns:cols,gap:"1px",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-lg)",overflow:"hidden" }}>
+              {imageFirst ? (
+                <>
+                  <div style={{ position:"relative",aspectRatio:"4/3",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
+                    <Image src={item.image} alt={item.title} fill style={{ objectFit:item.imageFit??"cover",padding:item.imageFit==="contain"?"clamp(1.5rem, 4vw, 3rem)":undefined }} />
+                  </div>
+                  <div style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"rgba(255,255,255,0.6)",display:"flex",flexDirection:"column",justifyContent:"center",gap:"var(--space-sm)" }}>
+                    <span style={labelStyle}>{item.label}</span>
+                    <h2 style={titleStyle}>{item.title}</h2>
+                    <p style={detailStyle}>{item.detail}</p>
+                    <p style={descStyle}>{item.description}</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"rgba(255,255,255,0.6)",display:"flex",flexDirection:"column",justifyContent:"center",gap:"var(--space-sm)" }}>
+                    <span style={labelStyle}>{item.label}</span>
+                    <h2 style={titleStyle}>{item.title}</h2>
+                    <p style={detailStyle}>{item.detail}</p>
+                    <p style={descStyle}>{item.description}</p>
+                  </div>
+                  <div style={{ position:"relative",aspectRatio:"4/3",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
+                    <Image src={item.image} alt={item.title} fill style={{ objectFit:item.imageFit??"cover",padding:item.imageFit==="contain"?"clamp(1.5rem, 4vw, 3rem)":undefined }} />
+                  </div>
+                </>
+              )}
+            </div>
+          );
+        })}
       </div>
     </PageLayout>
   );
 }
+
+const labelStyle: React.CSSProperties = { fontSize:"var(--text-xs)",color:"var(--color-text-tertiary)",letterSpacing:"0.08em",textTransform:"uppercase" };
+const titleStyle: React.CSSProperties = { fontSize:"var(--text-xl)",fontWeight:500,color:"var(--color-text)",letterSpacing:"-0.03em",margin:0,lineHeight:1.15 };
+const detailStyle: React.CSSProperties = { fontSize:"var(--text-sm)",color:"var(--color-text-tertiary)",letterSpacing:"-0.01em",margin:0 };
+const descStyle: React.CSSProperties = { fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",lineHeight:1.72,letterSpacing:"-0.01em",margin:0 };
