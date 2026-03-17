@@ -17,26 +17,6 @@ export default function Hero() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const hasMessages = messages.length > 0;
 
-  // Cursor glow
-  const glowRef = useRef<HTMLDivElement>(null);
-  const mouse = useRef({ x: 0, y: 0 });
-  const cur = useRef({ x: typeof window !== "undefined" ? window.innerWidth / 2 : 0, y: typeof window !== "undefined" ? window.innerHeight / 2 : 0 });
-  const raf = useRef<number>();
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => { mouse.current = { x: e.clientX, y: e.clientY }; };
-    window.addEventListener("mousemove", onMove);
-    const animate = () => {
-      cur.current.x += (mouse.current.x - cur.current.x) * 0.07;
-      cur.current.y += (mouse.current.y - cur.current.y) * 0.07;
-      if (glowRef.current) {
-        glowRef.current.style.transform = `translate(${cur.current.x - 350}px, ${cur.current.y - 350}px)`;
-      }
-      raf.current = requestAnimationFrame(animate);
-    };
-    raf.current = requestAnimationFrame(animate);
-    return () => { window.removeEventListener("mousemove", onMove); if (raf.current) cancelAnimationFrame(raf.current); };
-  }, []);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, streaming]);
 
@@ -87,9 +67,6 @@ export default function Hero() {
 
   return (
     <main style={{ position:"relative",zIndex:1,minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"80px clamp(1.25rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem)" }}>
-      {/* Cursor glow */}
-      <div ref={glowRef} style={{ position:"fixed",top:0,left:0,width:"700px",height:"700px",borderRadius:"50%",background:"radial-gradient(circle at center, rgba(110,60,255,0.08) 0%, rgba(200,100,255,0.05) 35%, transparent 68%)",pointerEvents:"none",zIndex:0,willChange:"transform" }} />
-
       {/* Header */}
       <div style={{ textAlign:"center",marginBottom:hasMessages?"var(--space-lg)":"var(--space-xl)",transition:"all 500ms cubic-bezier(0.16,1,0.3,1)",opacity:hasMessages?0.35:1,transform:hasMessages?"scale(0.88) translateY(-8px)":"scale(1)",animation:"fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both" }}>
         <h1 style={{ fontSize:"var(--text-hero)",fontWeight:600,letterSpacing:"-0.04em",lineHeight:1,color:"var(--color-text)",marginBottom:"var(--space-sm)" }}>
