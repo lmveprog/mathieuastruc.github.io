@@ -1,55 +1,25 @@
-# Portfolio — Mathieu Astruc
+# mathieu astruc — portfolio
 
-## Setup
+Personal portfolio with an AI chat interface that answers questions about my background, projects, and experience.
 
-### 1. Installer Node.js
-Télécharge et installe Node.js LTS depuis https://nodejs.org
+**Live → [mathieuastruc.com](https://mathieuastruc.com)**
 
-### 2. Installer les dépendances
+## Stack
+
+- **Next.js 15** — App Router, TypeScript
+- **Groq** — LLaMA 3.3 70B for chat, streamed responses
+- **RAG** — TF-IDF retrieval over `data/portfolio.md`
+- **WebGL** — Fluid simulation on the home page
+- **Vercel** — Deployment
+
+## Run locally
+
 ```bash
-cd ~/Desktop/newwebsite
 npm install
-```
-
-### 3. Configurer la clé API Anthropic
-```bash
-cp .env.local.example .env.local
-# Édite .env.local et colle ta clé API Anthropic
-```
-
-### 4. Lancer en développement
-```bash
+cp .env.local.example .env.local   # add your GROQ_API_KEY
 npm run dev
 ```
-Ouvre http://localhost:3000
 
-### 5. Remplir tes informations
-Édite le fichier `data/portfolio.md` avec tes vraies informations.
-Le RAG utilisera ce fichier pour répondre aux questions des visiteurs.
+## Content
 
----
-
-## Structure
-
-```
-data/
-  portfolio.md        ← TES INFORMATIONS ICI (markdown)
-src/
-  app/
-    page.tsx          ← Page principale
-    api/chat/route.ts ← API RAG + Claude
-  components/
-    Hero.tsx          ← Interface chat (le "menu")
-    Navigation.tsx    ← Barre de nav minimale
-  lib/
-    rag.ts            ← Logique de recherche contextuelle
-```
-
-## Ajouter plus d'informations au RAG
-
-Tu peux créer plusieurs fichiers `.md` dans `data/` :
-- `data/portfolio.md` — Vue d'ensemble
-- `data/projects.md` — Détail des projets
-- `data/experience.md` — Expériences professionnelles
-
-Le RAG les chargera tous automatiquement.
+All RAG knowledge lives in [`data/portfolio.md`](data/portfolio.md) — edit it to update what the AI knows.
