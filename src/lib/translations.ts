@@ -19,7 +19,7 @@ export const T: Record<Lang, Translation> = {
         "My work spans machine learning, large language models, computer vision, and social robotics — built across research labs in Norway, exchange semesters in Finland & Spain, and projects in France.",
         "I'm fluent in French, English and I am a former high-level athlete. Additionally, I am a passionate content creator with a significant online presence, reaching over 80M views and growing a community of more than 200,000 subscribers across my channels.",
       ],
-      stats: ["Countries", "Experiences", "Subscribers", "Publications"],
+      stats: ["Countries", "Experiences", "Publication", "Pending"],
       availability: "Open to opportunities · Sept / Oct 2026",
     },
     career: {
@@ -39,7 +39,7 @@ export const T: Record<Lang, Translation> = {
       title: "Education", subtitle: "Academic journey across 4 countries", mainLabel: "Main school",
       schools: [
         { period: "Sep 2025\nFeb 2026", school: "Universidad Politécnica de Madrid", location: "Madrid, Spain · International Exchange", degree: "Exchange Semester", description: "Machine Learning · Cloud Computing · Programming · Large-Scale Data Processing Architectures.", photo: "/images/education/upm.jpg" },
-        { period: "Sep 2021\nJun 2026", school: "ESAIP", location: "Angers, France · CTI & EUR-ACE Accredited", degree: "IT Engineering — Big Data & AI", description: "Engineering diploma accredited by the Commission des Titres d'Ingénieurs (CTI) and EUR-ACE. 2021–2023: Integrated preparatory courses. 2023–2026: Computer & network engineering — Big Data & AI option.", main: true, photo: "/images/education/esaipv2.webp", logo: "/images/education/esaip.png" },
+        { period: "Sep 2021\nJun 2026", school: "ESAIP", location: "Angers, France · CTI & EUR-ACE Accredited", degree: "IT Engineering — Big Data & AI", description: "Engineering diploma accredited by the Commission des Titres d'Ingénieurs (CTI) and EUR-ACE. 2021–2023: Integrated preparatory courses. 2023–2026: Computer & network engineering — Big Data & AI option.", main: true, photo: "/images/education/esaipv2.webp" },
         { period: "Jan 2024\nMay 2024", school: "SeAMK", location: "Seinäjoki, Finland · International Exchange", degree: "Exchange Semester", description: "C++, C#, Embedded Systems, OOP, Introduction to AI, Electronics labs, Software Project (Unity), Project Work in Automation.", photo: "/images/education/seamk.jpg" },
         { period: "Sep 2018\nJul 2021", school: "Lycée Jean Perrin", location: "Marseille, France", degree: "Baccalauréat", description: "High-level athlete — Basketball Training Academy. BAC — Specialty: Physics & Human Sciences, Mathematics option.", photo: "/images/education/lycee.jpg" },
       ],
@@ -65,8 +65,8 @@ export const T: Record<Lang, Translation> = {
     hobbies: {
       title: "Hobbies", subtitle: "Beyond work",
       items: [
-        { label: "Sport", title: "Basketball", detail: "Top-level athlete · Training Academy", description: "The Basketball Training Academy at Lycée Jean Perrin shaped my competitive drive, leadership instincts, and team communication — skills I carry into every project.", image: "/images/hobbies/basketball.png", layout: "image-right" as const },
-        { label: "Content", title: "Content Creator", detail: "~80k subscribers · 15M+ views", description: "YouTube channels covering AI, technology and education. I handle the full production cycle: scripting, filming, editing, publishing and audience engagement — with a deep algorithmic understanding built through systematic iteration.", image: "/images/hobbies/youtube.png", imageFit: "contain" as const, imageBg: "#fff", layout: "image-left" as const },
+        { label: "Sport", title: "Basketball", detail: "Top-level athlete · Training Academy", description: "The Basketball Training Academy at Lycée Jean Perrin shaped my competitive drive, leadership instincts, and team communication — skills I carry into every project.", image: "/images/hobbies/basketball.png", imagePosition: "center 65%", layout: "image-right" as const },
+        { label: "Content", title: "Content Creator", detail: "200k+ subscribers · 80M+ views", description: "YouTube channels covering AI, technology and education. I handle the full production cycle: scripting, filming, editing, publishing and audience engagement — with a deep algorithmic understanding built through systematic iteration.", image: "/images/hobbies/youtube.png", imageFit: "contain" as const, imageBg: "#fff", layout: "image-left" as const },
         { label: "Leadership", title: "School Associations", detail: "Founder & President", description: "Founded and led the Sports Association at ESAIP, enabling the school's entry into the Grandes Écoles Championship. Also improved quality processes and KPI monitoring at Junior Conseil AQSE.", image: "/images/hobbies/associations.jpg", layout: "full-width" as const },
       ],
     },
@@ -83,7 +83,7 @@ export const T: Record<Lang, Translation> = {
     hero: {
       subtitle: "Futur Ingénieur IA",
       suggestions: ["Quel est ton parcours ?", "Quels projets as-tu réalisés ?", "Quelles sont tes compétences ?", "Comment te contacter ?"],
-      placeholder: "Pose-moi une question sur Mathieu…",
+      placeholder: "Pose-moi une question…",
       placeholderMore: "Pose une autre question…",
     },
     about: {
@@ -93,7 +93,7 @@ export const T: Record<Lang, Translation> = {
         "Mon travail couvre le machine learning, les grands modèles de langage, la vision par ordinateur et la robotique sociale — développé dans des laboratoires de recherche en Norvège, des semestres d'échange en Finlande et en Espagne, et des projets en France.",
         "Bilingue français-anglais, ancien sportif de haut niveau et créateur de contenu passionné avec plus de 80M de vues et plus de 200 000 abonnés sur mes chaînes.",
       ],
-      stats: ["Pays", "Expériences", "Abonnés", "Publications"],
+      stats: ["Pays", "Expériences", "Publication", "En cours"],
       availability: "Disponible · Sept / Oct 2026",
     },
     career: {
@@ -113,7 +113,7 @@ export const T: Record<Lang, Translation> = {
       title: "Formation", subtitle: "Parcours académique dans 4 pays", mainLabel: "École principale",
       schools: [
         { period: "Sep 2025\nFév 2026", school: "Universidad Politécnica de Madrid", location: "Madrid, Espagne · Échange International", degree: "Semestre d'Échange", description: "Machine Learning · Cloud Computing · Programmation · Architectures de traitement de données à grande échelle.", photo: "/images/education/upm.jpg" },
-        { period: "Sep 2021\nJun 2026", school: "ESAIP", location: "Angers, France · Accréditation CTI & EUR-ACE", degree: "Ingénierie Informatique — Big Data & IA", description: "Diplôme d'ingénieur accrédité par la Commission des Titres d'Ingénieurs (CTI) et EUR-ACE. 2021–2023 : Classes préparatoires intégrées. 2023–2026 : Informatique et réseaux — option Big Data & IA.", main: true, photo: "/images/education/esaipv2.webp", logo: "/images/education/esaip.png" },
+        { period: "Sep 2021\nJun 2026", school: "ESAIP", location: "Angers, France · Accréditation CTI & EUR-ACE", degree: "Ingénierie Informatique — Big Data & IA", description: "Diplôme d'ingénieur accrédité par la Commission des Titres d'Ingénieurs (CTI) et EUR-ACE. 2021–2023 : Classes préparatoires intégrées. 2023–2026 : Informatique et réseaux — option Big Data & IA.", main: true, photo: "/images/education/esaipv2.webp" },
         { period: "Jan 2024\nMai 2024", school: "SeAMK", location: "Seinäjoki, Finlande · Échange International", degree: "Semestre d'Échange", description: "C++, C#, Systèmes embarqués, POO, Introduction à l'IA, TP d'électronique, Projet logiciel (Unity), Projet en automatisation.", photo: "/images/education/seamk.jpg" },
         { period: "Sep 2018\nJul 2021", school: "Lycée Jean Perrin", location: "Marseille, France", degree: "Baccalauréat", description: "Sportif de haut niveau — Section sportive Basketball. BAC — Spécialité : Physique & Sciences Humaines, option Mathématiques.", photo: "/images/education/lycee.jpg" },
       ],
@@ -139,8 +139,8 @@ export const T: Record<Lang, Translation> = {
     hobbies: {
       title: "Loisirs", subtitle: "Au-delà du travail",
       items: [
-        { label: "Sport", title: "Basketball", detail: "Sportif de haut niveau · Académie sportive", description: "L'académie sportive Basketball du Lycée Jean Perrin a forgé mon esprit de compétition, mon instinct de leadership et ma communication en équipe — des qualités que j'applique dans chaque projet.", image: "/images/hobbies/basketball.png", layout: "image-right" as const },
-        { label: "Contenu", title: "Créateur de Contenu", detail: "~80k abonnés · 15M+ vues", description: "Chaînes YouTube sur l'IA, la technologie et l'éducation. Je gère tout le cycle de production : scripting, tournage, montage, publication et engagement communautaire — avec une compréhension approfondie des algorithmes.", image: "/images/hobbies/youtube.png", imageFit: "contain" as const, imageBg: "#fff", layout: "image-left" as const },
+        { label: "Sport", title: "Basketball", detail: "Sportif de haut niveau · Académie sportive", description: "L'académie sportive Basketball du Lycée Jean Perrin a forgé mon esprit de compétition, mon instinct de leadership et ma communication en équipe — des qualités que j'applique dans chaque projet.", image: "/images/hobbies/basketball.png", imagePosition: "center 65%", layout: "image-right" as const },
+        { label: "Contenu", title: "Créateur de Contenu", detail: "200k+ abonnés · 80M+ vues", description: "Chaînes YouTube sur l'IA, la technologie et l'éducation. Je gère tout le cycle de production : scripting, tournage, montage, publication et engagement communautaire — avec une compréhension approfondie des algorithmes.", image: "/images/hobbies/youtube.png", imageFit: "contain" as const, imageBg: "#fff", layout: "image-left" as const },
         { label: "Leadership", title: "Associations Étudiantes", detail: "Fondateur & Président", description: "Fondateur et président de l'Association Sportive à l'ESAIP, permettant l'entrée de l'école au Championnat des Grandes Écoles. Amélioration des processus qualité et du suivi des KPIs au Junior Conseil AQSE.", image: "/images/hobbies/associations.jpg", layout: "full-width" as const },
       ],
     },
@@ -167,4 +167,4 @@ export type Experience = { period: string; company: string; location: string; ro
 export type School = { period: string; school: string; location: string; degree: string; description: string; main?: boolean; photo?: string; logo?: string };
 export type SkillGroup = { title: string; description: string; tags: string[] };
 export type SoftSkill = { title: string; description: string };
-export type HobbyItem = { label: string; title: string; detail: string; description: string; image: string; layout: "image-right" | "image-left" | "full-width"; imageFit?: "cover" | "contain"; imageBg?: string };
+export type HobbyItem = { label: string; title: string; detail: string; description: string; image: string; layout: "image-right" | "image-left" | "full-width"; imageFit?: "cover" | "contain"; imageBg?: string; imagePosition?: string };

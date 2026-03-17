@@ -1,7 +1,9 @@
 # Mathieu Astruc — Complete Portfolio
 
 ## Identity & Introduction
-Mathieu Astruc is a 5th-year AI engineering student  currently completing his Final Year Internship (PFE) at Airbus Helicopters. He specialises in AI : machine learning, large language models, computer vision, and social robotics. His experience spans research labs in Norway, exchange semesters in Finland and Spain, and industry projects in France.
+Mathieu Astruc is a 5th-year AI engineering student currently completing his Final Year Internship (PFE) at Airbus Helicopters. He specialises in AI : machine learning, large language models, computer vision, and social robotics. His experience spans research labs in Norway, exchange semesters in Finland and Spain, and industry projects in France.
+
+Date of birth: August 2003 (calculate age from today's date)
 
 He is open to new opportunities from September / October 2026.
 
@@ -63,6 +65,30 @@ Period: 2021 – 2022
 Location: Aix-en-Provence, France
 Description: Quality management in the Junior Enterprise. Managed processes and KPIs for continuous improvement.
 
+## Projects
+
+### Social Robotics & Real-Time AI — NTNU Norway
+The most significant research project: a 3-month research internship at NTNU (Norway) in the EduTech Lab. Built real-time AI systems for social robots.
+- Designed and implemented real-time gesture-based interaction with the NAO social robot using computer vision
+- Built a conversational assistant for the Reachy robot — optimized response latency, managed dialogue flow, and added human-in-the-loop interruption handling
+- Created a Robot–Robot Interaction (RRI) loop enabling NAO and Reachy to communicate autonomously without human input
+- Work expected to result in two scientific publications
+Stack: Python, computer vision, real-time AI, social robotics, NAO SDK, Reachy SDK
+
+### RAG & NLP Pipelines — Banque de France
+Built production-grade data pipelines at Banque de France (France's central bank) to feed AI models.
+- Designed and built web scraping pipelines (Python, Selenium) to extract data from ElasticSearch platforms
+- Data fed directly into RAG (Retrieval Augmented Generation) AI models
+- Explored NLP: ASR (speech-to-text) and OCR pipelines for text recognition on financial documents
+Stack: Python, Selenium, ElasticSearch, NLP, RAG, ASR, OCR
+
+### OCR Pipeline for Aerospace — COMAT
+Led a 5-month hybrid academic–industry project with COMAT (aerospace sector).
+- Built a full OCR pipeline (Python, doctr, OpenCV, CNNs) to digitalize handwritten 2D engineering sketches
+- Extracted angles, RAL codes, and surface finishes — exported to structured JSON and PDF
+- Managed the project with Agile methodology: dataset preprocessing, model training, error analysis, weekly stakeholder reviews
+Stack: Python, doctr, OpenCV, CNNs, deep learning, JSON, PDF generation, GitHub, Trello
+
 ## Technical Skills
 
 ### Programming Languages
@@ -111,6 +137,9 @@ Courses: C++, C#, Embedded Systems, OOP, Introduction to AI, Electronics labs, U
 Period: September 2018 – July 2021
 Location: Marseille, France
 High-level athlete — Basketball Training Academy. BAC — Specialty: Physics & Human Sciences, Mathematics option.
+
+## YouTube & Content Creation
+Mathieu runs several YouTube channels across different niches, totalling 200k+ subscribers and 80M+ views. Content creation is a side passion he has developed alongside his engineering studies — combining creativity, storytelling, and technical skills.
 
 ## Hobbies & Passions
 
