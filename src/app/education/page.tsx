@@ -11,8 +11,8 @@ export default function Education() {
     <PageLayout title={t.title} subtitle={t.subtitle}>
       <div style={{ display:"flex",flexDirection:"column" }}>
         {t.schools.map(({ period, school, location, degree, description, main, photo, logo }, i) => (
-          <div key={i} style={{ display:"grid",gridTemplateColumns:"88px 1fr",gap:"clamp(1rem, 3vw, 2rem)",paddingBottom:i<t.schools.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,marginBottom:i<t.schools.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,borderBottom:i<t.schools.length-1?"0.5px solid var(--color-border)":"none" }}>
-            <div style={{ paddingTop:"3px",fontSize:"var(--text-xs)",color:"var(--color-text-tertiary)",letterSpacing:"0.01em",lineHeight:1.5,fontVariantNumeric:"tabular-nums",whiteSpace:"pre-line" }}>{period}</div>
+          <div key={i} className="timeline-row" style={{ paddingBottom:i<t.schools.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,marginBottom:i<t.schools.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,borderBottom:i<t.schools.length-1?"0.5px solid var(--color-border)":"none" }}>
+            <div className="timeline-date" style={{ paddingTop:"3px",fontSize:"var(--text-xs)",color:"var(--color-text-tertiary)",letterSpacing:"0.01em",lineHeight:1.5,fontVariantNumeric:"tabular-nums",whiteSpace:"pre-line" }}>{period}</div>
             <div>
               <div style={{ display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"12px",marginBottom:"4px" }}>
                 <div style={{ display:"flex",alignItems:"baseline",gap:"10px",flexWrap:"wrap" }}>

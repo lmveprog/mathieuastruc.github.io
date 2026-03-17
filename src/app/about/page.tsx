@@ -4,21 +4,27 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { T } from "@/lib/translations";
 
-const STATS_VALUES = ["4+", "7", "200k +", "2"];
+const STATS_VALUES = ["4+", "7", "1", "1"];
 
 export default function About() {
   const { lang } = useLanguage();
   const t = T[lang].about;
   return (
     <PageLayout title={t.title} subtitle={t.subtitle}>
-      <section style={{ display:"grid",gridTemplateColumns:"1fr auto",gap:"var(--space-xl)",alignItems:"start",marginBottom:"clamp(2.5rem, 5vw, 4rem)" }}>
+      <section className="about-header">
         <div>
           {t.bio.map((p, i) => (
             <p key={i} style={{ ...prose, marginTop: i > 0 ? "1.1em" : 0 }}>{p}</p>
           ))}
         </div>
-        <div style={{ width:"clamp(140px, 18vw, 220px)",aspectRatio:"4/3",borderRadius:"var(--radius-lg)",overflow:"hidden",border:"0.5px solid var(--color-border)",flexShrink:0 }}>
-          <Image src="/mathieu.png" alt="Mathieu Astruc" width={520} height={293} style={{ objectFit:"cover",objectPosition:"center center",width:"100%",height:"100%" }} />
+        {/* Two photos stacked — portrait dominant, landscape accent */}
+        <div className="about-photo" style={{ display:"flex",flexDirection:"column",gap:"8px",width:"clamp(150px, 20vw, 240px)",flexShrink:0 }}>
+          <div style={{ position:"relative",borderRadius:"var(--radius-md)",overflow:"hidden",aspectRatio:"2/3",border:"0.5px solid var(--color-border)" }}>
+            <Image src="/images/about-portrait.png" alt="Mathieu Astruc" fill style={{ objectFit:"cover",objectPosition:"center 20%" }} />
+          </div>
+          <div style={{ position:"relative",borderRadius:"var(--radius-md)",overflow:"hidden",aspectRatio:"3/2",border:"0.5px solid var(--color-border)" }}>
+            <Image src="/images/about-landscape.jpg" alt="Mathieu Astruc" fill style={{ objectFit:"cover",objectPosition:"center 40%" }} />
+          </div>
         </div>
       </section>
 

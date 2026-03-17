@@ -206,8 +206,62 @@ body {
   transform: translateX(-50%);
 }
 
- @media (max-width: 680px) {
+.nav-hamburger { display: none; }
+.nav-contact-desktop { display: inline; }
+
+@media (max-width: 680px) {
   .nav-center { display: none; }
+  .nav-hamburger { display: flex !important; }
+  .nav-contact-desktop { display: none !important; }
+}
+
+/* ─── Responsive: About bio + photo ───────────────────── */
+.about-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-xl);
+  align-items: start;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+@media (max-width: 580px) {
+  .about-header {
+    grid-template-columns: 1fr;
+  }
+  .about-photo { display: none; }
+}
+
+/* ─── Responsive: Timeline (career, education) ─────────── */
+.timeline-row {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+@media (max-width: 580px) {
+  .timeline-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .timeline-date { margin-bottom: 6px; }
+}
+
+/* ─── Responsive: Hobby split cards ───────────────────── */
+.hobby-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .hobby-split {
+    grid-template-columns: 1fr;
+  }
+  .hobby-split-image { order: 1 !important; aspect-ratio: 16/9 !important; }
+  .hobby-split-text  { order: 2 !important; }
 }
 
 /* ─── Scrollbar ────────────────────────────────────────── */
