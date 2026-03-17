@@ -4,7 +4,18 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Education — Mathieu Astruc" };
 
-const EDUCATION = [
+type EducationEntry = {
+  period: string;
+  school: string;
+  location: string;
+  degree: string;
+  description: string;
+  main?: boolean;
+  photo?: string;
+  logo?: string;
+};
+
+const EDUCATION: EducationEntry[] = [
   {
     period: "Sep 2025\nFeb 2026",
     school: "Universidad Politécnica de Madrid",
