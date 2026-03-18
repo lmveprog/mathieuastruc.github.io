@@ -140,7 +140,7 @@ Location: Marseille, France
 High-level athlete — Basketball Training Academy. BAC — Specialty: Physics & Human Sciences, Mathematics option.
 
 ## YouTube & Content Creation
-Mathieu runs several YouTube channels covering AI, technology and education, totalling 200k+ subscribers and 80M+ views. He handles the full production cycle: scripting, filming, editing, publishing and audience engagement — with a deep algorithmic understanding built through systematic iteration.
+Mathieu runs several YouTube channels across different niches, totalling 200k+ subscribers and 80M+ views. He handles the full production cycle: scripting, filming, editing, publishing and audience engagement — with a deep algorithmic understanding built through systematic iteration.
 
 ## Hobbies & Passions
 
