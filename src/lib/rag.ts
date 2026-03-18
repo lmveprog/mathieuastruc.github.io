@@ -42,7 +42,7 @@ function score(chunk: Chunk, query: string): number {
   let s = 0;
 
   for (const word of words) {
-    const re = new RegExp(word, "g");
+    const re = new RegExp(`\\b${word}\\b`, "g");
     const matches = (text.match(re) ?? []).length;
     s += matches;
     if (chunk.title.toLowerCase().includes(word)) s += 4; // title bonus
