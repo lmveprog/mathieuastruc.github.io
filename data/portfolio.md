@@ -7,11 +7,12 @@ Date of birth: August 2003 (calculate age from today's date)
 
 He is open to new opportunities from September / October 2026.
 
-## Contact
+## Contact — How to reach me
 - Email: mathastruc@gmail.com
 - LinkedIn: https://www.linkedin.com/in/mathieu-astruc/
 - Location: France · Open to relocation
 - Phone: Available upon request
+- Best way to contact me: email or LinkedIn
 
 ## Key Stats
 - 4+ countries of professional and academic experience
@@ -139,7 +140,7 @@ Location: Marseille, France
 High-level athlete — Basketball Training Academy. BAC — Specialty: Physics & Human Sciences, Mathematics option.
 
 ## YouTube & Content Creation
-Mathieu runs several YouTube channels across different niches, totalling 200k+ subscribers and 80M+ views. Content creation is a side passion he has developed alongside his engineering studies — combining creativity, storytelling, and technical skills.
+Mathieu runs several YouTube channels covering AI, technology and education, totalling 200k+ subscribers and 80M+ views. He handles the full production cycle: scripting, filming, editing, publishing and audience engagement — with a deep algorithmic understanding built through systematic iteration.
 
 ## Hobbies & Passions
 
