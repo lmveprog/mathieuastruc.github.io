@@ -1011,10 +1011,12 @@ const useFluidCursor = () => {
   }
 
   function generateColor() {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const intensity = isDark ? 0.55 : 0.15;
     let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-    c.r *= 0.15;
-    c.g *= 0.15;
-    c.b *= 0.15;
+    c.r *= intensity;
+    c.g *= intensity;
+    c.b *= intensity;
     return c;
   }
 
