@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Mathieu Astruc — AI Engineer",
@@ -56,17 +57,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script dangerouslySetInnerHTML={{ __html: `try{const t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark');else if(t==='light')document.documentElement.classList.add('light');}catch(e){}` }} />
       </head>
       <body>
-        <LanguageProvider>
-          <div className="blob blob-1" aria-hidden="true" />
-          <div className="blob blob-2" aria-hidden="true" />
-          <div className="blob blob-3" aria-hidden="true" />
-          <div className="blob blob-4" aria-hidden="true" />
-          <div className="grain" aria-hidden="true" />
-          <Navigation />
-          {children}
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <div className="blob blob-1" aria-hidden="true" />
+            <div className="blob blob-2" aria-hidden="true" />
+            <div className="blob blob-3" aria-hidden="true" />
+            <div className="blob blob-4" aria-hidden="true" />
+            <div className="grain" aria-hidden="true" />
+            <Navigation />
+            {children}
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
