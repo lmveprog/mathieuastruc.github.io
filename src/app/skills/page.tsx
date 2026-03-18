@@ -39,7 +39,7 @@ export default function Skills() {
 
 const sectionLabel: React.CSSProperties = { fontSize:"var(--text-xs)",fontWeight:500,letterSpacing:"0.07em",textTransform:"uppercase",color:"var(--color-text-tertiary)",marginBottom:"var(--space-md)" };
 const grid: React.CSSProperties = { display:"grid",gridTemplateColumns:"repeat(auto-fill, minmax(250px, 1fr))",gap:"1px",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-lg)",overflow:"hidden" };
-const card: React.CSSProperties = { padding:"clamp(1.25rem, 2.5vw, 1.75rem)",background:"rgba(255,255,255,0.55)",display:"flex",flexDirection:"column",gap:"6px" };
+const card: React.CSSProperties = { padding:"clamp(1.25rem, 2.5vw, 1.75rem)",background:"var(--card-bg)",display:"flex",flexDirection:"column",gap:"6px" };
 const cardTitle: React.CSSProperties = { fontSize:"var(--text-sm)",fontWeight:500,color:"var(--color-text)",letterSpacing:"-0.01em",margin:0 };
 const cardDesc: React.CSSProperties = { fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",letterSpacing:"-0.01em",lineHeight:1.65,margin:0 };
-const tagStyle: React.CSSProperties = { fontSize:"var(--text-xs)",color:"var(--color-text-secondary)",background:"rgba(0,0,0,0.04)",padding:"3px 9px",borderRadius:"var(--radius-full)",letterSpacing:"-0.005em" };
+const tagStyle: React.CSSProperties = { fontSize:"var(--text-xs)",color:"var(--color-text-secondary)",background:"var(--tag-bg)",padding:"3px 9px",borderRadius:"var(--radius-full)",letterSpacing:"-0.005em" };

@@ -31,7 +31,7 @@ export default function About() {
       <section style={{ marginBottom:"clamp(2rem, 4vw, 3rem)" }}>
         <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fit, minmax(130px, 1fr))",gap:"1px",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-lg)",overflow:"hidden" }}>
           {STATS_VALUES.map((value, i) => (
-            <div key={i} style={{ padding:"clamp(1rem, 2.5vw, 1.5rem)",background:"rgba(255,255,255,0.55)",display:"flex",flexDirection:"column",gap:"4px" }}>
+            <div key={i} style={{ padding:"clamp(1rem, 2.5vw, 1.5rem)",background:"var(--card-bg)",display:"flex",flexDirection:"column",gap:"4px" }}>
               <span style={{ fontSize:"var(--text-2xl)",fontWeight:600,letterSpacing:"-0.04em",color:"var(--color-text)",lineHeight:1 }}>{value}</span>
               <span style={{ fontSize:"var(--text-xs)",color:"var(--color-text-tertiary)",letterSpacing:"0.05em",textTransform:"uppercase" }}>{t.stats[i]}</span>
             </div>
@@ -52,6 +52,6 @@ export default function About() {
 }
 
 const prose: React.CSSProperties = { fontSize:"var(--text-base)",fontWeight:400,color:"var(--color-text-secondary)",letterSpacing:"-0.01em",lineHeight:1.75,margin:0 };
-const badge: React.CSSProperties = { display:"inline-flex",alignItems:"center",gap:"8px",padding:"7px 14px",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-full)",background:"rgba(255,255,255,0.5)" };
+const badge: React.CSSProperties = { display:"inline-flex",alignItems:"center",gap:"8px",padding:"7px 14px",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-full)",background:"var(--badge-bg)" };
 const badgeText: React.CSSProperties = { fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",letterSpacing:"-0.01em" };
-const badgeLink: React.CSSProperties = { display:"inline-flex",alignItems:"center",padding:"7px 14px",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-full)",background:"rgba(255,255,255,0.5)",fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",textDecoration:"none",letterSpacing:"-0.01em" };
+const badgeLink: React.CSSProperties = { display:"inline-flex",alignItems:"center",padding:"7px 14px",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-full)",background:"var(--badge-bg)",fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",textDecoration:"none",letterSpacing:"-0.01em" };
