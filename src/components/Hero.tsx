@@ -67,7 +67,7 @@ export default function Hero() {
 
   return (
     <main style={{ position:"relative",zIndex:1,minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"80px clamp(1.25rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem)" }}>
-      <div style={{ width:"100%",maxWidth:"680px",background:"rgba(255,255,255,0.72)",backdropFilter:"blur(32px) saturate(1.8)",WebkitBackdropFilter:"blur(32px) saturate(1.8)",borderRadius:"28px",border:"0.5px solid rgba(255,255,255,0.9)",boxShadow:"0 4px 40px rgba(0,0,0,0.06)",padding:"clamp(1.75rem, 4vw, 2.75rem)",display:"flex",flexDirection:"column",gap:"var(--space-lg)" }}>
+      <div style={{ width:"100%",maxWidth:"680px",background:"var(--glass-bg)",backdropFilter:"blur(32px) saturate(1.8)",WebkitBackdropFilter:"blur(32px) saturate(1.8)",borderRadius:"28px",border:"0.5px solid var(--glass-border)",boxShadow:"var(--glass-shadow)",padding:"clamp(1.75rem, 4vw, 2.75rem)",display:"flex",flexDirection:"column",gap:"var(--space-lg)" }}>
 
         {/* Header */}
         <div style={{ textAlign:"center",transition:"all 500ms cubic-bezier(0.16,1,0.3,1)",opacity:hasMessages?0.35:1,transform:hasMessages?"scale(0.88) translateY(-4px)":"scale(1)",animation:"fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both" }}>
@@ -96,9 +96,9 @@ export default function Hero() {
         {/* Input */}
         <div>
           <div
-            style={{ display:"flex",alignItems:"flex-end",gap:"10px",padding:"clamp(10px,1.5vw,14px) clamp(12px,2vw,18px)",background:"rgba(0,0,0,0.03)",borderRadius:"var(--radius-xl)",border:"0.5px solid var(--color-border-strong)",transition:"border-color 120ms ease, background 120ms ease" }}
-            onFocusCapture={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor="rgba(0,0,0,0.22)"; el.style.background="rgba(0,0,0,0.02)"; }}
-            onBlurCapture={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor="var(--color-border-strong)"; el.style.background="rgba(0,0,0,0.03)"; }}
+            style={{ display:"flex",alignItems:"flex-end",gap:"10px",padding:"clamp(10px,1.5vw,14px) clamp(12px,2vw,18px)",background:"var(--input-bg)",borderRadius:"var(--radius-xl)",border:"0.5px solid var(--color-border-strong)",transition:"border-color 120ms ease, background 120ms ease" }}
+            onFocusCapture={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor="var(--border-focus)"; el.style.background="var(--input-bg-focus)"; }}
+            onBlurCapture={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor="var(--color-border-strong)"; el.style.background="var(--input-bg)"; }}
           >
             <textarea ref={inputRef} value={input} onChange={onInput} onKeyDown={onKeyDown}
               placeholder={hasMessages ? t.placeholderMore : t.placeholder}
@@ -151,7 +151,7 @@ function SuggestionChip({ label, onSelect }: { label: string; onSelect: () => vo
   return (
     <button onClick={onSelect}
       style={{ padding:"5px 13px",borderRadius:"var(--radius-full)",background:"transparent",border:"0.5px solid var(--color-border-strong)",fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",cursor:"pointer",letterSpacing:"-0.01em",transition:"background 120ms ease, color 120ms ease",fontFamily:"inherit",lineHeight:1.5 }}
-      onMouseEnter={(e) => { e.currentTarget.style.background="rgba(0,0,0,0.05)"; e.currentTarget.style.color="var(--color-text)"; }}
+      onMouseEnter={(e) => { e.currentTarget.style.background="var(--input-bg-hover)"; e.currentTarget.style.color="var(--color-text)"; }}
       onMouseLeave={(e) => { e.currentTarget.style.background="transparent"; e.currentTarget.style.color="var(--color-text-secondary)"; }}
     >{label}</button>
   );
