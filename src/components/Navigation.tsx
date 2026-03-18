@@ -105,7 +105,7 @@ export default function Navigation() {
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <div style={{ position:"fixed",top:"52px",left:0,right:0,background:"rgba(255,255,255,0.96)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",borderBottom:"0.5px solid var(--color-border)",zIndex:99,padding:"0 clamp(1.25rem, 5vw, 3.5rem)",display:"flex",flexDirection:"column" }}>
+        <div style={{ position:"fixed",top:"52px",left:0,right:0,background:"var(--nav-scrolled-bg)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",borderBottom:"0.5px solid var(--color-border)",zIndex:99,padding:"0 clamp(1.25rem, 5vw, 3.5rem)",display:"flex",flexDirection:"column" }}>
           {NAV_LINKS.map(({ href, label }) => (
             <Link key={href} href={href} onClick={() => setMobileOpen(false)}
               style={{ padding:"16px 0",fontSize:"var(--text-base)",fontWeight:pathname===href?500:400,color:pathname===href?"var(--color-text)":"var(--color-text-secondary)",textDecoration:"none",borderBottom:"0.5px solid var(--color-border)",letterSpacing:"-0.01em" }}>
