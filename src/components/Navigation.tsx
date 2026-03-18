@@ -34,9 +34,18 @@ export default function Navigation() {
   return (
     <>
       <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:100,height:"52px",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 clamp(1.25rem, 5vw, 3.5rem)",transition:"background 280ms ease, border-color 280ms ease",background:scrolled||mobileOpen?"rgba(255,255,255,0.84)":"transparent",backdropFilter:scrolled||mobileOpen?"blur(24px) saturate(1.8)":"none",WebkitBackdropFilter:scrolled||mobileOpen?"blur(24px) saturate(1.8)":"none",borderBottom:scrolled||mobileOpen?"0.5px solid var(--color-border)":"0.5px solid transparent" }}>
-        <Link href="/" style={{ fontSize:"var(--text-sm)",fontWeight:500,letterSpacing:"-0.015em",color:"var(--color-text)",textDecoration:"none",flexShrink:0 }}>
-          Mathieu Astruc
-        </Link>
+        <div style={{ display:"flex",alignItems:"center",gap:"8px",flexShrink:0 }}>
+          <Link href="/" style={{ fontSize:"var(--text-sm)",fontWeight:500,letterSpacing:"-0.015em",color:"var(--color-text)",textDecoration:"none" }}>
+            Mathieu Astruc
+          </Link>
+          <a href="https://www.linkedin.com/in/mathieu-astruc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ display:"flex",alignItems:"center",color:"var(--color-text-tertiary)",transition:"color 120ms ease" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color="var(--color-text)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color="var(--color-text-tertiary)")}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+        </div>
 
         <div className="nav-center">
           {NAV_LINKS.map(({ href, label }) => {
