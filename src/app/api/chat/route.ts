@@ -14,6 +14,7 @@ async function logQuestionToGitHub(question: string, lang: string) {
       Authorization: `Bearer ${token}`,
       Accept: "application/vnd.github+json",
       "Content-Type": "application/json",
+      "User-Agent": "mathieuastruc-portfolio",
     };
 
     // Get current file (for SHA + existing content)
@@ -24,13 +25,15 @@ async function logQuestionToGitHub(question: string, lang: string) {
       const data = await getRes.json();
       sha = data.sha;
       existing = Buffer.from(data.content, "base64").toString("utf-8");
+    } else {
+      console.error("[log] GET failed:", getRes.status, await getRes.text());
     }
 
     const now = new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" });
     const newLine = `- **${now}** [${lang.toUpperCase()}] ${question}\n`;
     const updated = existing.trimEnd() + "\n" + newLine;
 
-    await fetch(apiUrl, {
+    const putRes = await fetch(apiUrl, {
       method: "PUT",
       headers,
       body: JSON.stringify({
@@ -39,8 +42,11 @@ async function logQuestionToGitHub(question: string, lang: string) {
         ...(sha ? { sha } : {}),
       }),
     });
-  } catch {
-    // Silent fail — never break the chat
+    if (!putRes.ok) {
+      console.error("[log] PUT failed:", putRes.status, await putRes.text());
+    }
+  } catch (e) {
+    console.error("[log] exception:", e);
   }
 }
 
