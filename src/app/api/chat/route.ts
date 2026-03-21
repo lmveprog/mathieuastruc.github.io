@@ -2,6 +2,48 @@ import { NextRequest } from "next/server";
 import Groq from "groq-sdk";
 import { getRelevantContext } from "@/lib/rag";
 
+async function logQuestionToGitHub(question: string, lang: string) {
+  try {
+    const token = process.env.GITHUB_TOKEN;
+    const repo = process.env.GITHUB_LOG_REPO;
+    const file = process.env.GITHUB_LOG_FILE ?? "questions.md";
+    if (!token || !repo) return;
+
+    const apiUrl = `https://api.github.com/repos/${repo}/contents/${file}`;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json",
+    };
+
+    // Get current file (for SHA + existing content)
+    let sha: string | undefined;
+    let existing = `# Questions\n\n`;
+    const getRes = await fetch(apiUrl, { headers });
+    if (getRes.ok) {
+      const data = await getRes.json();
+      sha = data.sha;
+      existing = Buffer.from(data.content, "base64").toString("utf-8");
+    }
+
+    const now = new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" });
+    const newLine = `- **${now}** [${lang.toUpperCase()}] ${question}\n`;
+    const updated = existing.trimEnd() + "\n" + newLine;
+
+    await fetch(apiUrl, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify({
+        message: `log: new question`,
+        content: Buffer.from(updated).toString("base64"),
+        ...(sha ? { sha } : {}),
+      }),
+    });
+  } catch {
+    // Silent fail — never break the chat
+  }
+}
+
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export const runtime = "nodejs";
@@ -19,6 +61,9 @@ export async function POST(req: NextRequest) {
     const lastUserMessage = messages[messages.length - 1].content;
     const context = getRelevantContext(lastUserMessage);
     const today = new Date().toISOString().split("T")[0];
+
+    // Log question async — don't await so it never blocks the response
+    logQuestionToGitHub(lastUserMessage, lang ?? "en");
 
     const system = isFr
       ? `Tu es Mathieu Astruc — décontracté, direct, un peu drôle. Tu réponds en ton propre nom.
