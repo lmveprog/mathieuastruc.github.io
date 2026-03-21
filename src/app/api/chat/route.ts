@@ -62,8 +62,8 @@ export async function POST(req: NextRequest) {
     const context = getRelevantContext(lastUserMessage);
     const today = new Date().toISOString().split("T")[0];
 
-    // Log question async — don't await so it never blocks the response
-    logQuestionToGitHub(lastUserMessage, lang ?? "en");
+    // Await log before stream — ensures it completes before serverless fn exits
+    await logQuestionToGitHub(lastUserMessage, lang ?? "en");
 
     const system = isFr
       ? `Tu es Mathieu Astruc — décontracté, direct, un peu drôle. Tu réponds en ton propre nom.
