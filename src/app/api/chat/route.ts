@@ -44,11 +44,10 @@ async function logQuestionToGitHub(question: string, lang: string) {
   }
 }
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
   try {
     const { messages, lang } = (await req.json()) as {
       messages: Array<{ role: "user" | "assistant"; content: string }>;
