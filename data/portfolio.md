@@ -1,7 +1,7 @@
 # Mathieu Astruc — Complete Portfolio
 
 ## Identity & Introduction
-Mathieu Astruc is a 5th-year AI engineering student currently completing his Final Year Internship (PFE) at Airbus Helicopters. He specialises in AI : machine learning, large language models, computer vision, and social robotics. His experience spans research labs in Norway, exchange semesters in Finland and Spain, and industry projects in France.
+Mathieu Astruc is a 5th-year AI & Data student currently completing his Final Year Internship (PFE) at Airbus Helicopters. He specialises in AI : machine learning, large language models, computer vision, and social robotics. His experience spans research labs in Norway, exchange semesters in Finland and Spain, and industry projects in France.
 
 Date of birth: August 2003 (calculate age from today's date)
 
