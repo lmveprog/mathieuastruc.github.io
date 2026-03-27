@@ -7,15 +7,15 @@ export const T: Record<Lang, Translation> = {
       career: "Career", hobbies: "Hobbies", references: "References", contact: "Contact",
     },
     hero: {
-      subtitle: "Future AI Engineer",
+      subtitle: "AI & Data",
       suggestions: ["What's your background?", "What projects have you built?", "What are your skills?", "How can I reach you?"],
       placeholder: "Ask me anything…",
       placeholderMore: "Ask another question…",
     },
     about: {
-      title: "About", subtitle: "Future AI Engineer",
+      title: "About", subtitle: "AI & Data",
       bio: [
-        "I'm a Final-Year AI engineering student at ESAIP (Angers, France), currently completing my Final Year Internship at Airbus Helicopters.",
+        "I'm a Final-Year AI & Data student at ESAIP (Angers, France), currently completing my Final Year Internship at Airbus Helicopters.",
         "My work spans machine learning, large language models, computer vision, and social robotics — built across research labs in Norway, exchange semesters in Finland & Spain, and projects in France.",
         "I'm fluent in French, English and I am a former high-level athlete. Additionally, I am a passionate content creator with a significant online presence, reaching over 80M views and growing a community of more than 200,000 subscribers across my channels.",
       ],
