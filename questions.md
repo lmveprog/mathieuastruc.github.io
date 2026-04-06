@@ -1,2 +1,24 @@
 # Questions
 - **21/03/2026 09:41:19** [TEST] Question de test
+- **21/03/2026 15:25:55** [LIVE-TEST] Direct API test
+- **21/03/2026 15:45:24** [ROUTE-TEST] test via /api/test-log
+- **21/03/2026 15:50:38** [ROUTE-TEST] test via /api/test-log
+- **21/03/2026 15:52:39** [ROUTE-TEST] test via /api/test-log
+- **21/03/2026 15:53:26** [FR] dzzd
+- **21/03/2026 15:55:03** [EN] Comment changer un contacteur en maintenance industrielle
+- **21/03/2026 15:55:49** [EN] tu as fais quoi en electronique
+- **21/03/2026 15:56:00** [FR] pq
+- **21/03/2026 15:56:16** [EN] Tu as fait quoi chez via électro
+- **21/03/2026 16:15:48** [FR] Quel est ton parcours ?
+- **22/03/2026 10:38:04** [EN] Sex ?
+- **22/03/2026 22:04:30** [EN] salut
+- **23/03/2026 17:20:31** [EN] How can I reach you?
+- **24/03/2026 18:55:16** [FR] Comment tu t'appelles ?
+- **27/03/2026 07:58:23** [EN] What projects have you built?
+- **27/03/2026 19:31:19** [EN] How can I reach you?
+- **27/03/2026 19:36:24** [ROUTE-TEST] test via /api/test-log
+- **27/03/2026 19:36:57** [EN] What's your background?
+- **27/03/2026 19:37:00** [ROUTE-TEST] test via /api/test-log
+- **28/03/2026 18:29:11** [FR] est ce que mathieu m'aime
+- **28/03/2026 18:29:26** [FR] mais c moi dine
+- **29/03/2026 14:58:43** [EN] Who are u
