@@ -81,13 +81,13 @@ export const T: Record<Lang, Translation> = {
       career: "Parcours", hobbies: "Loisirs", references: "Références", contact: "Contact",
     },
     hero: {
-      subtitle: "Futur Ingénieur IA",
+      subtitle: "AI & Data",
       suggestions: ["Quel est ton parcours ?", "Quels projets as-tu réalisés ?", "Quelles sont tes compétences ?", "Comment te contacter ?"],
       placeholder: "Pose-moi une question…",
       placeholderMore: "Pose une autre question…",
     },
     about: {
-      title: "À propos", subtitle: "Futur Ingénieur IA",
+      title: "À propos", subtitle: "AI & Data",
       bio: [
         "Étudiant en dernière année d'ingénierie IA à l'ESAIP (Angers, France), actuellement en stage de fin d'études chez Airbus Helicopters.",
         "Mon travail couvre le machine learning, les grands modèles de langage, la vision par ordinateur et la robotique sociale — développé dans des laboratoires de recherche en Norvège, des semestres d'échange en Finlande et en Espagne, et des projets en France.",
