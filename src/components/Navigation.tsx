@@ -65,6 +65,19 @@ export default function Navigation() {
           <a href="mailto:mathastruc@gmail.com" className="nav-contact-desktop" style={{ fontSize:"var(--text-sm)",fontWeight:400,color:"var(--color-text-secondary)",textDecoration:"none",letterSpacing:"-0.01em",transition:"color 120ms ease" }}>
             {t.contact}
           </a>
+          {/* CV button */}
+          <a
+            href="/MathieuResume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-contact-desktop"
+            style={{ position:"relative",display:"inline-flex",alignItems:"center",flexShrink:0 }}
+          >
+            <span style={{ position:"absolute",inset:"-3px",borderRadius:"var(--radius-full)",background:"var(--color-text)",animation:"cv-ping 2.2s ease-out infinite",pointerEvents:"none" }} />
+            <span style={{ position:"relative",fontSize:"var(--text-xs)",fontWeight:600,letterSpacing:"0.06em",color:"var(--color-bg)",background:"var(--color-text)",borderRadius:"var(--radius-full)",padding:"4px 11px",display:"flex",alignItems:"center",gap:"4px",whiteSpace:"nowrap" }}>
+              {t.resume} <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 9L9 1M9 1H3M9 1v6"/></svg>
+            </span>
+          </a>
           <button
             onClick={toggle}
             style={{ fontSize:"var(--text-xs)",fontWeight:500,letterSpacing:"0.04em",color:"var(--color-text-tertiary)",background:"none",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-full)",padding:"3px 10px",cursor:"pointer",fontFamily:"inherit",transition:"color 120ms ease, border-color 120ms ease" }}
@@ -113,9 +126,23 @@ export default function Navigation() {
             </Link>
           ))}
           <a href="mailto:mathastruc@gmail.com" onClick={() => setMobileOpen(false)}
-            style={{ padding:"16px 0",fontSize:"var(--text-base)",color:"var(--color-text-secondary)",textDecoration:"none",letterSpacing:"-0.01em" }}>
+            style={{ padding:"16px 0",fontSize:"var(--text-base)",color:"var(--color-text-secondary)",textDecoration:"none",letterSpacing:"-0.01em",borderBottom:"0.5px solid var(--color-border)" }}>
             {t.contact}
           </a>
+          <div style={{ padding:"16px 0",display:"flex",alignItems:"center" }}>
+            <a
+              href="/MathieuResume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              style={{ position:"relative",display:"inline-flex",alignItems:"center" }}
+            >
+              <span style={{ position:"absolute",inset:"-3px",borderRadius:"var(--radius-full)",background:"var(--color-text)",animation:"cv-ping 2.2s ease-out infinite",pointerEvents:"none" }} />
+              <span style={{ position:"relative",fontSize:"var(--text-sm)",fontWeight:600,letterSpacing:"0.06em",color:"var(--color-bg)",background:"var(--color-text)",borderRadius:"var(--radius-full)",padding:"6px 16px",display:"flex",alignItems:"center",gap:"5px" }}>
+                {t.resume} <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 9L9 1M9 1H3M9 1v6"/></svg>
+              </span>
+            </a>
+          </div>
         </div>
       )}
     </>

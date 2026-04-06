@@ -4,7 +4,7 @@ export const T: Record<Lang, Translation> = {
   en: {
     nav: {
       about: "About", skills: "Skills", education: "Education",
-      career: "Career", hobbies: "Hobbies", references: "References", contact: "Contact",
+      career: "Career", hobbies: "Hobbies", references: "References", contact: "Contact", resume: "Resume",
     },
     hero: {
       subtitle: "AI & Data",
@@ -78,7 +78,7 @@ export const T: Record<Lang, Translation> = {
   fr: {
     nav: {
       about: "À propos", skills: "Compétences", education: "Formation",
-      career: "Parcours", hobbies: "Loisirs", references: "Références", contact: "Contact",
+      career: "Parcours", hobbies: "Loisirs", references: "Références", contact: "Contact", resume: "CV",
     },
     hero: {
       subtitle: "AI & Data",
@@ -153,7 +153,7 @@ export const T: Record<Lang, Translation> = {
 
 // Type definitions
 export type Translation = {
-  nav: { about: string; skills: string; education: string; career: string; hobbies: string; references: string; contact: string };
+  nav: { about: string; skills: string; education: string; career: string; hobbies: string; references: string; contact: string; resume: string };
   hero: { subtitle: string; suggestions: string[]; placeholder: string; placeholderMore: string };
   about: { title: string; subtitle: string; bio: string[]; stats: string[]; availability: string };
   career: { title: string; subtitle: string; current: string; open: string; openDate: string; experiences: Experience[] };
