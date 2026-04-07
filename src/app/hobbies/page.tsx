@@ -13,10 +13,10 @@ export default function Hobbies() {
         {t.items.map((item) => {
           if (item.layout === "full-width") return (
             <div key={item.title} style={{ border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-lg)",overflow:"hidden" }}>
-              <div style={{ position:"relative",width:"100%",aspectRatio:"21/6",overflow:"hidden" }}>
+              <div className="hobby-fullwidth-img">
                 <Image src={item.image} alt={item.title} fill style={{ objectFit:"cover",objectPosition:"center 15%" }} />
               </div>
-              <div style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"var(--card-bg)",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"clamp(1rem, 2vw, 2rem)",alignItems:"start" }}>
+              <div className="hobby-fullwidth-inner">
                 <div style={{ display:"flex",flexDirection:"column",gap:"6px" }}>
                   <span style={labelStyle}>{item.label}</span>
                   <h2 style={titleStyle}>{item.title}</h2>
@@ -31,7 +31,7 @@ export default function Hobbies() {
             <div key={item.title} className="hobby-split">
               {imageFirst ? (
                 <>
-                  <div className="hobby-split-image" style={{ position:"relative",minHeight:"clamp(220px, 35vw, 380px)",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
+                  <div className="hobby-split-image" style={{ position:"relative",minHeight:"clamp(180px, 40vw, 380px)",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
                     <Image src={item.image} alt={item.title} fill style={{ objectFit:item.imageFit??"cover",objectPosition:item.imagePosition??"center",padding:item.imageFit==="contain"?"clamp(1.5rem, 4vw, 3rem)":undefined }} />
                   </div>
                   <div className="hobby-split-text" style={{ padding:"clamp(1.5rem, 3vw, 2.5rem)",background:"var(--card-bg)",display:"flex",flexDirection:"column",justifyContent:"center",gap:"var(--space-sm)" }}>
@@ -49,7 +49,7 @@ export default function Hobbies() {
                     <p style={detailStyle}>{item.detail}</p>
                     <p style={descStyle}>{item.description}</p>
                   </div>
-                  <div className="hobby-split-image" style={{ position:"relative",minHeight:"clamp(220px, 35vw, 380px)",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
+                  <div className="hobby-split-image" style={{ position:"relative",minHeight:"clamp(180px, 40vw, 380px)",overflow:"hidden",background:item.imageBg??"var(--color-bg-secondary)" }}>
                     <Image src={item.image} alt={item.title} fill style={{ objectFit:item.imageFit??"cover",objectPosition:item.imagePosition??"center",padding:item.imageFit==="contain"?"clamp(1.5rem, 4vw, 3rem)":undefined }} />
                   </div>
                 </>
