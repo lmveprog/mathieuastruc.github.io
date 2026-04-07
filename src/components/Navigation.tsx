@@ -67,9 +67,8 @@ export default function Navigation() {
           </a>
           {/* CV button */}
           <a
-            href="/MathieuResume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/cv.pdf"
+            download="Mathieu_Astruc_CV.pdf"
             className="nav-contact-desktop"
             style={{ position:"relative",display:"inline-flex",alignItems:"center",flexShrink:0 }}
           >
@@ -131,9 +130,8 @@ export default function Navigation() {
           </a>
           <div style={{ padding:"16px 0",display:"flex",alignItems:"center" }}>
             <a
-              href="/MathieuResume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/cv.pdf"
+              download="Mathieu_Astruc_CV.pdf"
               onClick={() => setMobileOpen(false)}
               style={{ position:"relative",display:"inline-flex",alignItems:"center" }}
             >
