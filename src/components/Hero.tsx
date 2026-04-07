@@ -66,7 +66,7 @@ export default function Hero() {
   };
 
   return (
-    <main style={{ position:"relative",zIndex:1,minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"80px clamp(1.25rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem)" }}>
+    <main style={{ position:"relative",zIndex:1,minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(52px, 10vw, 80px) clamp(1rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem)" }}>
       <div style={{ width:"100%",maxWidth:"680px",background:"var(--glass-bg)",backdropFilter:"blur(32px) saturate(1.8)",WebkitBackdropFilter:"blur(32px) saturate(1.8)",borderRadius:"28px",border:"0.5px solid var(--glass-border)",boxShadow:"var(--glass-shadow)",padding:"clamp(1.75rem, 4vw, 2.75rem)",display:"flex",flexDirection:"column",gap:"var(--space-lg)" }}>
 
         {/* Header */}
@@ -139,7 +139,7 @@ function MessageRow({ message, isStreaming }: { message: { role: string; content
 function SendButton({ active, onClick }: { active: boolean; onClick: () => void }) {
   return (
     <button onClick={onClick} disabled={!active} aria-label="Send"
-      style={{ width:"30px",height:"30px",flexShrink:0,borderRadius:"50%",border:active?"none":"0.5px solid var(--color-border-strong)",background:active?"var(--color-text)":"transparent",display:"flex",alignItems:"center",justifyContent:"center",cursor:active?"pointer":"default",transition:"background 120ms ease, border-color 120ms ease" }}>
+      style={{ width:"36px",height:"36px",flexShrink:0,borderRadius:"50%",border:active?"none":"0.5px solid var(--color-border-strong)",background:active?"var(--color-text)":"transparent",display:"flex",alignItems:"center",justifyContent:"center",cursor:active?"pointer":"default",transition:"background 120ms ease, border-color 120ms ease" }}>
       <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
         <path d="M6.5 11V2M6.5 2L2 6.5M6.5 2L11 6.5" stroke={active?"white":"var(--color-text-tertiary)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
@@ -150,7 +150,7 @@ function SendButton({ active, onClick }: { active: boolean; onClick: () => void 
 function SuggestionChip({ label, onSelect }: { label: string; onSelect: () => void }) {
   return (
     <button onClick={onSelect}
-      style={{ padding:"5px 13px",borderRadius:"var(--radius-full)",background:"transparent",border:"0.5px solid var(--color-border-strong)",fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",cursor:"pointer",letterSpacing:"-0.01em",transition:"background 120ms ease, color 120ms ease",fontFamily:"inherit",lineHeight:1.5 }}
+      style={{ padding:"8px 14px",borderRadius:"var(--radius-full)",background:"transparent",border:"0.5px solid var(--color-border-strong)",fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",cursor:"pointer",letterSpacing:"-0.01em",transition:"background 120ms ease, color 120ms ease",fontFamily:"inherit",lineHeight:1.5 }}
       onMouseEnter={(e) => { e.currentTarget.style.background="var(--input-bg-hover)"; e.currentTarget.style.color="var(--color-text)"; }}
       onMouseLeave={(e) => { e.currentTarget.style.background="transparent"; e.currentTarget.style.color="var(--color-text-secondary)"; }}
     >{label}</button>

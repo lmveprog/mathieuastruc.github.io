@@ -14,7 +14,7 @@ export default function PageLayout({
         zIndex: 1,
         minHeight: "100vh",
         padding:
-          "clamp(80px, 10vw, 110px) clamp(1.25rem, 8vw, 6rem) clamp(4rem, 8vw, 7rem)",
+          "clamp(62px, 10vw, 110px) clamp(1.25rem, 8vw, 6rem) clamp(3rem, 8vw, 7rem)",
         maxWidth: "860px",
         margin: "0 auto",
       }}
