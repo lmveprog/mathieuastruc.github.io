@@ -48,7 +48,7 @@ export const T: Record<Lang, Translation> = {
       title: "Skills", subtitle: "Technical expertise & soft skills",
       technicalLabel: "Technical", softLabel: "Soft Skills",
       technical: [
-        { title: "Programming Languages", description: "Primary focus on Python. Also C#, C++, JavaScript, HTML & CSS.", tags: ["Python", "C++", "C#", "JavaScript", "HTML / CSS"] },
+        { title: "Programming Languages", description: "Primary focus on Python. Also C#, C++, Bash and SQL.", tags: ["Python", "C++", "C#", "Bash", "SQL"] },
         { title: "AI & Machine Learning", description: "LLMs, Fine-tuning, Transfer Learning, Deep Learning, Computer Vision, Speech Recognition (ASR).", tags: ["LLMs", "Deep Learning", "Computer Vision", "ASR", "RAG"] },
         { title: "Frameworks & Libraries", description: "Main ML frameworks and AI tooling for research and production.", tags: ["PyTorch", "TensorFlow", "Keras", "Hugging Face", "OpenCV"] },
         { title: "Data Analysis & Image Processing", description: "Data wrangling, visualisation, and classical image processing.", tags: ["NumPy", "Pandas", "Matplotlib", "Matlab"] },
@@ -122,7 +122,7 @@ export const T: Record<Lang, Translation> = {
       title: "Compétences", subtitle: "Expertise technique & soft skills",
       technicalLabel: "Technique", softLabel: "Soft Skills",
       technical: [
-        { title: "Langages de Programmation", description: "Focus principal sur Python. Également C#, C++, JavaScript, HTML & CSS.", tags: ["Python", "C++", "C#", "JavaScript", "HTML / CSS"] },
+        { title: "Langages de Programmation", description: "Focus principal sur Python. Également C#, C++, Bash et SQL.", tags: ["Python", "C++", "C#", "Bash", "SQL"] },
         { title: "IA & Machine Learning", description: "LLMs, Fine-tuning, Transfer Learning, Deep Learning, Vision par ordinateur, Reconnaissance vocale (ASR).", tags: ["LLMs", "Deep Learning", "Computer Vision", "ASR", "RAG"] },
         { title: "Frameworks & Bibliothèques", description: "Principaux frameworks ML et outils IA pour la recherche et la production.", tags: ["PyTorch", "TensorFlow", "Keras", "Hugging Face", "OpenCV"] },
         { title: "Analyse de Données & Traitement d'Image", description: "Manipulation de données, visualisation et traitement d'image classique.", tags: ["NumPy", "Pandas", "Matplotlib", "Matlab"] },
