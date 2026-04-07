@@ -17,7 +17,7 @@ export const T: Record<Lang, Translation> = {
       bio: [
         "I'm a Final-Year AI & Data student at ESAIP (Angers, France), currently completing my Final Year Internship at Airbus Helicopters.",
         "My work spans machine learning, large language models, computer vision, and social robotics — built across research labs in Norway, exchange semesters in Finland & Spain, and projects in France.",
-        "I'm fluent in French, English and I am a former high-level athlete. Additionally, I am a passionate content creator with a significant online presence, reaching over 80M views and growing a community of more than 200,000 subscribers across my channels.",
+        "Fluent in French and English, former high-level athlete.",
       ],
       stats: ["Countries", "Experiences", "Publication", "Pending"],
       availability: "Open to opportunities · Sept / Oct 2026",
@@ -39,7 +39,7 @@ export const T: Record<Lang, Translation> = {
       title: "Education", subtitle: "Academic journey across 4 countries", mainLabel: "Main school",
       schools: [
         { period: "Sep 2025\nFeb 2026", school: "Universidad Politécnica de Madrid", location: "Madrid, Spain · International Exchange", degree: "Exchange Semester", description: "Machine Learning · Cloud Computing · Programming · Large-Scale Data Processing Architectures.", photo: "/images/education/upm.jpg" },
-        { period: "Sep 2021\nSep 2026", school: "ESAIP", location: "Angers, France · CTI & EUR-ACE Accredited", degree: "IT Engineering — Big Data & AI", description: "Engineering diploma accredited by the Commission des Titres d'Ingénieurs (CTI) and EUR-ACE. Grade: ECTS A (highest, Top 10%). 2021–2023: Integrated preparatory courses. 2023–2026: Computer & network engineering — Big Data & AI option.", main: true, photo: "/images/education/esaipv2.webp" },
+        { period: "Sep 2021\nSep 2026", school: "ESAIP", location: "Angers, France · CTI & EUR-ACE Accredited", degree: "Master of Engineering — AI & Data Science", description: "Engineering diploma accredited by the Commission des Titres d'Ingénieurs (CTI) and EUR-ACE. Grade: ECTS A (highest, Top 10%). 2021–2023: Integrated preparatory courses. 2023–2026: Computer & network engineering — Big Data & AI option.", main: true, photo: "/images/education/esaipv2.webp" },
         { period: "Jan 2024\nMay 2024", school: "SeAMK", location: "Seinäjoki, Finland · International Exchange", degree: "Exchange Semester", description: "C++, C#, Embedded Systems, OOP, Introduction to AI, Electronics labs, Software Project (Unity), Project Work in Automation.", photo: "/images/education/seamk.jpg" },
         { period: "Sep 2018\nJul 2021", school: "Lycée Jean Perrin", location: "Marseille, France", degree: "Baccalauréat", description: "High-level athlete — Basketball Training Academy. BAC — Specialty: Physics & Human Sciences, Mathematics option.", photo: "/images/education/lycee.jpg" },
       ],
@@ -48,12 +48,11 @@ export const T: Record<Lang, Translation> = {
       title: "Skills", subtitle: "Technical expertise & soft skills",
       technicalLabel: "Technical", softLabel: "Soft Skills",
       technical: [
-        { title: "Programming Languages", description: "Primary focus on Python. Also C#, C++, Bash and SQL.", tags: ["Python", "C++", "C#", "Bash", "SQL"] },
-        { title: "AI & Machine Learning", description: "LLMs, Fine-tuning, Transfer Learning, Deep Learning, Computer Vision, Speech Recognition (ASR).", tags: ["LLMs", "Deep Learning", "Computer Vision", "ASR", "RAG"] },
-        { title: "Frameworks & Libraries", description: "Main ML frameworks and AI tooling for research and production.", tags: ["PyTorch", "TensorFlow", "Keras", "Hugging Face", "OpenCV"] },
-        { title: "Data Analysis & Image Processing", description: "Data wrangling, visualisation, and classical image processing.", tags: ["NumPy", "Pandas", "Matplotlib", "Matlab"] },
-        { title: "Robotics", description: "Social robotics, real-time AI systems, human-robot interaction.", tags: ["NAO Robot", "Reachy Robot", "RRI", "ROS"] },
-        { title: "Tools & Project Management", description: "Version control, project tracking, and Agile workflows.", tags: ["GitHub", "GitLab", "Jira", "Trello", "Agile"] },
+        { title: "Programming Languages", description: "Primary focus on Python. Also C#, C++, Bash and SQL.", tags: ["Python", "C#", "C++", "Bash", "SQL"] },
+        { title: "ML / DL", description: "Main frameworks for research and production.", tags: ["PyTorch", "TensorFlow", "Hugging Face", "Scikit-learn"] },
+        { title: "Topics", description: "Core areas of expertise across projects and research.", tags: ["LLMs", "RAG", "Computer Vision", "Embodied AI", "HRI", "OCR", "Multimodal Systems"] },
+        { title: "Languages", description: "Spoken languages.", tags: ["French (native)", "English (fluent)", "Spanish (intermediate)"] },
+        { title: "Tools", description: "Version control, project tracking, and Agile workflows.", tags: ["GitHub", "GitLab", "Trello", "Agile"] },
       ],
       soft: [
         { title: "Communication", description: "Public Speaking · Stress Management · Synthesising complex ideas clearly" },
@@ -91,7 +90,7 @@ export const T: Record<Lang, Translation> = {
       bio: [
         "Étudiant en dernière année d'ingénierie IA à l'ESAIP (Angers, France), actuellement en stage de fin d'études chez Airbus Helicopters.",
         "Mon travail couvre le machine learning, les grands modèles de langage, la vision par ordinateur et la robotique sociale — développé dans des laboratoires de recherche en Norvège, des semestres d'échange en Finlande et en Espagne, et des projets en France.",
-        "Bilingue français-anglais, ancien sportif de haut niveau et créateur de contenu passionné avec plus de 80M de vues et plus de 200 000 abonnés sur mes chaînes.",
+        "Bilingue français-anglais, ancien sportif de haut niveau.",
       ],
       stats: ["Pays", "Expériences", "Publication", "En cours"],
       availability: "Disponible · Sept / Oct 2026",
@@ -113,7 +112,7 @@ export const T: Record<Lang, Translation> = {
       title: "Formation", subtitle: "Parcours académique dans 4 pays", mainLabel: "École principale",
       schools: [
         { period: "Sep 2025\nFév 2026", school: "Universidad Politécnica de Madrid", location: "Madrid, Espagne · Échange International", degree: "Semestre d'Échange", description: "Machine Learning · Cloud Computing · Programmation · Architectures de traitement de données à grande échelle.", photo: "/images/education/upm.jpg" },
-        { period: "Sep 2021\nSep 2026", school: "ESAIP", location: "Angers, France · Accréditation CTI & EUR-ACE", degree: "Ingénierie Informatique — Big Data & IA", description: "Diplôme d'ingénieur accrédité par la Commission des Titres d'Ingénieurs (CTI) et EUR-ACE. Note : ECTS A (mention très bien, Top 10%). 2021–2023 : Classes préparatoires intégrées. 2023–2026 : Informatique et réseaux — option Big Data & IA.", main: true, photo: "/images/education/esaipv2.webp" },
+        { period: "Sep 2021\nSep 2026", school: "ESAIP", location: "Angers, France · Accréditation CTI & EUR-ACE", degree: "Master Ingénieur — IA & Data Science", description: "Diplôme d'ingénieur accrédité par la Commission des Titres d'Ingénieurs (CTI) et EUR-ACE. Note : ECTS A (mention très bien, Top 10%). 2021–2023 : Classes préparatoires intégrées. 2023–2026 : Informatique et réseaux — option Big Data & IA.", main: true, photo: "/images/education/esaipv2.webp" },
         { period: "Jan 2024\nMai 2024", school: "SeAMK", location: "Seinäjoki, Finlande · Échange International", degree: "Semestre d'Échange", description: "C++, C#, Systèmes embarqués, POO, Introduction à l'IA, TP d'électronique, Projet logiciel (Unity), Projet en automatisation.", photo: "/images/education/seamk.jpg" },
         { period: "Sep 2018\nJul 2021", school: "Lycée Jean Perrin", location: "Marseille, France", degree: "Baccalauréat", description: "Sportif de haut niveau — Section sportive Basketball. BAC — Spécialité : Physique & Sciences Humaines, option Mathématiques.", photo: "/images/education/lycee.jpg" },
       ],
@@ -122,12 +121,11 @@ export const T: Record<Lang, Translation> = {
       title: "Compétences", subtitle: "Expertise technique & soft skills",
       technicalLabel: "Technique", softLabel: "Soft Skills",
       technical: [
-        { title: "Langages de Programmation", description: "Focus principal sur Python. Également C#, C++, Bash et SQL.", tags: ["Python", "C++", "C#", "Bash", "SQL"] },
-        { title: "IA & Machine Learning", description: "LLMs, Fine-tuning, Transfer Learning, Deep Learning, Vision par ordinateur, Reconnaissance vocale (ASR).", tags: ["LLMs", "Deep Learning", "Computer Vision", "ASR", "RAG"] },
-        { title: "Frameworks & Bibliothèques", description: "Principaux frameworks ML et outils IA pour la recherche et la production.", tags: ["PyTorch", "TensorFlow", "Keras", "Hugging Face", "OpenCV"] },
-        { title: "Analyse de Données & Traitement d'Image", description: "Manipulation de données, visualisation et traitement d'image classique.", tags: ["NumPy", "Pandas", "Matplotlib", "Matlab"] },
-        { title: "Robotique", description: "Robotique sociale, systèmes IA temps réel, interaction homme-robot.", tags: ["NAO Robot", "Reachy Robot", "RRI", "ROS"] },
-        { title: "Outils & Gestion de Projet", description: "Contrôle de version, suivi de projet et workflows Agile.", tags: ["GitHub", "GitLab", "Jira", "Trello", "Agile"] },
+        { title: "Langages de Programmation", description: "Focus principal sur Python. Également C#, C++, Bash et SQL.", tags: ["Python", "C#", "C++", "Bash", "SQL"] },
+        { title: "ML / DL", description: "Principaux frameworks pour la recherche et la production.", tags: ["PyTorch", "TensorFlow", "Hugging Face", "Scikit-learn"] },
+        { title: "Sujets", description: "Domaines d'expertise principaux à travers projets et recherche.", tags: ["LLMs", "RAG", "Computer Vision", "Embodied AI", "HRI", "OCR", "Multimodal Systems"] },
+        { title: "Langues", description: "Langues parlées.", tags: ["Français (natif)", "Anglais (courant)", "Espagnol (intermédiaire)"] },
+        { title: "Outils", description: "Contrôle de version, suivi de projet et workflows Agile.", tags: ["GitHub", "GitLab", "Trello", "Agile"] },
       ],
       soft: [
         { title: "Communication", description: "Prise de parole en public · Gestion du stress · Synthèse d'idées complexes" },
