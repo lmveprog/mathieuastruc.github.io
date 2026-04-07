@@ -328,8 +328,30 @@ body {
   .hobby-split {
     grid-template-columns: 1fr;
   }
-  .hobby-split-image { order: 1 !important; aspect-ratio: 16/9 !important; }
+  .hobby-split-image { order: 1 !important; aspect-ratio: 16/9 !important; min-height: unset !important; }
   .hobby-split-text  { order: 2 !important; }
+}
+
+/* ─── Hobbies: full-width card ─────────────────────────── */
+.hobby-fullwidth-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21 / 6;
+  overflow: hidden;
+}
+
+.hobby-fullwidth-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 2vw, 2rem);
+  align-items: start;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  background: var(--card-bg);
+}
+
+@media (max-width: 600px) {
+  .hobby-fullwidth-img { aspect-ratio: 16 / 7; }
+  .hobby-fullwidth-inner { grid-template-columns: 1fr; }
 }
 
 /* ─── Scrollbar ────────────────────────────────────────── */
