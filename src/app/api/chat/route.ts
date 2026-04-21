@@ -94,7 +94,8 @@ Rules:
       async start(controller) {
         try {
           for await (const event of stream) {
-            const text = event.data.choices[0]?.delta?.content ?? "";
+            const raw = event.data.choices[0]?.delta?.content ?? "";
+            const text = typeof raw === "string" ? raw : "";
             if (text) controller.enqueue(encoder.encode(text));
           }
         } finally {
