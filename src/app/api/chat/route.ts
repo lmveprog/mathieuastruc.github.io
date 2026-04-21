@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { Mistral } from "@mistralai/mistralai";
+import Groq from "groq-sdk";
 import { getRelevantContext } from "@/lib/rag";
 
 async function logQuestionToGitHub(question: string, lang: string) {
@@ -52,7 +52,7 @@ async function logQuestionToGitHub(question: string, lang: string) {
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
-  const client = new Mistral({ apiKey: process.env.MISTRAL_API_KEY });
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
   try {
     const { messages, lang } = (await req.json()) as {
       messages: Array<{ role: "user" | "assistant"; content: string }>;
@@ -61,7 +61,6 @@ export async function POST(req: NextRequest) {
 
     if (!messages?.length) return new Response("Missing messages", { status: 400 });
 
-    const isFr = lang === "fr";
     const lastUserMessage = messages[messages.length - 1].content;
     const context = getRelevantContext(lastUserMessage);
     const today = new Date().toISOString().split("T")[0];
@@ -83,9 +82,10 @@ Rules:
 - Never invent facts. If you don't know, say so simply.
 - Never break character.`;
 
-    const stream = await client.chat.stream({
-      model: "mistral-large-latest",
-      maxTokens: 1024,
+    const stream = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      max_tokens: 1024,
+      stream: true,
       messages: [{ role: "system", content: system }, ...messages],
     });
 
@@ -93,9 +93,8 @@ Rules:
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          for await (const event of stream) {
-            const raw = event.data.choices[0]?.delta?.content ?? "";
-            const text = typeof raw === "string" ? raw : "";
+          for await (const chunk of stream) {
+            const text = chunk.choices[0]?.delta?.content ?? "";
             if (text) controller.enqueue(encoder.encode(text));
           }
         } finally {
