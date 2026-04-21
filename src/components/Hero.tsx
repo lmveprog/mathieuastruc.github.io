@@ -101,7 +101,7 @@ export default function Hero() {
             </p>
             <p className="hero-affil">
               <span className="hero-affil-bullet">▪</span>
-              {lang === "fr" ? "Chercheur — NTNU Gjøvik, Norvège" : "Researcher — NTNU Gjøvik, Norway"}
+              {lang === "fr" ? "Chercheur — NTNU, Norvège" : "Researcher — NTNU, Norway"}
             </p>
             <p className="hero-affil">
               <span className="hero-affil-bullet">▪</span>
