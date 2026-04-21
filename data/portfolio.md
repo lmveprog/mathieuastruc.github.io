@@ -1,155 +1,127 @@
-# Mathieu Astruc — Complete Portfolio
+# Mathieu Astruc — Portfolio
 
-## Identity & Introduction
-Mathieu Astruc is a 5th-year AI & Data student currently completing his Final Year Internship (PFE) at Airbus Helicopters. He specialises in AI : machine learning, large language models, computer vision, and social robotics. His experience spans research labs in Norway, exchange semesters in Finland and Spain, and industry projects in France.
+## Identity
+Mathieu Astruc, born August 2003 (calculate age from today's date).
+5th-year engineering student specialising in AI & Data Science, currently doing his end-of-studies internship at Airbus Helicopters. Future graduate, seeking opportunities from October 2026.
+Lived and worked in France, Norway, Finland, and Spain.
 
-Date of birth: August 2003 (calculate age from today's date)
-
-He is open to new opportunities from September / October 2026.
-
-## Contact — How to reach me
+## Contact
 - Email: mathastruc@gmail.com
 - LinkedIn: https://www.linkedin.com/in/mathieu-astruc/
 - Location: France · Open to relocation
-- Phone: Available upon request
-- Best way to contact me: email or LinkedIn
-
-## Key Stats
-- 4+ countries of professional and academic experience
-- 5+ professional experiences (internships and projects)
-- 2 scientific publications expected (from NTNU research)
 
 ## Languages
 - French: Native
 - English: Fluent
+- Spanish: Intermediate
 
-## Career & Professional Experience
+## Professional Experience
 
-### Airbus Helicopters — Engineering Intern (PFE)
-Period: March 2026 – September 2026 (6 months) · Currently in progress
+### Airbus Helicopters — Intern (End-of-studies)
+Period: March 2026 – September 2026 · Currently in progress
 Location: France
-Role: Final Year Internship (PFE) — applying AI and data engineering expertise acquired throughout the 5-year ESAIP curriculum. Details to be updated upon completion.
+- End-of-studies internship
+- Building a chatbot powered by a RAG pipeline
+- Developing OCR solutions to extract complex metadata
 
-### NTNU — Intern Researcher
+### NTNU (Norwegian University of Science and Technology) — Researcher
 Period: June 2025 – August 2025 (3 months)
-Location: Gjøvik, Norway · EduTech Lab
-Description: Research internship on social robotics and real-time AI systems.
-- Real-time gesture-based interaction with the NAO social robot
-- Conversational assistant with the Reachy robot — optimized response times, dialogue flow, and human-in-the-loop interruption handling
-- Robot–Robot Interaction (RRI) loop enabling NAO and Reachy to communicate autonomously
-- Expected to lead to two scientific publications
+Location: Gjøvik, Norway · EduTech Lab · On-site
+- Developed a comprehensive interaction system for a humanoid robot: real-time gesture recognition + RAG-powered conversational agent for domain-specific dialogue
+- Designed a Human-in-the-Loop (HITL) framework for manual interruption at any time
+- Accelerated model inference using GPU pipelines to minimise latency for real-time human-robot engagement
+- Lead author of a research paper accepted at HCI International 2026
 
-### COMAT Specific — OCR Project
+### GROUPE COMAT — Machine Learning Engineer
 Period: January 2025 – May 2025 (5 months)
-Location: Angers, France · Hybrid · Aerospace Industry
-Description: Led a hybrid academic–industry project applying computer vision and deep learning to digitalize handwritten 2D sketches.
-- Built an OCR pipeline (Python, doctr, OpenCV, CNNs) extracting angles, RAL codes and finishes, exporting structured JSON/PDF data
-- Agile methodology: dataset preprocessing, model training, error analysis (GitHub, Trello, weekly stakeholder feedback)
+Location: Angers, France · Hybrid · Aerospace industry
+- Designed an AI-driven solution to modernise industrial workflows
+- Built a Deep Learning-based OCR pipeline to translate legacy hand-drawn 2D sketches into structured machine-readable data
 
-### Banque de France — Data Engineer Junior
-Period: Internship 2024 (3 months)
-Location: Poitiers, France
-Description: Built web scraping pipelines with Python and Selenium to retrieve data from ElasticSearch platforms, feeding RAG (Retrieval Augmented Generation) AI models. Explored NLP including ASR (speech-to-text) and OCR for text recognition.
+### Banque de France — Data Engineer Intern
+Period: May 2024 – August 2024 (4 months)
+Location: Poitiers, France · On-site
+- Automated complex web scraping workflows (Python, Selenium) to aggregate massive volumes of unstructured data
+- Integrated OCR, Speech-to-Text (S2T), and LLMs to transcribe and structure raw audio and visual data
+- Built the data foundation for a RAG system
 
-### Via Electro — Electronic Technician
-Period: Summer 2023
+### Via Electro — Electronics Technician
+Period: July 2023 – August 2023 (2 months)
 Location: Marseille, France
-Description: Installed and maintained electronic security, access control, image and sound systems for major clients. Managed network and computer rack systems.
+- Installation and maintenance of security, access control, image and sound systems for major clients
+- Management of networks and IT rack systems
 
-### GRDF — Internship
+### GRDF — Intern
 Period: 2022 (1 month)
 Location: Marseille, France
-Description: Worked across departments: managerial roles, financial and economic aspects, asbestos prevention, green gas. France's leading gas distribution operator.
+- Rotated across departments at France's leading gas distribution operator: management, finance, asbestos prevention, green gas
 
-### JCAQSE — Junior Company
+### JCAQSE — Junior Company, Quality Management
 Period: 2021 – 2022
 Location: Aix-en-Provence, France
-Description: Quality management in the Junior Enterprise. Managed processes and KPIs for continuous improvement.
-
-## Projects
-
-### Social Robotics & Real-Time AI — NTNU Norway
-The most significant research project: a 3-month research internship at NTNU (Norway) in the EduTech Lab. Built real-time AI systems for social robots.
-- Designed and implemented real-time gesture-based interaction with the NAO social robot using computer vision
-- Built a conversational assistant for the Reachy robot — optimized response latency, managed dialogue flow, and added human-in-the-loop interruption handling
-- Created a Robot–Robot Interaction (RRI) loop enabling NAO and Reachy to communicate autonomously without human input
-- Work expected to result in two scientific publications
-Stack: Python, computer vision, real-time AI, social robotics, NAO SDK, Reachy SDK
-
-### RAG & NLP Pipelines — Banque de France
-Built production-grade data pipelines at Banque de France (France's central bank) to feed AI models.
-- Designed and built web scraping pipelines (Python, Selenium) to extract data from ElasticSearch platforms
-- Data fed directly into RAG (Retrieval Augmented Generation) AI models
-- Explored NLP: ASR (speech-to-text) and OCR pipelines for text recognition on financial documents
-Stack: Python, Selenium, ElasticSearch, NLP, RAG, ASR, OCR
-
-### OCR Pipeline for Aerospace — COMAT
-Led a 5-month hybrid academic–industry project with COMAT (aerospace sector).
-- Built a full OCR pipeline (Python, doctr, OpenCV, CNNs) to digitalize handwritten 2D engineering sketches
-- Extracted angles, RAL codes, and surface finishes — exported to structured JSON and PDF
-- Managed the project with Agile methodology: dataset preprocessing, model training, error analysis, weekly stakeholder reviews
-Stack: Python, doctr, OpenCV, CNNs, deep learning, JSON, PDF generation, GitHub, Trello
-
-## Technical Skills
-
-### Programming Languages
-Primary focus on Python. Also C#, C++, JavaScript, HTML & CSS.
-
-### AI & Machine Learning
-LLMs, Fine-tuning, Transfer Learning, Deep Learning, Computer Vision, Speech Recognition (ASR), RAG (Retrieval Augmented Generation).
-
-### Frameworks & Libraries
-PyTorch, TensorFlow, Keras, Hugging Face, OpenCV.
-
-### Data Analysis & Image Processing
-NumPy, Pandas, Matplotlib, Matlab.
-
-### Robotics
-Social robotics, NAO robot, Reachy robot, Robot-Robot Interaction, real-time AI systems.
-
-### Tools & Project Management
-GitHub, GitLab, Jira, Trello. Agile methodology.
-
-## Soft Skills
-- Communication: Public Speaking, Stress Management, Synthesising complex ideas clearly
-- Team Work: Collaboration, Cross-cultural communication, Agile workflows across 4 countries
-- Leadership & Management: Decision-Making, Time-Management, Founded & led student Sports Association at ESAIP
-- Adaptability: Resilience, Open-Mindedness — studied and lived in France, Finland, Norway & Spain
+- Quality management: processes and KPIs for continuous improvement
 
 ## Education
 
 ### Universidad Politécnica de Madrid (UPM)
 Period: September 2025 – February 2026
-Location: Madrid, Spain · International Exchange Semester
-Courses: Machine Learning, Cloud Computing, Programming, Large-Scale Data Processing Architectures.
+Location: Madrid, Spain · International Exchange
+Courses: Machine Learning, Architectures for Massive Data Processing, Multi-Paradigm Programming for Data Systems, Cloud Computing
 
-### ESAIP — IT Engineering Curriculum
+### ESAIP — Master of Engineering, AI & Data Science
 Period: September 2021 – June 2026
 Location: Angers, France · CTI & EUR-ACE Accredited
 - 2021–2023: Integrated preparatory courses
 - 2023–2026: Computer & network engineering — Big Data & AI option
+Grade: ECTS A (Top 10%)
 
-### SeAMK — Professional Studies in Technology
+### SeAMK — Seinäjoki University of Applied Sciences
 Period: January 2024 – May 2024
 Location: Seinäjoki, Finland · International Exchange
-Courses: C++, C#, Embedded Systems, OOP, Introduction to AI, Electronics labs, Unity, Automation.
+Courses: C++, C#, Embedded Systems, OOP, Introduction to AI, Electronics labs, Unity, Automation
 
 ### Lycée Jean Perrin
 Period: September 2018 – July 2021
 Location: Marseille, France
-High-level athlete — Basketball Training Academy. BAC — Specialty: Physics & Human Sciences, Mathematics option.
+- Baccalauréat général
+- High-level athlete — Basketball Training Academy (2018–2020)
 
-## YouTube & Content Creation
-Mathieu runs several YouTube channels across different niches, totalling 200k+ subscribers and 80M+ views. He handles the full production cycle: scripting, filming, editing, publishing and audience engagement — with a deep algorithmic understanding built through systematic iteration.
+## Technical Skills
 
-## Hobbies & Passions
+### Programming
+Python (primary), C#, C++, Bash, SQL
+
+### AI & Machine Learning
+LLMs, RAG, Fine-tuning, Deep Learning, Computer Vision, OCR, Speech Recognition (ASR), Embodied AI, HRI, Multimodal Systems
+
+### Frameworks
+PyTorch, TensorFlow, Hugging Face, LangChain, Scikit-learn, OpenCV
+
+### Tools
+GitHub, GitLab, Trello, Jira, Agile
+
+## Soft Skills
+- Communication: public speaking, stress management, synthesising complex ideas
+- Teamwork: cross-cultural collaboration, Agile workflows across 4 countries
+- Leadership: founded and led Sports Association at ESAIP (entry into Grandes Écoles Championship)
+- Adaptability: lived and studied in France, Finland, Norway, Spain
+
+## Hobbies & Personal
 
 ### Basketball
-Top-level basketball player trained at the Basketball Training Academy at Lycée Jean Perrin. Shaped competitive drive, leadership instincts, and team communication.
+National U15–U18 point guard at SMUC Marseille Basketball (Sep 2018 – Jun 2021, 2 yrs 10 mos).
+Dual academic & elite sports program at Lycée Jean Perrin (2018–2020).
+Shaped competitive drive, leadership instincts, and team communication.
 
+### Content Creation
+YouTube channels across different niches — 200k+ subscribers, 80M+ views.
+Full production cycle: scripting, filming, editing, publishing, audience engagement.
 
 ### School Associations
-Founder and President of the Sports Association at ESAIP, enabling the school's entry into the Grandes Écoles Championship. At Junior Conseil AQSE (JCAQSE), improved quality processes and KPI monitoring.
+Founder and President of the Sports Association at ESAIP — enabled the school's entry into the Grandes Écoles Championship.
+
+## Publication
+Lead author of a paper accepted at HCI International 2026 (from NTNU research on humanoid robot interaction systems).
 
 ## References
-Professional references available upon request. Contact: mathastruc@gmail.com
+Available upon request — contact: mathastruc@gmail.com

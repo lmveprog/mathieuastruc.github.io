@@ -25,6 +25,7 @@ export default function Navigation() {
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   const NAV_LINKS = [
+    { href: "/", label: t.home },
     { href: "/about", label: t.about },
     { href: "/skills", label: t.skills },
     { href: "/education", label: t.education },
@@ -55,7 +56,7 @@ export default function Navigation() {
             return (
               <Link key={href} href={href} style={{ fontSize:"var(--text-sm)",fontWeight:active?500:400,color:active?"var(--color-text)":"var(--color-text-secondary)",textDecoration:"none",letterSpacing:"-0.01em",transition:"color 120ms ease",position:"relative" }}>
                 {label}
-                {active && <span style={{ position:"absolute",bottom:"-18px",left:"50%",transform:"translateX(-50%)",width:"3px",height:"3px",borderRadius:"50%",background:"var(--color-text)" }} />}
+                {active && <span style={{ position:"absolute",bottom:"-3px",left:0,right:0,height:"1px",background:"var(--color-text)",opacity:0.5 }} />}
               </Link>
             );
           })}
@@ -67,20 +68,20 @@ export default function Navigation() {
           </a>
           {/* CV button */}
           <a
-            href="/cv.pdf"
+            href="/MathieuResume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-contact-desktop"
-            style={{ position:"relative",display:"inline-flex",alignItems:"center",flexShrink:0 }}
+            style={{ display:"inline-flex",alignItems:"center",gap:"4px",fontSize:"var(--text-xs)",fontWeight:500,letterSpacing:"-0.01em",color:"var(--color-text-secondary)",textDecoration:"none",transition:"color 120ms ease",flexShrink:0 }}
+            onMouseEnter={(e) => { e.currentTarget.style.color="var(--color-text)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color="var(--color-text-secondary)"; }}
           >
-            <span style={{ position:"absolute",inset:"-3px",borderRadius:"var(--radius-full)",background:"var(--color-text)",animation:"cv-ping 2.2s ease-out infinite",pointerEvents:"none" }} />
-            <span style={{ position:"relative",fontSize:"var(--text-xs)",fontWeight:600,letterSpacing:"0.06em",color:"var(--color-bg)",background:"var(--color-text)",borderRadius:"var(--radius-full)",padding:"4px 11px",display:"flex",alignItems:"center",gap:"4px",whiteSpace:"nowrap" }}>
-              {t.resume} <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 9L9 1M9 1H3M9 1v6"/></svg>
-            </span>
+            {t.resume}
+            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M1 9L9 1M9 1H3M9 1v6"/></svg>
           </a>
           <button
             onClick={toggle}
-            style={{ fontSize:"var(--text-xs)",fontWeight:500,letterSpacing:"0.04em",color:"var(--color-text-tertiary)",background:"none",border:"0.5px solid var(--color-border)",borderRadius:"var(--radius-full)",padding:"3px 10px",cursor:"pointer",fontFamily:"inherit",transition:"color 120ms ease, border-color 120ms ease" }}
+            style={{ fontSize:"var(--text-xs)",fontWeight:400,letterSpacing:"0.06em",color:"var(--color-text-tertiary)",background:"none",border:"1px solid var(--color-border)",borderRadius:"var(--radius-sm)",padding:"3px 10px",cursor:"pointer",fontFamily:"inherit",transition:"color 120ms ease, border-color 120ms ease" }}
             onMouseEnter={(e) => { e.currentTarget.style.color="var(--color-text)"; e.currentTarget.style.borderColor="var(--color-border-strong)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.color="var(--color-text-tertiary)"; e.currentTarget.style.borderColor="var(--color-border)"; }}
           >
@@ -131,16 +132,14 @@ export default function Navigation() {
           </a>
           <div style={{ padding:"16px 0",display:"flex",alignItems:"center" }}>
             <a
-              href="/cv.pdf"
+              href="/MathieuResume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
-              style={{ position:"relative",display:"inline-flex",alignItems:"center" }}
+              style={{ display:"inline-flex",alignItems:"center",gap:"5px",fontSize:"var(--text-base)",color:"var(--color-text-secondary)",textDecoration:"none",letterSpacing:"-0.01em" }}
             >
-              <span style={{ position:"absolute",inset:"-3px",borderRadius:"var(--radius-full)",background:"var(--color-text)",animation:"cv-ping 2.2s ease-out infinite",pointerEvents:"none" }} />
-              <span style={{ position:"relative",fontSize:"var(--text-sm)",fontWeight:600,letterSpacing:"0.06em",color:"var(--color-bg)",background:"var(--color-text)",borderRadius:"var(--radius-full)",padding:"6px 16px",display:"flex",alignItems:"center",gap:"5px" }}>
-                {t.resume} <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 9L9 1M9 1H3M9 1v6"/></svg>
-              </span>
+              {t.resume}
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M1 9L9 1M9 1H3M9 1v6"/></svg>
             </a>
           </div>
         </div>

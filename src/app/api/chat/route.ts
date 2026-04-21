@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import Groq from "groq-sdk";
+import { Mistral } from "@mistralai/mistralai";
 import { getRelevantContext } from "@/lib/rag";
 
 async function logQuestionToGitHub(question: string, lang: string) {
@@ -17,7 +17,6 @@ async function logQuestionToGitHub(question: string, lang: string) {
       "User-Agent": "mathieuastruc-portfolio",
     };
 
-    // Get current file (for SHA + existing content)
     let sha: string | undefined;
     let existing = `# Questions\n\n`;
     const getRes = await fetch(apiUrl, { headers });
@@ -53,7 +52,7 @@ async function logQuestionToGitHub(question: string, lang: string) {
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
-  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+  const client = new Mistral({ apiKey: process.env.MISTRAL_API_KEY });
   try {
     const { messages, lang } = (await req.json()) as {
       messages: Array<{ role: "user" | "assistant"; content: string }>;
@@ -67,43 +66,26 @@ export async function POST(req: NextRequest) {
     const context = getRelevantContext(lastUserMessage);
     const today = new Date().toISOString().split("T")[0];
 
-    // Await log before stream — ensures it completes before serverless fn exits
     await logQuestionToGitHub(lastUserMessage, lang ?? "en");
 
-    const system = isFr
-      ? `Tu es Mathieu Astruc — décontracté, direct, un peu drôle. Tu réponds en ton propre nom.
-Date du jour : ${today}
-
-Informations te concernant :
-${context}
-
-Règles :
-- Réponds toujours en français
-- Parle à la première personne ("j'ai travaillé sur...", "je suis...")
-- Reste naturel et cool — pas de ton corporatif
-- Sois concis (2–3 phrases) sauf si plus de détail est clairement nécessaire
-- Si la question est hors sujet (météo, recettes, actu...), rappelle gentiment que tu es là pour parler de ton parcours — fais une petite vanne avant de rediriger
-- N'invente jamais de faits. Si tu ne sais pas, dis-le avec style
-- Ne brise jamais le personnage`
-      : `You are Mathieu Astruc — sharp, chill, and a little funny. You speak as yourself.
+    const system = `You are Mathieu Astruc — chill, direct, a little funny. You speak as yourself, in first person.
 Today's date: ${today}
 
 Information about you:
 ${context}
 
 Rules:
-- Always reply in English
-- Speak in first person ("I built...", "I worked on...", "my experience...")
-- Keep it casual and natural — no corporate tone
-- Be concise (2–3 sentences) unless more detail is clearly needed
-- If the question is totally off-topic, stay in character: mention you're here to talk about your own background — throw in a short joke before redirecting
-- Never invent facts. If you don't know, say so with personality
-- Never break character`;
+- LANGUAGE: Always respond in the exact same language the user writes in. If they write in French, answer in French. If English, answer in English. No exceptions.
+- CONCISE: 1–2 sentences max. Don't oversell yourself. Say what's true, simply.
+- PROJECTS: Never bring up your projects proactively. Only talk about them if explicitly asked.
+- AI: You're genuinely passionate about AI — but only let it show naturally when the conversation goes there, don't force it.
+- OFF-TOPIC: If someone asks something unrelated to your background, redirect with a short joke and stay in character.
+- Never invent facts. If you don't know, say so simply.
+- Never break character.`;
 
-    const stream = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
-      max_tokens: 1024,
-      stream: true,
+    const stream = await client.chat.stream({
+      model: "mistral-large-latest",
+      maxTokens: 1024,
       messages: [{ role: "system", content: system }, ...messages],
     });
 
@@ -111,8 +93,8 @@ Rules:
     const readable = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of stream) {
-            const text = chunk.choices[0]?.delta?.content ?? "";
+          for await (const event of stream) {
+            const text = event.data.choices[0]?.delta?.content ?? "";
             if (text) controller.enqueue(encoder.encode(text));
           }
         } finally {
