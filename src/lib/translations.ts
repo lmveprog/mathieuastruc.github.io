@@ -3,7 +3,7 @@ import type { Lang } from "@/context/LanguageContext";
 export const T: Record<Lang, Translation> = {
   en: {
     nav: {
-      about: "About", skills: "Skills", education: "Education",
+      home: "Home", about: "About", skills: "Skills", education: "Education",
       career: "Career", hobbies: "Hobbies", references: "References", contact: "Contact", resume: "Resume",
     },
     hero: {
@@ -20,13 +20,13 @@ export const T: Record<Lang, Translation> = {
         "Fluent in French and English, former high-level athlete.",
       ],
       stats: ["Countries", "Experiences", "Publication", "Pending"],
-      availability: "Open to opportunities · Sept / Oct 2026",
+      availability: "Future graduate · Seeking opportunities · Oct. 2026",
     },
     career: {
       title: "Career", subtitle: "7 professional experiences across 4 countries",
       current: "Current", open: "Open to new opportunities from", openDate: "September / October 2026",
       experiences: [
-        { period: "Mar 2026\nSep 2026", company: "Airbus Helicopters", location: "France", role: "AI Engineer Intern", description: "Final year engineering internship applying AI and data engineering expertise", current: true, logo: "/images/career/airbus.webp", logoSize: { w: 120, h: 36 } },
+        { period: "Mar 2026\nSep 2026", company: "Airbus Helicopters", location: "France", role: "AI Engineer Intern", bullets: ["Building a chatbot powered by an advanced RAG pipeline.", "Developing OCR solutions to extract complex metadata."], current: true, logo: "/images/career/airbus.webp", logoSize: { w: 120, h: 36 } },
         { period: "May 2025\nAug 2025", company: "NTNU", location: "Gjøvik, Norway · EduTech Lab", role: "Researcher", bullets: ["Embodied AI & Multimodal HRI: Developed a comprehensive interaction system for a humanoid robot, integrating gesture-based Human-Robot Interaction (HRI) with an advanced RAG-powered conversational agent for domain-specific dialogue.", "System Optimization: Accelerated model inference using GPU pipelines to minimize latency, while designing a robust human-in-the-loop (HITL) framework for edge-case queries.", "Publication: Lead author of a paper accepted at HCI International 2026."], photo: "/images/career/ntnu.jpg" },
         { period: "Jan 2025\nMay 2025", company: "COMAT Specific", location: "Angers, France · Aerospace Industry", role: "ML Engineer — Mission", bullets: ["Designed an AI-driven solution to modernize industrial workflows: built a Deep Learning-based OCR pipeline to accurately translate legacy, hand-drawn 2D sketches into structured, machine-readable data."], logo: "/images/career/comat.png", logoSize: { w: 120, h: 40 } },
         { period: "May 2024\nAug 2024", company: "Banque de France", location: "Poitiers, France", role: "Data Engineer Intern", bullets: ["Large-Scale Data Extraction: Automated complex web scraping workflows using Python and Selenium to aggregate massive volumes of unstructured data from diverse sources.", "Multimodal AI Pipeline: Integrated OCR, Speech-to-Text (S2T) models, and LLMs to transcribe, digitize, and structure raw audio and visual data, directly feeding a Retrieval-Augmented Generation (RAG) system."], logo: "/images/career/bdf.png", logoSize: { w: 110, h: 36 } },
@@ -49,7 +49,7 @@ export const T: Record<Lang, Translation> = {
       technicalLabel: "Technical", softLabel: "Soft Skills",
       technical: [
         { title: "Programming Languages", description: "Primary focus on Python. Also C#, C++, Bash and SQL.", tags: ["Python", "C#", "C++", "Bash", "SQL"] },
-        { title: "ML / DL", description: "Main frameworks for research and production.", tags: ["PyTorch", "TensorFlow", "Hugging Face", "Scikit-learn"] },
+        { title: "ML / DL", description: "Main frameworks for research and production.", tags: ["PyTorch", "TensorFlow", "Hugging Face", "Langchain", "Scikit-learn"] },
         { title: "Topics", description: "Core areas of expertise across projects and research.", tags: ["LLMs", "RAG", "Computer Vision", "Embodied AI", "HRI", "OCR", "Multimodal Systems"] },
         { title: "Languages", description: "Spoken languages.", tags: ["French (native)", "English (fluent)", "Spanish (intermediate)"] },
         { title: "Tools", description: "Version control, project tracking, and Agile workflows.", tags: ["GitHub", "GitLab", "Trello", "Agile"] },
@@ -76,7 +76,7 @@ export const T: Record<Lang, Translation> = {
   },
   fr: {
     nav: {
-      about: "À propos", skills: "Compétences", education: "Formation",
+      home: "Accueil", about: "À propos", skills: "Compétences", education: "Formation",
       career: "Parcours", hobbies: "Loisirs", references: "Références", contact: "Contact", resume: "CV",
     },
     hero: {
@@ -93,13 +93,13 @@ export const T: Record<Lang, Translation> = {
         "Bilingue français-anglais, ancien sportif de haut niveau.",
       ],
       stats: ["Pays", "Expériences", "Publication", "En cours"],
-      availability: "Disponible · Sept / Oct 2026",
+      availability: "Futur diplômé · En recherche d'opportunités · Oct. 2026",
     },
     career: {
       title: "Parcours", subtitle: "7 expériences professionnelles dans 4 pays",
       current: "En cours", open: "Disponible à partir de", openDate: "Septembre / Octobre 2026",
       experiences: [
-        { period: "Mar 2026\nSep 2026", company: "Airbus Helicopters", location: "France", role: "Stagiaire Ingénieur IA", description: "Stage de fin d'études appliquant l'expertise en IA et ingénierie des données", current: true, logo: "/images/career/airbus.webp", logoSize: { w: 120, h: 36 } },
+        { period: "Mar 2026\nSep 2026", company: "Airbus Helicopters", location: "France", role: "Stagiaire Ingénieur IA", bullets: ["Développement d'un chatbot alimenté par un pipeline RAG avancé.", "Développement de solutions OCR pour extraire des métadonnées complexes."], current: true, logo: "/images/career/airbus.webp", logoSize: { w: 120, h: 36 } },
         { period: "Mai 2025\nAoû 2025", company: "NTNU", location: "Gjøvik, Norvège · EduTech Lab", role: "Chercheur", bullets: ["IA Incarnée & HRI Multimodale : Développement d'un système d'interaction complet pour un robot humanoïde, intégrant une HRI gestuelle avec un agent conversationnel RAG pour un dialogue spécialisé.", "Optimisation Système : Accélération de l'inférence via des pipelines GPU pour minimiser la latence, et conception d'un framework human-in-the-loop (HITL) pour les cas limites.", "Publication : Auteur principal d'un article accepté à HCI International 2026."], photo: "/images/career/ntnu.jpg" },
         { period: "Jan 2025\nMai 2025", company: "COMAT Specific", location: "Angers, France · Industrie Aérospatiale", role: "Ingénieur ML — Mission", bullets: ["Conception d'une solution IA pour moderniser les workflows industriels : développement d'un pipeline OCR basé sur le Deep Learning pour traduire des croquis 2D manuscrits en données structurées."], logo: "/images/career/comat.png", logoSize: { w: 120, h: 40 } },
         { period: "Mai 2024\nAoû 2024", company: "Banque de France", location: "Poitiers, France", role: "Stagiaire Data Engineer", bullets: ["Extraction de Données à Grande Échelle : Automatisation de workflows de web scraping complexes avec Python et Selenium pour agréger des volumes massifs de données non structurées.", "Pipeline IA Multimodal : Intégration d'OCR, de modèles Speech-to-Text (S2T) et de LLMs pour transcrire et structurer des données audio et visuelles brutes, alimentant un système RAG."], logo: "/images/career/bdf.png", logoSize: { w: 110, h: 36 } },
@@ -122,7 +122,7 @@ export const T: Record<Lang, Translation> = {
       technicalLabel: "Technique", softLabel: "Soft Skills",
       technical: [
         { title: "Langages de Programmation", description: "Focus principal sur Python. Également C#, C++, Bash et SQL.", tags: ["Python", "C#", "C++", "Bash", "SQL"] },
-        { title: "ML / DL", description: "Principaux frameworks pour la recherche et la production.", tags: ["PyTorch", "TensorFlow", "Hugging Face", "Scikit-learn"] },
+        { title: "ML / DL", description: "Principaux frameworks pour la recherche et la production.", tags: ["PyTorch", "TensorFlow", "Hugging Face", "Langchain", "Scikit-learn"] },
         { title: "Sujets", description: "Domaines d'expertise principaux à travers projets et recherche.", tags: ["LLMs", "RAG", "Computer Vision", "Embodied AI", "HRI", "OCR", "Multimodal Systems"] },
         { title: "Langues", description: "Langues parlées.", tags: ["Français (natif)", "Anglais (courant)", "Espagnol (intermédiaire)"] },
         { title: "Outils", description: "Contrôle de version, suivi de projet et workflows Agile.", tags: ["GitHub", "GitLab", "Trello", "Agile"] },
@@ -151,7 +151,7 @@ export const T: Record<Lang, Translation> = {
 
 // Type definitions
 export type Translation = {
-  nav: { about: string; skills: string; education: string; career: string; hobbies: string; references: string; contact: string; resume: string };
+  nav: { home: string; about: string; skills: string; education: string; career: string; hobbies: string; references: string; contact: string; resume: string };
   hero: { subtitle: string; suggestions: string[]; placeholder: string; placeholderMore: string };
   about: { title: string; subtitle: string; bio: string[]; stats: string[]; availability: string };
   career: { title: string; subtitle: string; current: string; open: string; openDate: string; experiences: Experience[] };

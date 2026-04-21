@@ -17,13 +17,12 @@ export default function About() {
             <p key={i} style={{ ...prose, marginTop: i > 0 ? "1.1em" : 0 }}>{p}</p>
           ))}
         </div>
-        {/* Two photos stacked — portrait dominant, landscape accent */}
         <div className="about-photo" style={{ display:"flex",flexDirection:"column",gap:"8px",width:"clamp(150px, 20vw, 240px)",flexShrink:0 }}>
           <div style={{ position:"relative",borderRadius:"var(--radius-md)",overflow:"hidden",aspectRatio:"2/3",border:"0.5px solid var(--color-border)" }}>
-            <Image src="/images/about-portrait.png" alt="Mathieu Astruc" fill style={{ objectFit:"cover",objectPosition:"center 20%" }} />
+            <Image src="/mathieu.png" alt="Mathieu Astruc" fill style={{ objectFit:"cover",objectPosition:"center 15%" }} />
           </div>
           <div style={{ position:"relative",borderRadius:"var(--radius-md)",overflow:"hidden",aspectRatio:"3/2",border:"0.5px solid var(--color-border)" }}>
-            <Image src="/images/about-landscape.jpg" alt="Mathieu Astruc" fill style={{ objectFit:"cover",objectPosition:"center 40%" }} />
+            <Image src="/images/about-landscape.jpg" alt="Mathieu Astruc" fill style={{ objectFit:"cover",objectPosition:"center 50%" }} />
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { T } from "@/lib/translations";
 
@@ -17,8 +18,9 @@ export default function Hero() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const hasMessages = messages.length > 0;
 
-
-  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, streaming]);
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, streaming]);
 
   const send = useCallback(async (text: string) => {
     if (!text.trim() || loading) return;
@@ -48,7 +50,10 @@ export default function Hero() {
       setMessages((prev) => [...prev, { role: "assistant", content: acc }]);
       setStreaming("");
     } catch {
-      setMessages((prev) => [...prev, { role: "assistant", content: lang === "fr" ? "Une erreur s'est produite. Réessaie." : "Something went wrong. Please try again." }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: lang === "fr" ? "Une erreur s'est produite. Réessaie." : "Something went wrong. Please try again." },
+      ]);
       setStreaming("");
     } finally {
       setLoading(false);
@@ -59,6 +64,7 @@ export default function Hero() {
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(input); }
   };
+
   const onInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
     e.target.style.height = "auto";
@@ -66,93 +72,134 @@ export default function Hero() {
   };
 
   return (
-    <main style={{ position:"relative",zIndex:1,minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(52px, 10vw, 80px) clamp(1rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem)" }}>
-      <div style={{ width:"100%",maxWidth:"680px",background:"var(--glass-bg)",backdropFilter:"blur(32px) saturate(1.8)",WebkitBackdropFilter:"blur(32px) saturate(1.8)",borderRadius:"28px",border:"0.5px solid var(--glass-border)",boxShadow:"var(--glass-shadow)",padding:"clamp(1.75rem, 4vw, 2.75rem)",display:"flex",flexDirection:"column",gap:"var(--space-lg)" }}>
+    <div className="hero-root">
+      <section className="hero-intro">
 
-        {/* Header */}
-        <div style={{ textAlign:"center",transition:"all 500ms cubic-bezier(0.16,1,0.3,1)",opacity:hasMessages?0.35:1,transform:hasMessages?"scale(0.88) translateY(-4px)":"scale(1)",animation:"fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both" }}>
-          <h1 style={{ fontSize:"var(--text-hero)",fontWeight:600,letterSpacing:"-0.04em",lineHeight:1,color:"var(--color-text)",marginBottom:"var(--space-sm)" }}>
-            Mathieu Astruc
-          </h1>
-          <p style={{ fontSize:"var(--text-xl)",fontWeight:300,color:"var(--color-text-secondary)",letterSpacing:"-0.015em",margin:0 }}>
-            {t.subtitle}
-          </p>
+        {/* Portrait */}
+        <div className="hero-portrait-wrap">
+          <Image
+            src="/images/about-portrait.png"
+            alt="Mathieu Astruc"
+            width={600}
+            height={800}
+            className="hero-portrait"
+            priority
+          />
         </div>
 
-        {/* Messages */}
-        {hasMessages && (
-          <div>
-            {messages.map((msg, i) => <MessageRow key={i} message={msg} />)}
-            {streaming && <MessageRow message={{ role:"assistant", content:streaming }} isStreaming />}
-            {loading && !streaming && (
-              <div style={{ display:"flex",gap:"5px",alignItems:"center",marginBottom:"var(--space-lg)",animation:"fadeIn 0.3s ease" }}>
-                {[0,1,2].map((i) => <span key={i} style={{ display:"block",width:"5px",height:"5px",borderRadius:"50%",background:"var(--color-text-tertiary)",animation:"dotBounce 1.3s ease infinite",animationDelay:`${i*0.18}s` }} />)}
-              </div>
-            )}
-            <div ref={bottomRef} />
-          </div>
-        )}
+        {/* Right column: credentials + chat */}
+        <div className="hero-right">
+          <div className="hero-creds">
+            <h1 className="hero-name">Mathieu<br />Astruc</h1>
+            <p className="hero-role">{t.subtitle}</p>
 
-        {/* Input */}
-        <div>
-          <div
-            style={{ display:"flex",alignItems:"flex-end",gap:"10px",padding:"clamp(10px,1.5vw,14px) clamp(12px,2vw,18px)",background:"var(--input-bg)",borderRadius:"var(--radius-xl)",border:"0.5px solid var(--color-border-strong)",transition:"border-color 120ms ease, background 120ms ease" }}
-            onFocusCapture={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor="var(--border-focus)"; el.style.background="var(--input-bg-focus)"; }}
-            onBlurCapture={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor="var(--color-border-strong)"; el.style.background="var(--input-bg)"; }}
-          >
-            <textarea ref={inputRef} value={input} onChange={onInput} onKeyDown={onKeyDown}
-              placeholder={hasMessages ? t.placeholderMore : t.placeholder}
-              rows={1}
-              style={{ flex:1,background:"none",border:"none",outline:"none",resize:"none",fontSize:"var(--text-base)",color:"var(--color-text)",fontFamily:"inherit",lineHeight:1.55,letterSpacing:"-0.01em",overflow:"hidden",caretColor:"var(--color-text)" }}
-            />
-            <SendButton active={!!input.trim() && !loading} onClick={() => send(input)} />
-          </div>
+            <hr className="hero-rule" />
 
-          {!hasMessages && (
-            <div style={{ display:"flex",flexWrap:"wrap",gap:"var(--space-xs)",marginTop:"var(--space-md)",justifyContent:"center",animation:"fadeIn 1s ease 0.45s both" }}>
-              {t.suggestions.map((q) => <SuggestionChip key={q} label={q} onSelect={() => send(q)} />)}
+            <p className="hero-affil">
+              <span className="hero-affil-bullet">▪</span>
+              {lang === "fr" ? "Ingénieur IA — Airbus Helicopters, France" : "AI Engineer — Airbus Helicopters, France"}
+            </p>
+            <p className="hero-affil">
+              <span className="hero-affil-bullet">▪</span>
+              {lang === "fr" ? "Chercheur — NTNU Gjøvik, Norvège" : "Researcher — NTNU Gjøvik, Norway"}
+            </p>
+            <p className="hero-affil">
+              <span className="hero-affil-bullet">▪</span>
+              {lang === "fr" ? "Data Engineer — Banque de France, France" : "Data Engineer — Banque de France, France"}
+            </p>
+
+            <hr className="hero-rule" />
+
+            <span className="hero-badge">
+              <span className="hero-badge-dot" />
+              {lang === "fr" ? "Futur diplômé · Recherche opportunités · Oct. 2026" : "Future graduate · Seeking opportunities · Oct. 2026"}
+            </span>
+
+            <div className="hero-actions">
+              <a href="/MathieuResume.pdf" target="_blank" rel="noopener noreferrer" className="hero-cv-btn">
+                {lang === "fr" ? "Télécharger CV" : "Download CV"}
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M6 1v7M3 5.5l3 3 3-3M1 11h10" />
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/in/mathieu-astruc/" target="_blank" rel="noopener noreferrer" className="hero-link-btn">
+                LinkedIn
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M1 9L9 1M9 1H3M9 1v6" />
+                </svg>
+              </a>
             </div>
-          )}
+          </div>
+
+          {/* Chat — inline, visible on load */}
+          <div className="hero-chat-inline">
+            <p className="hero-section-label">
+              {lang === "fr" ? "Assistant IA" : "AI Assistant"}
+            </p>
+            <div className="hero-chat">
+              {hasMessages && (
+                <div className="hero-messages">
+                  {messages.map((msg, i) => <MessageRow key={i} message={msg} />)}
+                  {streaming && <MessageRow message={{ role: "assistant", content: streaming }} isStreaming />}
+                  {loading && !streaming && (
+                    <div className="hero-dots">
+                      {[0, 1, 2].map((i) => (
+                        <span key={i} style={{ animationDelay: `${i * 0.18}s` }} />
+                      ))}
+                    </div>
+                  )}
+                  <div ref={bottomRef} />
+                </div>
+              )}
+              <div className="hero-input-wrap">
+                <textarea
+                  ref={inputRef}
+                  value={input}
+                  onChange={onInput}
+                  onKeyDown={onKeyDown}
+                  placeholder={hasMessages ? t.placeholderMore : t.placeholder}
+                  rows={1}
+                  className="hero-textarea"
+                />
+                <button
+                  onClick={() => send(input)}
+                  disabled={!input.trim() || loading}
+                  className="hero-send"
+                  aria-label="Send"
+                >
+                  <svg width="12" height="12" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M6.5 11V2M6.5 2L2 6.5M6.5 2L11 6.5" />
+                  </svg>
+                </button>
+              </div>
+              {!hasMessages && (
+                <div className="hero-chips">
+                  {t.suggestions.map((q) => (
+                    <button key={q} onClick={() => send(q)} className="hero-chip">{q}</button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
-      </div>
-    </main>
+      </section>
+    </div>
   );
 }
 
 function MessageRow({ message, isStreaming }: { message: { role: string; content: string }; isStreaming?: boolean }) {
   const isUser = message.role === "user";
   return (
-    <div style={{ marginBottom:"var(--space-lg)",display:"flex",flexDirection:"column",alignItems:isUser?"flex-end":"flex-start",animation:"fadeUp 0.4s cubic-bezier(0.16,1,0.3,1) both" }}>
+    <div className={`hero-msg ${isUser ? "hero-msg-user" : "hero-msg-ai"}`}>
       {isUser ? (
-        <p style={{ fontSize:"var(--text-lg)",fontWeight:500,color:"var(--color-text)",letterSpacing:"-0.02em",lineHeight:1.4,maxWidth:"85%" }}>{message.content}</p>
+        <p className="hero-msg-user-text">{message.content}</p>
       ) : (
-        <p style={{ fontSize:"var(--text-base)",fontWeight:400,color:"var(--color-text-secondary)",letterSpacing:"-0.01em",lineHeight:1.72,maxWidth:"100%",whiteSpace:"pre-wrap" }}>
+        <p className="hero-msg-ai-text">
           {message.content}
-          {isStreaming && <span style={{ display:"inline-block",width:"1.5px",height:"1.05em",background:"var(--color-text-tertiary)",marginLeft:"2px",verticalAlign:"text-bottom",animation:"cursorBlink 0.9s ease infinite" }} />}
+          {isStreaming && <span className="hero-cursor" />}
         </p>
       )}
     </div>
-  );
-}
-
-function SendButton({ active, onClick }: { active: boolean; onClick: () => void }) {
-  return (
-    <button onClick={onClick} disabled={!active} aria-label="Send"
-      style={{ width:"36px",height:"36px",flexShrink:0,borderRadius:"50%",border:active?"none":"0.5px solid var(--color-border-strong)",background:active?"var(--color-text)":"transparent",display:"flex",alignItems:"center",justifyContent:"center",cursor:active?"pointer":"default",transition:"background 120ms ease, border-color 120ms ease" }}>
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-        <path d="M6.5 11V2M6.5 2L2 6.5M6.5 2L11 6.5" stroke={active?"white":"var(--color-text-tertiary)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </button>
-  );
-}
-
-function SuggestionChip({ label, onSelect }: { label: string; onSelect: () => void }) {
-  return (
-    <button onClick={onSelect}
-      style={{ padding:"8px 14px",borderRadius:"var(--radius-full)",background:"transparent",border:"0.5px solid var(--color-border-strong)",fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",cursor:"pointer",letterSpacing:"-0.01em",transition:"background 120ms ease, color 120ms ease",fontFamily:"inherit",lineHeight:1.5 }}
-      onMouseEnter={(e) => { e.currentTarget.style.background="var(--input-bg-hover)"; e.currentTarget.style.color="var(--color-text)"; }}
-      onMouseLeave={(e) => { e.currentTarget.style.background="transparent"; e.currentTarget.style.color="var(--color-text-secondary)"; }}
-    >{label}</button>
   );
 }
