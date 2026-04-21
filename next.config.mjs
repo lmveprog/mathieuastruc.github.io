@@ -30,7 +30,7 @@ const nextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
-          // Content Security Policy — allows self + Mistral API
+          // Content Security Policy — allows self + Groq API
           {
             key: "Content-Security-Policy",
             value: [
@@ -39,7 +39,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob:",
               "font-src 'self'",
-              "connect-src 'self' https://api.mistral.ai",
+              "connect-src 'self' https://api.groq.com",
               "media-src 'self'",
               "frame-ancestors 'none'",
             ].join("; "),
