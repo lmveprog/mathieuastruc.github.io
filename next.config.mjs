@@ -41,6 +41,7 @@ const nextConfig = {
               "font-src 'self'",
               "connect-src 'self' https://api.groq.com",
               "media-src 'self'",
+              "frame-src https://www.youtube.com https://www.youtube-nocookie.com",
               "frame-ancestors 'none'",
             ].join("; "),
           },

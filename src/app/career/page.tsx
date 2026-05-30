@@ -10,7 +10,7 @@ export default function Career() {
   return (
     <PageLayout title={t.title} subtitle={t.subtitle}>
       <div style={{ display:"flex",flexDirection:"column" }}>
-        {t.experiences.map(({ period, company, location, role, description, bullets, current, logo, logoSize, photo }, i) => (
+        {t.experiences.map(({ period, company, location, role, description, bullets, current, logo, logoSize, photo, videos }, i) => (
           <div key={i} className="timeline-row" style={{ paddingBottom:i<t.experiences.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,marginBottom:i<t.experiences.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,borderBottom:i<t.experiences.length-1?"0.5px solid var(--color-border)":"none" }}>
             <div className="timeline-date" style={{ paddingTop:"3px",fontSize:"var(--text-xs)",color:"var(--color-text-tertiary)",letterSpacing:"0.01em",lineHeight:1.5,fontVariantNumeric:"tabular-nums",whiteSpace:"pre-line" }}>{period}</div>
             <div>
@@ -39,6 +39,18 @@ export default function Career() {
               {photo && (
                 <div style={{ marginTop:"var(--space-md)",borderRadius:"var(--radius-md)",overflow:"hidden",border:"0.5px solid var(--color-border)",maxWidth:"380px" }}>
                   <Image src={photo} alt={company} width={760} height={400} style={{ width:"100%",height:"auto",display:"block",objectFit:"cover" }} />
+                </div>
+              )}
+              {videos && (
+                <div className="career-video-grid">
+                  {videos.map((video) => (
+                    <a key={video.embedId} href={video.url} target="_blank" rel="noopener noreferrer" className="career-video-link">
+                      <span>{video.title}</span>
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M1 9L9 1M9 1H3M9 1v6" />
+                      </svg>
+                    </a>
+                  ))}
                 </div>
               )}
             </div>

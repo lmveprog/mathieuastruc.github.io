@@ -97,29 +97,46 @@ export default function Hero() {
 
             <p className="hero-affil">
               <span className="hero-affil-bullet">▪</span>
-              {lang === "fr" ? "Ingénieur IA — Airbus Helicopters, France" : "AI Engineer — Airbus Helicopters, France"}
+              {lang === "fr" ? "AI Engineer Intern - Airbus, France" : "AI Engineer Intern - Airbus, France"}
             </p>
             <p className="hero-affil">
               <span className="hero-affil-bullet">▪</span>
-              {lang === "fr" ? "Chercheur — NTNU, Norvège" : "Researcher — NTNU, Norway"}
+              {lang === "fr" ? "Research Engineer Intern - NTNU, Norway" : "Research Engineer Intern - NTNU, Norway"}
             </p>
             <p className="hero-affil">
               <span className="hero-affil-bullet">▪</span>
-              {lang === "fr" ? "Data Engineer — Banque de France, France" : "Data Engineer — Banque de France, France"}
+              {lang === "fr" ? "Data Scientist / Data Engineer - Banque de France" : "Data Scientist / Data Engineer - Banque de France"}
             </p>
 
             <hr className="hero-rule" />
 
+            <div className="hero-metrics" aria-label="Key metrics">
+              {t.metrics.map(([value, label]) => (
+                <div key={`${value}-${label}`}>
+                  <strong>{value}</strong>
+                  <span>{label}</span>
+                </div>
+              ))}
+            </div>
+
             <span className="hero-badge">
               <span className="hero-badge-dot" />
-              {lang === "fr" ? "Futur diplômé · Recherche opportunités · Oct. 2026" : "Future graduate · Seeking opportunities · Oct. 2026"}
+              {lang === "fr"
+                ? "Recherche un poste full-time en Data Science / IA a partir d'oct. 2026"
+                : "Seeking a full-time Data Science / AI role from Oct. 2026"}
             </span>
 
             <div className="hero-actions">
               <a href="/MathieuResume.pdf" target="_blank" rel="noopener noreferrer" className="hero-cv-btn">
-                {lang === "fr" ? "Télécharger CV" : "Download CV"}
+                {lang === "fr" ? "Telecharger CV" : "Download CV"}
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M6 1v7M3 5.5l3 3 3-3M1 11h10" />
+                </svg>
+              </a>
+              <a href="/projects" className="hero-link-btn">
+                {lang === "fr" ? "Voir projets" : "View projects"}
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M1 9L9 1M9 1H3M9 1v6" />
                 </svg>
               </a>
               <a href="https://www.linkedin.com/in/mathieu-astruc/" target="_blank" rel="noopener noreferrer" className="hero-link-btn">

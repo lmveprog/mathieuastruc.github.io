@@ -213,6 +213,14 @@ body {
   margin: 0;
 }
 
+.hero-headline {
+  margin: 14px 0 0;
+  max-width: 680px;
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--color-text);
+}
+
 /* Thin rule — LaTeX section divider */
 .hero-rule {
   border: none;
@@ -238,6 +246,55 @@ body {
   flex-shrink: 0;
   position: relative;
   top: -0.1em;
+}
+
+.hero-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border: 0.5px solid var(--color-border);
+  background: var(--color-border);
+  margin-bottom: 18px;
+}
+
+.hero-proof-grid span {
+  display: block;
+  min-height: 58px;
+  padding: 10px 12px;
+  background: var(--card-bg);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.hero-metrics div {
+  border-top: 0.5px solid var(--color-border-strong);
+  padding-top: 8px;
+}
+
+.hero-metrics strong,
+.hero-metrics span {
+  display: block;
+}
+
+.hero-metrics strong {
+  color: var(--color-text);
+  font-size: var(--text-base);
+  line-height: 1;
+}
+
+.hero-metrics span {
+  margin-top: 5px;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-xs);
+  line-height: 1.35;
 }
 
 .hero-badge {
@@ -476,10 +533,131 @@ body {
 .nav-hamburger { display: none; }
 .nav-contact-desktop { display: inline; }
 
-@media (max-width: 680px) {
+@media (max-width: 920px) {
   .nav-center { display: none; }
   .nav-hamburger { display: flex !important; }
   .nav-contact-desktop { display: none !important; }
+}
+
+/* ─── Project pages and embedded evidence ───────────────── */
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+
+.project-entry {
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  border-bottom: 0.5px solid var(--color-border);
+}
+
+.project-entry:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.project-entry-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 260px);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+  margin-bottom: var(--space-sm);
+}
+
+.project-period {
+  margin: 0 0 6px;
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project-entry h2 {
+  margin: 0;
+  font-size: var(--text-xl);
+  line-height: 1.15;
+  color: var(--color-text);
+  letter-spacing: 0;
+}
+
+.project-description {
+  margin: 0;
+  max-width: 740px;
+  font-size: var(--text-sm);
+  line-height: 1.72;
+  color: var(--color-text-secondary);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: flex-end;
+}
+
+.project-tags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 25px;
+  padding: 3px 8px;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.2;
+}
+
+.project-videos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: var(--space-md);
+  border: 0.5px solid var(--color-border);
+  background: var(--color-border);
+}
+
+.project-video {
+  background: var(--card-bg);
+  padding: 10px;
+}
+
+.project-video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: var(--color-bg-secondary);
+}
+
+.project-video a,
+.career-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 9px;
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.project-video a:hover,
+.career-video-link:hover {
+  color: var(--color-text);
+}
+
+.career-video-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--space-sm);
+}
+
+.career-video-link {
+  margin-top: 0;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
 }
 
 /* ─── About bio + photo ──────────────────────────────────── */
@@ -506,6 +684,19 @@ body {
 @media (max-width: 580px) {
   .timeline-row { grid-template-columns: 1fr; gap: 2px; }
   .timeline-date { margin-bottom: 6px; }
+}
+
+@media (max-width: 720px) {
+  .hero-proof-grid,
+  .hero-metrics,
+  .project-entry-head,
+  .project-videos {
+    grid-template-columns: 1fr;
+  }
+
+  .project-tags {
+    justify-content: flex-start;
+  }
 }
 
 /* ─── Hobby cards ────────────────────────────────────────── */

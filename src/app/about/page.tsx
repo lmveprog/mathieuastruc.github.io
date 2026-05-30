@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { T } from "@/lib/translations";
 
-const STATS_VALUES = ["4+", "7", "1", "1"];
+const STATS_VALUES = ["4", "5", "1", "Oct. 2026"];
 
 export default function About() {
   const { lang } = useLanguage();

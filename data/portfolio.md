@@ -1,127 +1,122 @@
-# Mathieu Astruc — Portfolio
+# Mathieu ASTRUC
 
-## Identity
-Mathieu Astruc, born August 2003 (calculate age from today's date).
-5th-year engineering student specialising in AI & Data Science, currently doing his end-of-studies internship at Airbus Helicopters. Future graduate, seeking opportunities from October 2026.
-Lived and worked in France, Norway, Finland, and Spain.
+LinkedIn: https://www.linkedin.com/in/mathieu-astruc/
+Website: https://mathieuastruc.com
+Email: mathastruc@gmail.com
+Phone: +33 6 70 94 53 63
+Availability: Seeking a full-time role in Data Science / AI from Oct. 2026
 
-## Contact
-- Email: mathastruc@gmail.com
-- LinkedIn: https://www.linkedin.com/in/mathieu-astruc/
-- Location: France · Open to relocation
+## Professional Positioning
 
-## Languages
-- French: Native
-- English: Fluent
-- Spanish: Intermediate
+Final-year engineering student specializing in Data Science, focused on applied AI systems:
+RAG, LLM engineering, computer vision, OCR, multimodal AI and human-robot interaction.
 
-## Professional Experience
+## Experience
 
-### Airbus Helicopters — Intern (End-of-studies)
-Period: March 2026 – September 2026 · Currently in progress
+### Airbus
+Period: Mar. 2026 - Sep. 2026
+Role: AI Engineer - Intern - Master Thesis (ongoing)
 Location: France
-- End-of-studies internship
-- Building a chatbot powered by a RAG pipeline
-- Developing OCR solutions to extract complex metadata
+- Designing and building a RAG-powered, domain-specific AI chatbot for the Export Controls function in a safety-critical environment.
+- End-to-end pipeline: ingestion, embedding/retrieval, orchestration, evaluation, token-cost reduction, user feedback integration, and deployment preparation with the lead architect.
+- Developing Proofs of Concept for AI-driven solutions in collaboration with cross-functional teams, supporting the exploration and integration of enterprise AI use cases.
 
-### NTNU (Norwegian University of Science and Technology) — Researcher
-Period: June 2025 – August 2025 (3 months)
-Location: Gjøvik, Norway · EduTech Lab · On-site
-- Developed a comprehensive interaction system for a humanoid robot: real-time gesture recognition + RAG-powered conversational agent for domain-specific dialogue
-- Designed a Human-in-the-Loop (HITL) framework for manual interruption at any time
-- Accelerated model inference using GPU pipelines to minimise latency for real-time human-robot engagement
-- Lead author of a research paper accepted at HCI International 2026
+### NTNU - Norwegian University of Science and Technology
+Period: May 2025 - Aug. 2025
+Role: Research Engineer - Intern
+Location: Norway
+- Developed an embedded AI interaction stack for a humanoid robot, combining real-time gesture recognition, computer vision and a fine-tuned LLM for domain-specific dialogue.
+- Optimized on-device inference latency through GPU pipeline tuning, enabling real-time responses under hardware and runtime constraints.
+- Implemented a Human-in-the-Loop framework to manage edge cases, improve robustness and support continuous model improvement.
+- Project videos: https://youtu.be/QZ8oGMaRq6M and https://youtu.be/bfIvyZvMxsA
 
-### GROUPE COMAT — Machine Learning Engineer
-Period: January 2025 – May 2025 (5 months)
-Location: Angers, France · Hybrid · Aerospace industry
-- Designed an AI-driven solution to modernise industrial workflows
-- Built a Deep Learning-based OCR pipeline to translate legacy hand-drawn 2D sketches into structured machine-readable data
+### Banque de France
+Period: May 2024 - Aug. 2024
+Role: Data Scientist - Data Engineer - Intern
+Location: France
+- Automated scraping workflows aggregating unstructured public/financial data from multiple sources.
+- Combined OCR, Speech-to-Text and LLMs to digitize raw audio/visual content, feeding a downstream RAG system.
 
-### Banque de France — Data Engineer Intern
-Period: May 2024 – August 2024 (4 months)
-Location: Poitiers, France · On-site
-- Automated complex web scraping workflows (Python, Selenium) to aggregate massive volumes of unstructured data
-- Integrated OCR, Speech-to-Text (S2T), and LLMs to transcribe and structure raw audio and visual data
-- Built the data foundation for a RAG system
+### Comat Specific
+Period: Jan. 2025 - May 2025
+Role: Machine Learning Engineer - Part-time role alongside studies
+Location: France
+- Built a deep-learning OCR pipeline converting legacy hand-drawn 2D engineering sketches into structured machine-readable data, modernizing industrial workflows.
 
-### Via Electro — Electronics Technician
-Period: July 2023 – August 2023 (2 months)
-Location: Marseille, France
-- Installation and maintenance of security, access control, image and sound systems for major clients
-- Management of networks and IT rack systems
+## Selected Projects
 
-### GRDF — Intern
-Period: 2022 (1 month)
-Location: Marseille, France
-- Rotated across departments at France's leading gas distribution operator: management, finance, asbestos prevention, green gas
+### Humanoid Robot Interaction Stack
+Period: 2025
+Location: NTNU - Norwegian University of Science and Technology
+- Developed an embedded AI interaction stack for a humanoid robot, combining real-time gesture recognition, computer vision and a fine-tuned LLM for domain-specific dialogue.
+- Project videos: https://youtu.be/QZ8oGMaRq6M and https://youtu.be/bfIvyZvMxsA
 
-### JCAQSE — Junior Company, Quality Management
-Period: 2021 – 2022
-Location: Aix-en-Provence, France
-- Quality management: processes and KPIs for continuous improvement
+### Publication - HCI International 2026, Montreal
+Period: 2025 - 2026
+Context: Springer Conference Proceedings
+- Lead author of an accepted paper on real-time hand gesture recognition for human-robot interaction.
+
+### Industrial OCR Pipeline
+Period: 2025
+Location: Comat Specific
+- Built a deep-learning OCR pipeline converting legacy hand-drawn 2D engineering sketches into structured machine-readable data, modernizing industrial workflows.
+
+### SME Loan Risk Classification
+Period: 2025
+Location: Universidad Politecnica de Madrid
+- Won a Kaggle-style machine learning challenge by building a classifier to assess whether SME loan applications should be accepted or denied.
+- Evaluation metric: Macro F1-Score.
+
+### Cognitive Dependence of Students on Virtual Assistants
+Period: 2025
+Context: Research Study
+- Co-authored a study assessing the impact of AI assistants on student learning, in partnership with an EdTech firm developing a custom fine-tuned LLM.
+
+### Noise-Aware Clustering Analysis
+Period: 2025
+Location: Universidad Politecnica de Madrid
+- Analyzed a noisy three-variable dataset and selected a meaningful partitioning.
+- Used exploratory analysis, cluster-number estimation and DBSCAN hyperparameter search.
 
 ## Education
 
-### Universidad Politécnica de Madrid (UPM)
-Period: September 2025 – February 2026
-Location: Madrid, Spain · International Exchange
-Courses: Machine Learning, Architectures for Massive Data Processing, Multi-Paradigm Programming for Data Systems, Cloud Computing
+### Esaip - Master of Engineering, Data Science
+Period: Sep. 2021 - Sep. 2026
+Location: France
+- Grade A - Top 10%.
+- Engineer's Degree (5-year program).
+- Coursework: Optimization algorithms, Multicriteria Optimization, ML, Image Processing, Reinforcement Learning, Explainable AI, Probabilistic Modeling.
 
-### ESAIP — Master of Engineering, AI & Data Science
-Period: September 2021 – June 2026
-Location: Angers, France · CTI & EUR-ACE Accredited
-- 2021–2023: Integrated preparatory courses
-- 2023–2026: Computer & network engineering — Big Data & AI option
-Grade: ECTS A (Top 10%)
+### Universidad Politecnica de Madrid
+Period: Sep. 2025 - Feb. 2026
+Location: Spain
+- Study Abroad: Machine Learning, cloud computing, large-scale data architectures.
 
-### SeAMK — Seinäjoki University of Applied Sciences
-Period: January 2024 – May 2024
-Location: Seinäjoki, Finland · International Exchange
-Courses: C++, C#, Embedded Systems, OOP, Introduction to AI, Electronics labs, Unity, Automation
+### SeAMK - University of Applied Sciences
+Period: Jan. 2024 - Jun. 2024
+Location: Finland
+- Study Abroad: Machine Learning, Deep Learning, Software Development, Embedded Systems.
 
-### Lycée Jean Perrin
-Period: September 2018 – July 2021
-Location: Marseille, France
-- Baccalauréat général
-- High-level athlete — Basketball Training Academy (2018–2020)
+## Skills
 
-## Technical Skills
+### Programming Languages
+Python, C, C++, SQL, Bash
 
-### Programming
-Python (primary), C#, C++, Bash, SQL
+### Data Science & Machine Learning
+PyTorch, TensorFlow, Scikit-learn, OpenCV, NumPy, Pandas, Transformers
 
-### AI & Machine Learning
-LLMs, RAG, Fine-tuning, Deep Learning, Computer Vision, OCR, Speech Recognition (ASR), Embodied AI, HRI, Multimodal Systems
+### LLM engineering
+LangChain, LlamaIndex, Agent workflows, Fine-tuning (LoRA / QLoRA), Vector DBs (FAISS, Chroma)
 
-### Frameworks
-PyTorch, TensorFlow, Hugging Face, LangChain, Scikit-learn, OpenCV
+### Specializations
+NLP, RAG, Computer Vision, Multimodal AI, Human Robot Interaction
 
-### Tools
-GitHub, GitLab, Trello, Jira, Agile
+### Inference & Deployment
+vLLM, llama.cpp, Hugging Face TGI, FastAPI, Docker, Kubernetes
 
-## Soft Skills
-- Communication: public speaking, stress management, synthesising complex ideas
-- Teamwork: cross-cultural collaboration, Agile workflows across 4 countries
-- Leadership: founded and led Sports Association at ESAIP (entry into Grandes Écoles Championship)
-- Adaptability: lived and studied in France, Finland, Norway, Spain
+### Languages
+French (native), English (C1), Spanish (B1)
 
-## Hobbies & Personal
+## Beyond Work
 
-### Basketball
-National U15–U18 point guard at SMUC Marseille Basketball (Sep 2018 – Jun 2021, 2 yrs 10 mos).
-Dual academic & elite sports program at Lycée Jean Perrin (2018–2020).
-Shaped competitive drive, leadership instincts, and team communication.
-
-### Content Creation
-YouTube channels across different niches — 200k+ subscribers, 80M+ views.
-Full production cycle: scripting, filming, editing, publishing, audience engagement.
-
-### School Associations
-Founder and President of the Sports Association at ESAIP — enabled the school's entry into the Grandes Écoles Championship.
-
-## Publication
-Lead author of a paper accepted at HCI International 2026 (from NTNU research on humanoid robot interaction systems).
-
-## References
-Available upon request — contact: mathastruc@gmail.com
+Former competitive basketball player · Entrepreneurship · Chess · Sports · Research

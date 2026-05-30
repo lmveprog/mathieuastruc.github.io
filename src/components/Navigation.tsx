@@ -26,10 +26,9 @@ export default function Navigation() {
 
   const NAV_LINKS = [
     { href: "/", label: t.home },
-    { href: "/about", label: t.about },
-    { href: "/skills", label: t.skills },
-    { href: "/education", label: t.education },
     { href: "/career", label: t.career },
+    { href: "/projects", label: t.projects },
+    { href: "/education", label: t.education },
     { href: "/hobbies", label: t.hobbies },
     { href: "/references", label: t.references },
   ];
@@ -63,9 +62,6 @@ export default function Navigation() {
         </div>
 
         <div style={{ display:"flex",alignItems:"center",gap:"clamp(0.75rem, 2vw, 1.25rem)",flexShrink:0 }}>
-          <a href="mailto:mathastruc@gmail.com" className="nav-contact-desktop" style={{ fontSize:"var(--text-sm)",fontWeight:400,color:"var(--color-text-secondary)",textDecoration:"none",letterSpacing:"-0.01em",transition:"color 120ms ease" }}>
-            {t.contact}
-          </a>
           {/* CV button */}
           <a
             href="/MathieuResume.pdf"
@@ -126,10 +122,6 @@ export default function Navigation() {
               {label}
             </Link>
           ))}
-          <a href="mailto:mathastruc@gmail.com" onClick={() => setMobileOpen(false)}
-            style={{ padding:"16px 0",fontSize:"var(--text-base)",color:"var(--color-text-secondary)",textDecoration:"none",letterSpacing:"-0.01em",borderBottom:"0.5px solid var(--color-border)" }}>
-            {t.contact}
-          </a>
           <div style={{ padding:"16px 0",display:"flex",alignItems:"center" }}>
             <a
               href="/MathieuResume.pdf"
