@@ -16,9 +16,9 @@ export const T: Record<Lang, Translation> = {
     },
     hero: {
       subtitle: "AI & Data Science Engineer",
-      headline: "I build applied AI systems around RAG, computer vision, multimodal data and human-robot interaction.",
+      headline: "Driven by curiosity and a competitor at heart, I love building AI and data systems that are genuinely useful in the real world — and I'm looking for challenges with real responsibility.",
       proof: [
-        "Airbus · RAG chatbot for Export Controls",
+        "Airbus · hybrid RAG over 10k+ export-control documents",
         "NTNU · humanoid robot interaction stack",
         "Banque de France · OCR / STT / LLM data pipeline",
         "HCI International 2026 · accepted publication",
@@ -32,6 +32,16 @@ export const T: Record<Lang, Translation> = {
       placeholder: "Ask about my AI/Data work...",
       placeholderMore: "Ask another question...",
     },
+    home: {
+      selectedProjects: "Selected projects",
+      viewAllExperience: "Full experience",
+      viewAllProjects: "All projects",
+      demo: "demo",
+      askTitle: "Ask my AI",
+      askSubtitle: "A small assistant grounded in my work — ask it about my projects, stack or experience.",
+      askOpen: "Ask my AI about my work",
+      askClose: "Close",
+    },
     about: {
       title: "About",
       subtitle: "Applied AI, research and production constraints",
@@ -40,7 +50,7 @@ export const T: Record<Lang, Translation> = {
         "My work is focused on practical AI systems: RAG, LLM orchestration, computer vision, OCR, multimodal pipelines and human-robot interaction.",
         "I have worked or studied in France, Norway, Spain and Finland, with experience across enterprise AI, research engineering and data engineering.",
       ],
-      stats: ["Countries", "AI domains", "Accepted paper", "Followers"],
+      stats: ["Countries", "AI domains", "Accepted paper", "Availability"],
       availability: "Seeking a full-time role in Data Science / AI from Oct. 2026",
     },
     career: {
@@ -54,14 +64,14 @@ export const T: Record<Lang, Translation> = {
           period: "Mar 2026\nSep 2026",
           company: "Airbus",
           location: "France",
-          role: "AI Engineer Intern - Master Thesis",
+          role: "Applied AI Engineer - Master Thesis",
           bullets: [
-            "Designing and building a RAG-powered, domain-specific AI chatbot for the Export Controls function in a safety-critical environment.",
-            "Owning the end-to-end pipeline: ingestion, embedding/retrieval, orchestration, evaluation, token-cost reduction, user feedback integration and deployment preparation with the lead architect.",
-            "Developing Proofs of Concept for AI-driven solutions with cross-functional teams, supporting enterprise AI use cases.",
+            "Built a hybrid RAG system over 10k+ export licenses and regulatory documents, routing queries between a LangChain/FAISS retrieval pipeline and a NL-to-SQL path for structured data — guaranteeing zero generative approximation on field-level queries.",
+            "Engineered the full pipeline end-to-end: chunking, embedding, reranking, token-cost optimization, an evaluation framework and a user-feedback loop, all designed for reliability in a safety-critical environment.",
+            "Developed AI proofs of concept with cross-functional teams and presented the system to 100+ employees, driving enterprise AI adoption.",
           ],
           current: true,
-          logo: "/images/career/airbus.webp",
+          logo: "/images/career/airbus-mono.png",
           logoSize: { w: 120, h: 36 },
         },
         {
@@ -69,6 +79,8 @@ export const T: Record<Lang, Translation> = {
           company: "NTNU",
           location: "Norway",
           role: "Research Engineer Intern",
+          logo: "/images/career/ntnu-mono.png",
+          logoSize: { w: 134, h: 26 },
           bullets: [
             "Developed an embedded AI interaction stack for a humanoid robot, combining real-time gesture recognition, computer vision and a fine-tuned LLM for domain-specific dialogue.",
             "Optimized on-device inference latency through GPU pipeline tuning, enabling real-time responses under hardware and runtime constraints.",
@@ -84,12 +96,12 @@ export const T: Record<Lang, Translation> = {
           period: "May 2024\nAug 2024",
           company: "Banque de France",
           location: "France",
-          role: "Data Scientist / Data Engineer Intern",
+          role: "Data Scientist Intern",
           bullets: [
             "Automated scraping workflows aggregating unstructured public and financial data from multiple sources.",
             "Combined OCR, Speech-to-Text and LLMs to digitize raw audio/visual content, feeding a downstream RAG system.",
           ],
-          logo: "/images/career/bdf.png",
+          logo: "/images/career/bdf-mono.png",
           logoSize: { w: 110, h: 36 },
         },
         {
@@ -100,7 +112,7 @@ export const T: Record<Lang, Translation> = {
           bullets: [
             "Built a deep-learning OCR pipeline converting legacy hand-drawn 2D engineering sketches into structured machine-readable data, modernizing industrial workflows.",
           ],
-          logo: "/images/career/comat.png",
+          logo: "/images/career/comat-mono.png",
           logoSize: { w: 120, h: 40 },
         },
       ],
@@ -124,8 +136,8 @@ export const T: Record<Lang, Translation> = {
           title: "HCI International 2026 publication",
           period: "2025 - 2026",
           description:
-            "Lead author of an accepted paper on real-time hand gesture recognition for human-robot interaction.",
-          tags: ["Research", "HRI", "Gesture Recognition", "Springer Proceedings"],
+            "Lead author of an accepted HRI paper on an optimized real-time computer-vision architecture for gesture recognition, integrating MediaPipe landmarks, lightweight ML classifiers and low-latency robot actuation.",
+          tags: ["Research", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
         },
         {
           title: "Industrial OCR pipeline",
@@ -140,13 +152,6 @@ export const T: Record<Lang, Translation> = {
           description:
             "Won a Kaggle-style machine learning challenge by building a classifier to assess whether SME loan applications should be accepted or denied, optimized with Macro F1-Score.",
           tags: ["Machine Learning", "Classification", "Risk Scoring", "Macro F1"],
-        },
-        {
-          title: "Cognitive Dependence of Students on Virtual Assistants",
-          period: "2025 · Research Study",
-          description:
-            "Co-authored a study assessing the impact of AI assistants on student learning, in partnership with an EdTech firm developing a custom fine-tuned LLM.",
-          tags: ["Research", "AI in Education", "LLMs", "Learning Analytics"],
         },
         {
           title: "Noise-aware clustering analysis",
@@ -258,9 +263,9 @@ export const T: Record<Lang, Translation> = {
     },
     hero: {
       subtitle: "Ingenieur IA & Data Science",
-      headline: "Je construis des systemes d'IA appliques autour du RAG, de la computer vision, de la data multimodale et de l'interaction humain-robot.",
+      headline: "Anime par la curiosite et competiteur dans l'ame, j'aime construire des systemes d'IA et de data reellement utiles dans le monde reel — et je cherche des defis avec de vraies responsabilites.",
       proof: [
-        "Airbus · chatbot RAG pour Export Controls",
+        "Airbus · RAG hybride sur 10k+ documents Export Controls",
         "NTNU · stack d'interaction pour robot humanoide",
         "Banque de France · pipeline OCR / STT / LLM",
         "HCI International 2026 · publication acceptee",
@@ -274,6 +279,16 @@ export const T: Record<Lang, Translation> = {
       placeholder: "Pose une question sur mon travail IA/Data...",
       placeholderMore: "Pose une autre question...",
     },
+    home: {
+      selectedProjects: "Projets selectionnes",
+      viewAllExperience: "Toute l'experience",
+      viewAllProjects: "Tous les projets",
+      demo: "demo",
+      askTitle: "Demander a mon IA",
+      askSubtitle: "Un petit assistant base sur mon travail — pose-lui une question sur mes projets, ma stack ou mon experience.",
+      askOpen: "Pose une question a mon IA",
+      askClose: "Fermer",
+    },
     about: {
       title: "A propos",
       subtitle: "IA appliquee, recherche et contraintes de production",
@@ -282,7 +297,7 @@ export const T: Record<Lang, Translation> = {
         "Mon travail est centre sur des systemes IA concrets : RAG, orchestration LLM, computer vision, OCR, pipelines multimodaux et interaction humain-robot.",
         "J'ai travaille ou etudie en France, Norvege, Espagne et Finlande, avec des experiences en IA enterprise, research engineering et data engineering.",
       ],
-      stats: ["Pays", "Domaines IA", "Article accepte", "Followers"],
+      stats: ["Pays", "Domaines IA", "Article accepte", "Disponibilite"],
       availability: "Recherche un poste full-time en Data Science / IA a partir d'oct. 2026",
     },
     career: {
@@ -296,14 +311,14 @@ export const T: Record<Lang, Translation> = {
           period: "Mar 2026\nSep 2026",
           company: "Airbus",
           location: "France",
-          role: "AI Engineer Intern - Master Thesis",
+          role: "Applied AI Engineer - Master Thesis",
           bullets: [
-            "Conception et construction d'un chatbot IA specifique au domaine, propulse par RAG, pour la fonction Export Controls dans un environnement safety-critical.",
-            "Pipeline end-to-end : ingestion, embedding/retrieval, orchestration, evaluation, reduction des couts tokens, integration du feedback utilisateur et preparation du deploiement avec le lead architect.",
-            "Developpement de Proofs of Concept pour des solutions IA avec des equipes cross-functional, afin de soutenir les cas d'usage IA enterprise.",
+            "Construction d'un systeme RAG hybride sur 10k+ licences d'export et documents reglementaires, routant les requetes entre un pipeline de retrieval LangChain/FAISS et un chemin NL-to-SQL pour les donnees structurees — garantissant zero approximation generative sur les requetes au niveau des champs.",
+            "Conception du pipeline end-to-end : chunking, embedding, reranking, optimisation des couts tokens, framework d'evaluation et boucle de feedback utilisateur, le tout pense pour la fiabilite dans un environnement safety-critical.",
+            "Developpement de proofs of concept IA avec des equipes cross-functional et presentation du systeme a 100+ collaborateurs, accelerant l'adoption de l'IA en entreprise.",
           ],
           current: true,
-          logo: "/images/career/airbus.webp",
+          logo: "/images/career/airbus-mono.png",
           logoSize: { w: 120, h: 36 },
         },
         {
@@ -311,6 +326,8 @@ export const T: Record<Lang, Translation> = {
           company: "NTNU",
           location: "Norway",
           role: "Research Engineer Intern",
+          logo: "/images/career/ntnu-mono.png",
+          logoSize: { w: 134, h: 26 },
           bullets: [
             "Developpement d'une stack d'interaction IA embarquee pour un robot humanoide, combinant reconnaissance gestuelle temps reel, computer vision et LLM fine-tune pour le dialogue specifique au domaine.",
             "Optimisation de la latence d'inference on-device via tuning GPU, permettant des reponses temps reel sous contraintes materielles et runtime.",
@@ -326,12 +343,12 @@ export const T: Record<Lang, Translation> = {
           period: "May 2024\nAug 2024",
           company: "Banque de France",
           location: "France",
-          role: "Data Scientist / Data Engineer Intern",
+          role: "Data Scientist Intern",
           bullets: [
             "Automatisation de workflows de scraping agregeant des donnees publiques et financieres non structurees depuis plusieurs sources.",
             "Combinaison d'OCR, Speech-to-Text et LLMs pour numeriser du contenu audio/visuel brut et alimenter un systeme RAG aval.",
           ],
-          logo: "/images/career/bdf.png",
+          logo: "/images/career/bdf-mono.png",
           logoSize: { w: 110, h: 36 },
         },
         {
@@ -342,7 +359,7 @@ export const T: Record<Lang, Translation> = {
           bullets: [
             "Construction d'un pipeline OCR deep-learning convertissant d'anciens croquis techniques 2D manuscrits en donnees structurees lisibles par machine, afin de moderniser les workflows industriels.",
           ],
-          logo: "/images/career/comat.png",
+          logo: "/images/career/comat-mono.png",
           logoSize: { w: 120, h: 40 },
         },
       ],
@@ -366,8 +383,8 @@ export const T: Record<Lang, Translation> = {
           title: "Publication HCI International 2026",
           period: "2025 - 2026",
           description:
-            "Auteur principal d'un article accepte sur la reconnaissance de gestes temps reel pour l'interaction humain-robot.",
-          tags: ["Recherche", "HRI", "Gesture Recognition", "Springer Proceedings"],
+            "Auteur principal d'un article HRI accepte sur une architecture de computer vision temps reel optimisee pour la reconnaissance de gestes, integrant les landmarks MediaPipe, des classifieurs ML legers et une actuation robot a faible latence.",
+          tags: ["Recherche", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
         },
         {
           title: "Pipeline OCR industriel",
@@ -382,13 +399,6 @@ export const T: Record<Lang, Translation> = {
           description:
             "Competition Kaggle-style remportee en construisant un classifieur pour determiner si une demande de pret PME devait etre acceptee ou refusee, avec optimisation du Macro F1-Score.",
           tags: ["Machine Learning", "Classification", "Risk Scoring", "Macro F1"],
-        },
-        {
-          title: "Cognitive Dependence of Students on Virtual Assistants",
-          period: "2025 · Research Study",
-          description:
-            "Co-auteur d'une etude evaluant l'impact des assistants IA sur l'apprentissage des etudiants, en partenariat avec une entreprise EdTech developpant un LLM fine-tune sur mesure.",
-          tags: ["Recherche", "AI in Education", "LLMs", "Learning Analytics"],
         },
         {
           title: "Analyse de clustering sur donnees bruitees",
@@ -508,6 +518,16 @@ export type Translation = {
     suggestions: string[];
     placeholder: string;
     placeholderMore: string;
+  };
+  home: {
+    selectedProjects: string;
+    viewAllExperience: string;
+    viewAllProjects: string;
+    demo: string;
+    askTitle: string;
+    askSubtitle: string;
+    askOpen: string;
+    askClose: string;
   };
   about: { title: string; subtitle: string; bio: string[]; stats: string[]; availability: string };
   career: { title: string; subtitle: string; current: string; open: string; openDate: string; experiences: Experience[] };

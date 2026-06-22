@@ -15,11 +15,11 @@ RAG, LLM engineering, computer vision, OCR, multimodal AI and human-robot intera
 
 ### Airbus
 Period: Mar. 2026 - Sep. 2026
-Role: AI Engineer - Intern - Master Thesis (ongoing)
+Role: Applied AI Engineer - Master Thesis (ongoing)
 Location: France
-- Designing and building a RAG-powered, domain-specific AI chatbot for the Export Controls function in a safety-critical environment.
-- End-to-end pipeline: ingestion, embedding/retrieval, orchestration, evaluation, token-cost reduction, user feedback integration, and deployment preparation with the lead architect.
-- Developing Proofs of Concept for AI-driven solutions in collaboration with cross-functional teams, supporting the exploration and integration of enterprise AI use cases.
+- Built a hybrid RAG system over 10k+ export licenses and regulatory documents, routing queries between a LangChain/FAISS retrieval pipeline and a NL-to-SQL path for structured data, guaranteeing zero generative approximation on field-level queries.
+- Engineered the full pipeline end-to-end: chunking, embedding, reranking, token-cost optimization, an evaluation framework and a user-feedback loop, all designed for reliability in a safety-critical environment.
+- Developed AI proofs of concept with cross-functional teams and presented the system to 100+ employees, driving enterprise AI adoption.
 
 ### NTNU - Norwegian University of Science and Technology
 Period: May 2025 - Aug. 2025
@@ -32,7 +32,7 @@ Location: Norway
 
 ### Banque de France
 Period: May 2024 - Aug. 2024
-Role: Data Scientist - Data Engineer - Intern
+Role: Data Scientist - Intern
 Location: France
 - Automated scraping workflows aggregating unstructured public/financial data from multiple sources.
 - Combined OCR, Speech-to-Text and LLMs to digitize raw audio/visual content, feeding a downstream RAG system.
@@ -54,7 +54,7 @@ Location: NTNU - Norwegian University of Science and Technology
 ### Publication - HCI International 2026, Montreal
 Period: 2025 - 2026
 Context: Springer Conference Proceedings
-- Lead author of an accepted paper on real-time hand gesture recognition for human-robot interaction.
+- Lead author of an accepted HRI paper on an optimized real-time computer-vision architecture for gesture recognition, integrating MediaPipe landmarks, lightweight ML classifiers and low-latency robot actuation.
 
 ### Industrial OCR Pipeline
 Period: 2025
@@ -66,11 +66,6 @@ Period: 2025
 Location: Universidad Politecnica de Madrid
 - Won a Kaggle-style machine learning challenge by building a classifier to assess whether SME loan applications should be accepted or denied.
 - Evaluation metric: Macro F1-Score.
-
-### Cognitive Dependence of Students on Virtual Assistants
-Period: 2025
-Context: Research Study
-- Co-authored a study assessing the impact of AI assistants on student learning, in partnership with an EdTech firm developing a custom fine-tuned LLM.
 
 ### Noise-Aware Clustering Analysis
 Period: 2025

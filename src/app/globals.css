@@ -509,6 +509,290 @@ body {
   color: var(--color-text);
 }
 
+/* ─── Home — work-first overview ─────────────────────────── */
+.home {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(5rem, 11vh, 7rem) clamp(1.25rem, 6vw, 2.5rem) clamp(3rem, 8vw, 6rem);
+}
+
+.home-head {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 2.75rem);
+  align-items: flex-start;
+  justify-content: space-between;
+  animation: fadeUp 0.5s ease both;
+}
+
+.home-head-text { min-width: 0; }
+
+.home-name {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.04;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.home-role {
+  font-size: var(--text-lg);
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin: 5px 0 0;
+}
+
+.home-headline {
+  font-size: var(--text-base);
+  line-height: 1.62;
+  color: var(--color-text);
+  margin: 16px 0 0;
+  max-width: 52ch;
+}
+
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.home-avail {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin: 18px 0 0;
+}
+
+.home-portrait {
+  flex-shrink: 0;
+  width: clamp(104px, 16vw, 148px);
+}
+
+.home-portrait img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--radius-sm);
+  border: 0.5px solid var(--color-border-strong);
+  display: block;
+}
+
+/* Sections */
+.home-section {
+  margin-top: clamp(2.5rem, 5vw, 3.75rem);
+  animation: fadeUp 0.6s ease 0.1s both;
+}
+
+.home-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 11px;
+  border-bottom: 0.5px solid var(--color-border-strong);
+}
+
+.home-section-head h2 {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  margin: 0;
+  font-variant-caps: small-caps;
+}
+
+.home-more {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 120ms ease;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.home-more:hover { color: var(--color-text); }
+
+.home-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home-row {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  padding: 16px 0;
+  border-bottom: 0.5px solid var(--color-border);
+}
+.home-row:last-child { border-bottom: 0; }
+
+.home-row-year {
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+  padding-top: 2px;
+}
+
+.home-row-body { min-width: 0; }
+
+.home-row-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.home-row-titlemain {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.home-row-logo {
+  flex-shrink: 0;
+  height: auto !important;
+  width: auto !important;
+  max-height: 21px;
+  max-width: 116px;
+  object-fit: contain;
+  /* Monochrome for a clean, consistent look across both themes */
+  filter: grayscale(1) opacity(0.62);
+}
+
+/* Dark mode — invert dark logos to legible light monochrome */
+html.dark .home-row-logo {
+  filter: grayscale(1) brightness(0) invert(1) opacity(0.6);
+}
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .home-row-logo {
+    filter: grayscale(1) brightness(0) invert(1) opacity(0.6);
+  }
+}
+
+/* Career page logos — same monochrome silhouettes, theme-aware */
+.career-logo { filter: opacity(0.72); }
+html.dark .career-logo { filter: invert(1) opacity(0.62); }
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .career-logo { filter: invert(1) opacity(0.62); }
+}
+
+.home-row-co {
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.home-row-role {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.home-row-current {
+  font-size: var(--text-xs);
+  color: #34c759;
+  background: rgba(52, 199, 89, 0.10);
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+}
+
+.home-row-desc {
+  font-size: var(--text-sm);
+  line-height: 1.58;
+  color: var(--color-text-secondary);
+  margin: 5px 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.home-row-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 9px;
+}
+.home-row-tags span {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 2px 7px;
+  line-height: 1.3;
+}
+
+.home-row-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  margin-top: 8px;
+  letter-spacing: 0.02em;
+  transition: color 120ms ease;
+}
+.home-row-demo:hover { color: var(--color-text); }
+
+/* Ask my AI — demoted */
+.home-ai {
+  margin-top: clamp(2.5rem, 5vw, 3.75rem);
+  animation: fadeUp 0.6s ease 0.15s both;
+}
+
+.home-ai-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+  font-family: inherit;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  background: var(--card-bg);
+  border: 0.5px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+.home-ai-toggle:hover { color: var(--color-text); }
+
+.home-ai-panel { margin-top: 16px; }
+
+.home-ai-subtitle {
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--color-text-tertiary);
+  margin: 0 0 14px;
+  max-width: 56ch;
+  line-height: 1.55;
+}
+
+@media (max-width: 560px) {
+  .home-head { flex-direction: column; gap: 1.5rem; }
+  .home-portrait { width: 96px; order: -1; }
+  .home-row { grid-template-columns: 1fr; gap: 3px; }
+  .home-row-year { font-size: var(--text-xs); }
+  .home-row-logo { max-height: 18px; max-width: 92px; }
+}
+
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 720px) {
   .hero-intro {

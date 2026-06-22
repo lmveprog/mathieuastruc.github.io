@@ -21,7 +21,7 @@ export default function Career() {
                 </div>
                 {logo && logoSize && (
                   <div style={{ flexShrink:0 }}>
-                    <Image src={logo} alt={company} width={logoSize.w} height={logoSize.h} style={{ height:`${logoSize.h}px`,width:"auto",maxWidth:`${logoSize.w}px`,objectFit:"contain",filter:"grayscale(30%)",opacity:0.80 }} />
+                    <Image src={logo} alt={company} width={logoSize.w} height={logoSize.h} className="career-logo" style={{ height:`${logoSize.h}px`,width:"auto",maxWidth:`${logoSize.w}px`,objectFit:"contain" }} />
                   </div>
                 )}
               </div>
