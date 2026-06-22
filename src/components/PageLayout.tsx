@@ -12,9 +12,13 @@ export default function PageLayout({
       style={{
         position: "relative",
         zIndex: 1,
-        minHeight: "100vh",
-        padding:
-          "clamp(62px, 10vw, 110px) clamp(1.25rem, 8vw, 6rem) clamp(3rem, 8vw, 7rem)",
+        minHeight: "100dvh",
+        paddingTop: "clamp(62px, 10vw, 110px)",
+        paddingBottom: "clamp(3rem, 8vw, 7rem)",
+        paddingLeft:
+          "max(env(safe-area-inset-left), clamp(1.25rem, 8vw, 6rem))",
+        paddingRight:
+          "max(env(safe-area-inset-right), clamp(1.25rem, 8vw, 6rem))",
         maxWidth: "860px",
         margin: "0 auto",
       }}

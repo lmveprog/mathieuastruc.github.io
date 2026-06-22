@@ -37,6 +37,13 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  // Let content extend into the safe areas (notch / home indicator) so we can
+  // pad with env(safe-area-inset-*) ourselves. Zoom stays enabled for a11y.
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f9f8f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0e0c" },
+  ],
 };
 
 const jsonLd = {

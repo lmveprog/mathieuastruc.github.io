@@ -126,11 +126,28 @@ html {
   font-size: 18px;
   font-feature-settings: "liga" 1, "kern" 1;
   font-variant-ligatures: common-ligatures;
+  /* Mobile: keep our type scale honest on iOS, kill the grey tap flash,
+     and never let anything force a horizontal scroll. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: clip;
 }
 
 body {
   min-height: 100vh;
-  overflow-x: hidden;
+  min-height: 100dvh; /* avoids the jump when mobile browser chrome shows/hides */
+  overflow-x: clip;
+}
+
+/* Respect users who prefer less motion — disable the entrance animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ─── Animations ─────────────────────────────────────────── */
@@ -804,6 +821,52 @@ html.dark .career-logo { filter: invert(1) opacity(0.62); }
   .hero-right { gap: 1.5rem; }
 }
 
+/* ─── Touch-device tuning ────────────────────────────────────
+   On phones/tablets, grow tap targets toward the ~44px comfort
+   threshold and keep the chat input at >=16px so iOS doesn't
+   zoom the page when it gains focus. Desktop is untouched. */
+@media (hover: none) and (pointer: coarse) {
+  .hero-chip {
+    padding: 8px 14px;
+    line-height: 1.4;
+  }
+  .home-more,
+  .home-row-demo {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .hero-cv-btn,
+  .hero-link-btn,
+  .home-ai-toggle {
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+  .hero-send {
+    width: 40px;
+    height: 40px;
+  }
+  /* >=16px kills iOS focus-zoom; min() keeps the visual size if larger */
+  .hero-textarea {
+    font-size: max(16px, var(--text-sm));
+  }
+  .nav-tap {
+    min-height: 40px;
+    min-width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ─── Safe-area insets (notched iPhones, landscape) ──────────── */
+@supports (padding: max(env(safe-area-inset-left), 0px)) {
+  .home {
+    padding-left: max(env(safe-area-inset-left), clamp(1.25rem, 6vw, 2.5rem));
+    padding-right: max(env(safe-area-inset-right), clamp(1.25rem, 6vw, 2.5rem));
+  }
+}
+
 /* ─── Nav center links ───────────────────────────────────── */
 .nav-center {
   display: flex;
@@ -954,8 +1017,10 @@ html.dark .career-logo { filter: invert(1) opacity(0.62); }
 }
 
 @media (max-width: 580px) {
+  /* Stack bio over the photos; keep them visible — they read well on phones.
+     (The photo column carries an inline display:flex, so a `display:none`
+     here would be silently overridden anyway.) */
   .about-header { grid-template-columns: 1fr; }
-  .about-photo { display: none; }
 }
 
 /* ─── Timeline ───────────────────────────────────────────── */

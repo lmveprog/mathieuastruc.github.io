@@ -35,7 +35,7 @@ export default function Navigation() {
 
   return (
     <>
-      <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:100,height:"52px",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 clamp(1.25rem, 5vw, 3.5rem)",transition:"background 280ms ease, border-color 280ms ease",background:scrolled||mobileOpen?"var(--nav-scrolled-bg)":"transparent",backdropFilter:scrolled||mobileOpen?"blur(24px) saturate(1.8)":"none",WebkitBackdropFilter:scrolled||mobileOpen?"blur(24px) saturate(1.8)":"none",borderBottom:scrolled||mobileOpen?"0.5px solid var(--color-border)":"0.5px solid transparent" }}>
+      <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:100,height:"52px",display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:0,paddingBottom:0,paddingLeft:"max(env(safe-area-inset-left), clamp(1.25rem, 5vw, 3.5rem))",paddingRight:"max(env(safe-area-inset-right), clamp(1.25rem, 5vw, 3.5rem))",transition:"background 280ms ease, border-color 280ms ease",background:scrolled||mobileOpen?"var(--nav-scrolled-bg)":"transparent",backdropFilter:scrolled||mobileOpen?"blur(24px) saturate(1.8)":"none",WebkitBackdropFilter:scrolled||mobileOpen?"blur(24px) saturate(1.8)":"none",borderBottom:scrolled||mobileOpen?"0.5px solid var(--color-border)":"0.5px solid transparent" }}>
         <div style={{ display:"flex",alignItems:"center",gap:"8px",flexShrink:0 }}>
           <Link href="/" style={{ fontSize:"var(--text-sm)",fontWeight:500,letterSpacing:"-0.015em",color:"var(--color-text)",textDecoration:"none" }}>
             Mathieu Astruc
@@ -77,6 +77,8 @@ export default function Navigation() {
           </a>
           <button
             onClick={toggle}
+            aria-label={lang === "en" ? "Switch to French" : "Passer en anglais"}
+            className="nav-tap"
             style={{ fontSize:"var(--text-xs)",fontWeight:400,letterSpacing:"0.06em",color:"var(--color-text-tertiary)",background:"none",border:"1px solid var(--color-border)",borderRadius:"var(--radius-sm)",padding:"3px 10px",cursor:"pointer",fontFamily:"inherit",transition:"color 120ms ease, border-color 120ms ease" }}
             onMouseEnter={(e) => { e.currentTarget.style.color="var(--color-text)"; e.currentTarget.style.borderColor="var(--color-border-strong)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.color="var(--color-text-tertiary)"; e.currentTarget.style.borderColor="var(--color-border)"; }}
@@ -87,7 +89,8 @@ export default function Navigation() {
             onClick={cycle}
             aria-label="Toggle theme"
             title={theme === "system" ? "System" : theme === "light" ? "Light" : "Dark"}
-            style={{ background:"none",border:"none",cursor:"pointer",padding:"4px",display:"flex",alignItems:"center",color:"var(--color-text-tertiary)",transition:"color 120ms ease",flexShrink:0 }}
+            className="nav-tap"
+            style={{ background:"none",border:"none",cursor:"pointer",padding:"4px",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--color-text-tertiary)",transition:"color 120ms ease",flexShrink:0 }}
             onMouseEnter={(e) => { e.currentTarget.style.color="var(--color-text)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.color="var(--color-text-tertiary)"; }}
           >
@@ -101,9 +104,10 @@ export default function Navigation() {
           </button>
           {/* Hamburger — mobile only */}
           <button
-            className="nav-hamburger"
+            className="nav-hamburger nav-tap"
             onClick={() => setMobileOpen(o => !o)}
             aria-label="Menu"
+            aria-expanded={mobileOpen}
             style={{ background:"none",border:"none",cursor:"pointer",padding:"4px",display:"flex",flexDirection:"column",gap:"5px",flexShrink:0 }}
           >
             <span style={{ display:"block",width:"18px",height:"1.5px",background:"var(--color-text)",transition:"transform 180ms ease, opacity 180ms ease",transform:mobileOpen?"rotate(45deg) translate(4.7px, 4.7px)":"none" }} />
@@ -115,7 +119,7 @@ export default function Navigation() {
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <div style={{ position:"fixed",top:"52px",left:0,right:0,background:"var(--nav-scrolled-bg)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",borderBottom:"0.5px solid var(--color-border)",zIndex:99,padding:"0 clamp(1.25rem, 5vw, 3.5rem)",display:"flex",flexDirection:"column" }}>
+        <div style={{ position:"fixed",top:"52px",left:0,right:0,background:"var(--nav-scrolled-bg)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",borderBottom:"0.5px solid var(--color-border)",zIndex:99,paddingTop:0,paddingBottom:"max(env(safe-area-inset-bottom), 0px)",paddingLeft:"max(env(safe-area-inset-left), clamp(1.25rem, 5vw, 3.5rem))",paddingRight:"max(env(safe-area-inset-right), clamp(1.25rem, 5vw, 3.5rem))",display:"flex",flexDirection:"column" }}>
           {NAV_LINKS.map(({ href, label }) => (
             <Link key={href} href={href} onClick={() => setMobileOpen(false)}
               style={{ padding:"16px 0",fontSize:"var(--text-base)",fontWeight:pathname===href?500:400,color:pathname===href?"var(--color-text)":"var(--color-text-secondary)",textDecoration:"none",borderBottom:"0.5px solid var(--color-border)",letterSpacing:"-0.01em" }}>
