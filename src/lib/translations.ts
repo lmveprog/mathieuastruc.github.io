@@ -130,6 +130,22 @@ export const T: Record<Lang, Translation> = {
           link: "https://github.com/lmveprog/minigpt",
         },
         {
+          title: "tiny-diffusion — DDPM from scratch",
+          period: "2026 · Personal project",
+          description:
+            "Denoising diffusion model (DDPM) implemented from scratch in PyTorch — noise schedule, U-Net denoiser and the reverse sampling loop all written by hand, no diffusers library. Trained on MNIST, it generates digit images from pure noise. README visualises the forward noising process, the loss curve and a grid of generated samples.",
+          tags: ["Diffusion Models", "DDPM", "PyTorch", "U-Net", "Generative AI"],
+          link: "https://github.com/lmveprog/tiny-diffusion",
+        },
+        {
+          title: "distilbert-finetune — emotion classifier",
+          period: "2026 · Personal project",
+          description:
+            "Fine-tuned DistilBERT for six-class emotion classification on the HuggingFace emotion dataset (transfer learning: tokenize → fine-tune → evaluate). Reached 90.9% test accuracy / 0.849 macro-F1 after 2 epochs. Ships training, evaluation with a confusion matrix, and an inference script.",
+          tags: ["Transformers", "HuggingFace", "Fine-tuning", "NLP", "Transfer Learning"],
+          link: "https://github.com/lmveprog/distilbert-finetune",
+        },
+        {
           title: "Humanoid robot interaction stack",
           period: "2025 · NTNU",
           description:
@@ -383,6 +399,22 @@ export const T: Record<Lang, Translation> = {
             "Transformer decoder-only construit entierement from scratch en PyTorch, avec self-attention causale multi-tete codee a la main (sans nn.Transformer / nn.MultiheadAttention). GPT au niveau caractere entraine sur un corpus du domaine public pour generer du texte ; loss de validation passee de 4.55 a 1.56 en ~1 min sur Apple MPS. Le repo contient la boucle d'entrainement, le sampling autoregressif et un README qui derive les maths de l'attention.",
           tags: ["Transformers", "PyTorch", "Self-Attention", "LLM", "From Scratch"],
           link: "https://github.com/lmveprog/minigpt",
+        },
+        {
+          title: "tiny-diffusion — DDPM from scratch",
+          period: "2026 · Projet personnel",
+          description:
+            "Modele de diffusion (DDPM) implemente entierement from scratch en PyTorch — schedule de bruit, U-Net debruiteur et boucle de sampling inverse codes a la main, sans librairie diffusers. Entraine sur MNIST, il genere des images de chiffres a partir de bruit pur. Le README visualise le processus de bruitage, la courbe de loss et une grille d'images generees.",
+          tags: ["Diffusion Models", "DDPM", "PyTorch", "U-Net", "Generative AI"],
+          link: "https://github.com/lmveprog/tiny-diffusion",
+        },
+        {
+          title: "distilbert-finetune — classifieur d'emotions",
+          period: "2026 · Projet personnel",
+          description:
+            "Fine-tuning de DistilBERT pour la classification d'emotions a 6 classes sur le dataset emotion de HuggingFace (transfer learning : tokenize → fine-tune → evaluate). 90.9% d'accuracy test / 0.849 de macro-F1 apres 2 epochs. Contient l'entrainement, l'evaluation avec matrice de confusion, et un script d'inference.",
+          tags: ["Transformers", "HuggingFace", "Fine-tuning", "NLP", "Transfer Learning"],
+          link: "https://github.com/lmveprog/distilbert-finetune",
         },
         {
           title: "Stack d'interaction pour robot humanoide",
