@@ -141,14 +141,6 @@ export const T: Record<Lang, Translation> = {
           tags: ["Research", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
         },
         {
-          title: "jepa-world-model · latent world model",
-          period: "2026 · Personal project",
-          description:
-            "A world model built from scratch around a JEPA objective (LeCun): instead of predicting the future in pixels, it predicts it in representation space. Encoder + predictor + EMA target encoder on a controllable environment, with frame-stacking so velocity is observable and a variance term to prevent representation collapse. A frozen-encoder linear probe recovers the true state at R2 = 0.996, and latent rollouts imagine several steps ahead before drifting. PyTorch.",
-          tags: ["World Models", "JEPA", "Self-Supervised", "Representation Learning", "PyTorch"],
-          link: "https://github.com/lmveprog/jepa-world-model",
-        },
-        {
           title: "minigpt · Transformer (GPT) from scratch",
           period: "2026 · Personal project",
           description:
@@ -419,14 +411,6 @@ export const T: Record<Lang, Translation> = {
           description:
             "Auteur principal d'un article HRI accepte sur une architecture de computer vision temps reel optimisee pour la reconnaissance de gestes, integrant les landmarks MediaPipe, des classifieurs ML legers et une actuation robot a faible latence.",
           tags: ["Recherche", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
-        },
-        {
-          title: "jepa-world-model · latent world model",
-          period: "2026 · Projet personnel",
-          description:
-            "Un world model construit from scratch autour d'un objectif JEPA (LeCun) : au lieu de predire le futur en pixels, il le predit dans l'espace des representations. Encodeur + predicteur + target encoder EMA sur un environnement controlable, avec frame-stacking pour rendre la vitesse observable et un terme de variance pour eviter le collapse des representations. Un probe lineaire (encodeur gele) retrouve l'etat reel a R2 = 0.996, et les rollouts en latent imaginent plusieurs pas a l'avance avant de deriver. PyTorch.",
-          tags: ["World Models", "JEPA", "Self-Supervised", "Representation Learning", "PyTorch"],
-          link: "https://github.com/lmveprog/jepa-world-model",
         },
         {
           title: "minigpt · Transformer (GPT) from scratch",
