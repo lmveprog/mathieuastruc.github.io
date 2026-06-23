@@ -17,6 +17,16 @@ export default function Projects() {
               <div>
                 <p className="project-period">{project.period}</p>
                 <h2>{project.title}</h2>
+                {project.link && (
+                  <a
+                    className="project-link"
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Code ↗
+                  </a>
+                )}
               </div>
               <div className="project-tags" aria-label="Technologies and topics">
                 {project.tags.map((tag) => (

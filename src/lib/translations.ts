@@ -122,6 +122,14 @@ export const T: Record<Lang, Translation> = {
       subtitle: "Selected AI/Data work with concrete outputs",
       items: [
         {
+          title: "minigpt — Transformer (GPT) from scratch",
+          period: "2026 · Personal project",
+          description:
+            "Decoder-only Transformer built from scratch in PyTorch with hand-written multi-head causal self-attention (no nn.Transformer / nn.MultiheadAttention). Character-level GPT trained on a public-domain corpus to generate text; validation loss dropped 4.55 → 1.56 in ~1 min on Apple MPS. Repo ships the training loop, autoregressive sampling, and a README deriving the attention math.",
+          tags: ["Transformers", "PyTorch", "Self-Attention", "LLM", "From Scratch"],
+          link: "https://github.com/lmveprog/minigpt",
+        },
+        {
           title: "Humanoid robot interaction stack",
           period: "2025 · NTNU",
           description:
@@ -369,6 +377,14 @@ export const T: Record<Lang, Translation> = {
       subtitle: "Travaux IA/Data selectionnes avec resultats concrets",
       items: [
         {
+          title: "minigpt — Transformer (GPT) from scratch",
+          period: "2026 · Projet personnel",
+          description:
+            "Transformer decoder-only construit entierement from scratch en PyTorch, avec self-attention causale multi-tete codee a la main (sans nn.Transformer / nn.MultiheadAttention). GPT au niveau caractere entraine sur un corpus du domaine public pour generer du texte ; loss de validation passee de 4.55 a 1.56 en ~1 min sur Apple MPS. Le repo contient la boucle d'entrainement, le sampling autoregressif et un README qui derive les maths de l'attention.",
+          tags: ["Transformers", "PyTorch", "Self-Attention", "LLM", "From Scratch"],
+          link: "https://github.com/lmveprog/minigpt",
+        },
+        {
           title: "Stack d'interaction pour robot humanoide",
           period: "2025 · NTNU",
           description:
@@ -552,7 +568,7 @@ export type Experience = {
   photo?: string;
   videos?: Video[];
 };
-export type Project = { title: string; period: string; description: string; tags: string[]; videos?: Video[] };
+export type Project = { title: string; period: string; description: string; tags: string[]; videos?: Video[]; link?: string };
 export type School = { period: string; school: string; location: string; degree: string; description: string; main?: boolean; photo?: string; logo?: string };
 export type SkillGroup = { title: string; description: string; tags: string[] };
 export type SoftSkill = { title: string; description: string };
