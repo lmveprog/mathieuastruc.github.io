@@ -16,7 +16,7 @@ export const T: Record<Lang, Translation> = {
     },
     hero: {
       subtitle: "AI & Data Science Engineer",
-      headline: "Driven by curiosity and a competitor at heart, I love building AI and data systems that are genuinely useful in the real world — and I'm looking for challenges with real responsibility.",
+      headline: "Driven by curiosity and a competitor at heart, I love building AI and data systems that are genuinely useful in the real world, and I'm looking for challenges with real responsibility.",
       proof: [
         "Airbus · hybrid RAG over 10k+ export-control documents",
         "NTNU · humanoid robot interaction stack",
@@ -38,7 +38,7 @@ export const T: Record<Lang, Translation> = {
       viewAllProjects: "All projects",
       demo: "demo",
       askTitle: "Ask my AI",
-      askSubtitle: "A small assistant grounded in my work — ask it about my projects, stack or experience.",
+      askSubtitle: "A small assistant grounded in my work, ask it about my projects, stack or experience.",
       askOpen: "Ask my AI about my work",
       askClose: "Close",
     },
@@ -66,7 +66,7 @@ export const T: Record<Lang, Translation> = {
           location: "France",
           role: "Applied AI Engineer - Master Thesis",
           bullets: [
-            "Built a hybrid RAG system over 10k+ export licenses and regulatory documents, routing queries between a LangChain/FAISS retrieval pipeline and a NL-to-SQL path for structured data — guaranteeing zero generative approximation on field-level queries.",
+            "Built a hybrid RAG system over 10k+ export licenses and regulatory documents, routing queries between a LangChain/FAISS retrieval pipeline and a NL-to-SQL path for structured data, guaranteeing zero generative approximation on field-level queries.",
             "Engineered the full pipeline end-to-end: chunking, embedding, reranking, token-cost optimization, an evaluation framework and a user-feedback loop, all designed for reliability in a safety-critical environment.",
             "Developed AI proofs of concept with cross-functional teams and presented the system to 100+ employees, driving enterprise AI adoption.",
           ],
@@ -141,7 +141,7 @@ export const T: Record<Lang, Translation> = {
           tags: ["Research", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
         },
         {
-          title: "minigpt — Transformer (GPT) from scratch",
+          title: "minigpt · Transformer (GPT) from scratch",
           period: "2026 · Personal project",
           description:
             "Decoder-only Transformer built from scratch in PyTorch with hand-written multi-head causal self-attention (no nn.Transformer / nn.MultiheadAttention). Character-level GPT trained on a public-domain corpus to generate text; validation loss dropped 4.55 → 1.56 in ~1 min on Apple MPS. Repo ships the training loop, autoregressive sampling, and a README deriving the attention math.",
@@ -149,15 +149,15 @@ export const T: Record<Lang, Translation> = {
           link: "https://github.com/lmveprog/minigpt",
         },
         {
-          title: "tiny-diffusion — DDPM from scratch",
+          title: "tiny-diffusion · DDPM from scratch",
           period: "2026 · Personal project",
           description:
-            "Denoising diffusion model (DDPM) implemented from scratch in PyTorch — noise schedule, U-Net denoiser and the reverse sampling loop all written by hand, no diffusers library. Trained on MNIST, it generates digit images from pure noise. README visualises the forward noising process, the loss curve and a grid of generated samples.",
+            "Denoising diffusion model (DDPM) implemented from scratch in PyTorch: noise schedule, U-Net denoiser and the reverse sampling loop all written by hand, no diffusers library. Trained on MNIST, it generates digit images from pure noise. README visualises the forward noising process, the loss curve and a grid of generated samples.",
           tags: ["Diffusion Models", "DDPM", "PyTorch", "U-Net", "Generative AI"],
           link: "https://github.com/lmveprog/tiny-diffusion",
         },
         {
-          title: "distilbert-finetune — emotion classifier",
+          title: "distilbert-finetune · emotion classifier",
           period: "2026 · Personal project",
           description:
             "Fine-tuned DistilBERT for six-class emotion classification on the HuggingFace emotion dataset (transfer learning: tokenize → fine-tune → evaluate). Reached 90.9% test accuracy / 0.849 macro-F1 after 2 epochs. Ships training, evaluation with a confusion matrix, and an inference script.",
@@ -288,7 +288,7 @@ export const T: Record<Lang, Translation> = {
     },
     hero: {
       subtitle: "Ingenieur IA & Data Science",
-      headline: "Anime par la curiosite et competiteur dans l'ame, j'aime construire des systemes d'IA et de data reellement utiles dans le monde reel — et je cherche des defis avec de vraies responsabilites.",
+      headline: "Anime par la curiosite et competiteur dans l'ame, j'aime construire des systemes d'IA et de data reellement utiles dans le monde reel, et je cherche des defis avec de vraies responsabilites.",
       proof: [
         "Airbus · RAG hybride sur 10k+ documents Export Controls",
         "NTNU · stack d'interaction pour robot humanoide",
@@ -310,7 +310,7 @@ export const T: Record<Lang, Translation> = {
       viewAllProjects: "Tous les projets",
       demo: "demo",
       askTitle: "Demander a mon IA",
-      askSubtitle: "Un petit assistant base sur mon travail — pose-lui une question sur mes projets, ma stack ou mon experience.",
+      askSubtitle: "Un petit assistant base sur mon travail, pose-lui une question sur mes projets, ma stack ou mon experience.",
       askOpen: "Pose une question a mon IA",
       askClose: "Fermer",
     },
@@ -338,7 +338,7 @@ export const T: Record<Lang, Translation> = {
           location: "France",
           role: "Applied AI Engineer - Master Thesis",
           bullets: [
-            "Construction d'un systeme RAG hybride sur 10k+ licences d'export et documents reglementaires, routant les requetes entre un pipeline de retrieval LangChain/FAISS et un chemin NL-to-SQL pour les donnees structurees — garantissant zero approximation generative sur les requetes au niveau des champs.",
+            "Construction d'un systeme RAG hybride sur 10k+ licences d'export et documents reglementaires, routant les requetes entre un pipeline de retrieval LangChain/FAISS et un chemin NL-to-SQL pour les donnees structurees, garantissant zero approximation generative sur les requetes au niveau des champs.",
             "Conception du pipeline end-to-end : chunking, embedding, reranking, optimisation des couts tokens, framework d'evaluation et boucle de feedback utilisateur, le tout pense pour la fiabilite dans un environnement safety-critical.",
             "Developpement de proofs of concept IA avec des equipes cross-functional et presentation du systeme a 100+ collaborateurs, accelerant l'adoption de l'IA en entreprise.",
           ],
@@ -413,7 +413,7 @@ export const T: Record<Lang, Translation> = {
           tags: ["Recherche", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
         },
         {
-          title: "minigpt — Transformer (GPT) from scratch",
+          title: "minigpt · Transformer (GPT) from scratch",
           period: "2026 · Projet personnel",
           description:
             "Transformer decoder-only construit entierement from scratch en PyTorch, avec self-attention causale multi-tete codee a la main (sans nn.Transformer / nn.MultiheadAttention). GPT au niveau caractere entraine sur un corpus du domaine public pour generer du texte ; loss de validation passee de 4.55 a 1.56 en ~1 min sur Apple MPS. Le repo contient la boucle d'entrainement, le sampling autoregressif et un README qui derive les maths de l'attention.",
@@ -421,15 +421,15 @@ export const T: Record<Lang, Translation> = {
           link: "https://github.com/lmveprog/minigpt",
         },
         {
-          title: "tiny-diffusion — DDPM from scratch",
+          title: "tiny-diffusion · DDPM from scratch",
           period: "2026 · Projet personnel",
           description:
-            "Modele de diffusion (DDPM) implemente entierement from scratch en PyTorch — schedule de bruit, U-Net debruiteur et boucle de sampling inverse codes a la main, sans librairie diffusers. Entraine sur MNIST, il genere des images de chiffres a partir de bruit pur. Le README visualise le processus de bruitage, la courbe de loss et une grille d'images generees.",
+            "Modele de diffusion (DDPM) implemente entierement from scratch en PyTorch : schedule de bruit, U-Net debruiteur et boucle de sampling inverse codes a la main, sans librairie diffusers. Entraine sur MNIST, il genere des images de chiffres a partir de bruit pur. Le README visualise le processus de bruitage, la courbe de loss et une grille d'images generees.",
           tags: ["Diffusion Models", "DDPM", "PyTorch", "U-Net", "Generative AI"],
           link: "https://github.com/lmveprog/tiny-diffusion",
         },
         {
-          title: "distilbert-finetune — classifieur d'emotions",
+          title: "distilbert-finetune · classifieur d'emotions",
           period: "2026 · Projet personnel",
           description:
             "Fine-tuning de DistilBERT pour la classification d'emotions a 6 classes sur le dataset emotion de HuggingFace (transfer learning : tokenize → fine-tune → evaluate). 90.9% d'accuracy test / 0.849 de macro-F1 apres 2 epochs. Contient l'entrainement, l'evaluation avec matrice de confusion, et un script d'inference.",

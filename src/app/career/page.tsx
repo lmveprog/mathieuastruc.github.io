@@ -31,7 +31,7 @@ export default function Career() {
                 <ul style={{ margin:0,padding:0,listStyle:"none",display:"flex",flexDirection:"column",gap:"6px" }}>
                   {bullets.map((b, j) => (
                     <li key={j} style={{ display:"flex",gap:"8px",fontSize:"var(--text-sm)",color:"var(--color-text-secondary)",lineHeight:1.65,letterSpacing:"-0.01em" }}>
-                      <span style={{ color:"var(--color-text-tertiary)",flexShrink:0,marginTop:"2px" }}>—</span>{b}
+                      <span style={{ color:"var(--color-text-tertiary)",flexShrink:0,marginTop:"2px" }}>·</span>{b}
                     </li>
                   ))}
                 </ul>

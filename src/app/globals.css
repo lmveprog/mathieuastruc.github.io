@@ -55,7 +55,7 @@
   --space-xl: clamp(2.5rem, 5vw, 4rem);
   --space-2xl: clamp(4rem, 8vw, 7rem);
 
-  /* Slightly larger base — Computer Modern reads better at 18px */
+  /* Slightly larger base - Computer Modern reads better at 18px */
   --text-xs:   clamp(0.75rem,  1vw,    0.875rem);
   --text-sm:   clamp(0.9rem,   1.2vw,  1.0625rem);
   --text-base: clamp(1.0625rem, 1.5vw, 1.1875rem);
@@ -65,7 +65,7 @@
   --text-3xl:  clamp(2.25rem,   4vw,   3.25rem);
   --text-hero: clamp(2.75rem,   5vw,   4.25rem);
 
-  /* Document-like radii — no pills */
+  /* Document-like radii - no pills */
   --radius-sm:   2px;
   --radius-md:   3px;
   --radius-lg:   4px;
@@ -140,7 +140,7 @@ body {
   overflow-x: clip;
 }
 
-/* Respect users who prefer less motion — disable the entrance animations */
+/* Respect users who prefer less motion - disable the entrance animations */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -175,7 +175,7 @@ body {
   padding: 0 clamp(1.5rem, 7vw, 5rem);
 }
 
-/* ─── Hero intro — portrait left · right column (creds + chat) ── */
+/* ─── Hero intro - portrait left · right column (creds + chat) ── */
 .hero-intro {
   display: grid;
   grid-template-columns: 5fr 7fr;
@@ -192,7 +192,7 @@ body {
   gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-/* Portrait — fills its grid cell */
+/* Portrait - fills its grid cell */
 .hero-portrait-wrap {
   width: 100%;
 }
@@ -238,7 +238,7 @@ body {
   color: var(--color-text);
 }
 
-/* Thin rule — LaTeX section divider */
+/* Thin rule - LaTeX section divider */
 .hero-rule {
   border: none;
   border-top: 0.5px solid var(--color-border-strong);
@@ -246,7 +246,7 @@ body {
   width: 100%;
 }
 
-/* Affiliation lines — like on an academic homepage */
+/* Affiliation lines - like on an academic homepage */
 .hero-affil {
   display: flex;
   align-items: baseline;
@@ -339,7 +339,7 @@ body {
   flex-wrap: wrap;
 }
 
-/* Rectangular buttons — document style */
+/* Rectangular buttons - document style */
 .hero-cv-btn {
   display: inline-flex;
   align-items: center;
@@ -374,7 +374,7 @@ body {
 }
 .hero-link-btn:hover { color: var(--color-text); border-color: var(--color-border-strong); }
 
-/* ─── AI Assistant — inline in right column ──────────────── */
+/* ─── AI Assistant - inline in right column ──────────────── */
 .hero-chat-inline {
   animation: fadeUp 0.5s ease 0.15s both;
 }
@@ -526,7 +526,7 @@ body {
   color: var(--color-text);
 }
 
-/* ─── Home — work-first overview ─────────────────────────── */
+/* ─── Home - work-first overview ─────────────────────────── */
 .home {
   position: relative;
   z-index: 1;
@@ -691,7 +691,7 @@ body {
   filter: grayscale(1) opacity(0.62);
 }
 
-/* Dark mode — invert dark logos to legible light monochrome */
+/* Dark mode - invert dark logos to legible light monochrome */
 html.dark .home-row-logo {
   filter: grayscale(1) brightness(0) invert(1) opacity(0.6);
 }
@@ -701,7 +701,7 @@ html.dark .home-row-logo {
   }
 }
 
-/* Career page logos — same monochrome silhouettes, theme-aware */
+/* Career page logos - same monochrome silhouettes, theme-aware */
 .career-logo { filter: opacity(0.72); }
 html.dark .career-logo { filter: invert(1) opacity(0.62); }
 @media (prefers-color-scheme: dark) {
@@ -768,7 +768,7 @@ html.dark .career-logo { filter: invert(1) opacity(0.62); }
 }
 .home-row-demo:hover { color: var(--color-text); }
 
-/* Ask my AI — demoted */
+/* Ask my AI - demoted */
 .home-ai {
   margin-top: clamp(2.5rem, 5vw, 3.75rem);
   animation: fadeUp 0.6s ease 0.15s both;
@@ -1033,7 +1033,7 @@ html.dark .career-logo { filter: invert(1) opacity(0.62); }
 }
 
 @media (max-width: 580px) {
-  /* Stack bio over the photos; keep them visible — they read well on phones.
+  /* Stack bio over the photos; keep them visible - they read well on phones.
      (The photo column carries an inline display:flex, so a `display:none`
      here would be silently overridden anyway.) */
   .about-header { grid-template-columns: 1fr; }

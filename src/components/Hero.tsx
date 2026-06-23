@@ -37,7 +37,7 @@ export default function Hero() {
 
   return (
     <main className="home">
-      {/* ── Header — short intro, work comes right after ── */}
+      {/* ── Header - short intro, work comes right after ── */}
       <header className="home-head">
         <div className="home-head-text">
           <h1 className="home-name">Mathieu Astruc</h1>
@@ -150,14 +150,14 @@ export default function Hero() {
         </ul>
       </section>
 
-      {/* ── Ask my AI — demoted, optional ── */}
+      {/* ── Ask my AI - demoted, optional ── */}
       <AskMyAI />
     </main>
   );
 }
 
 /* ─────────────────────────────────────────────────────────── */
-/* Demoted AI assistant — collapsed behind a button by default  */
+/* Demoted AI assistant - collapsed behind a button by default  */
 /* ─────────────────────────────────────────────────────────── */
 function AskMyAI() {
   const { lang } = useLanguage();

@@ -5,7 +5,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
-  title: "Mathieu Astruc — AI & Data Science Engineer",
+  title: "Mathieu Astruc · AI & Data Science Engineer",
   description: "AI & Data Science engineer building RAG, LLM, computer vision, OCR, multimodal AI and human-robot interaction systems. Seeking a full-time Data Science / AI role from Oct. 2026.",
   metadataBase: new URL("https://mathieuastruc.com"),
   alternates: { canonical: "/" },
@@ -15,15 +15,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://mathieuastruc.com",
-    title: "Mathieu Astruc — AI & Data Science Engineer",
+    title: "Mathieu Astruc · AI & Data Science Engineer",
     description: "Applied AI engineer building RAG, LLM, computer vision and human-robot interaction systems. Seeking a full-time Data Science / AI role from Oct. 2026.",
     siteName: "Mathieu Astruc",
-    images: [{ url: "/mathieu.png", width: 1200, height: 630, alt: "Mathieu Astruc — AI & Data" }],
+    images: [{ url: "/mathieu.png", width: 1200, height: 630, alt: "Mathieu Astruc · AI & Data" }],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mathieu Astruc — AI & Data Science Engineer",
+    title: "Mathieu Astruc · AI & Data Science Engineer",
     description: "Applied AI engineer building RAG, LLM, computer vision and human-robot interaction systems.",
     images: ["/mathieu.png"],
   },
