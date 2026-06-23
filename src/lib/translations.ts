@@ -82,6 +82,7 @@ export const T: Record<Lang, Translation> = {
           logo: "/images/career/ntnu-mono.png",
           logoSize: { w: 134, h: 26 },
           bullets: [
+            "Lead author of a paper accepted at HCI International 2026 (Montréal) on a real-time computer-vision architecture for gesture recognition in human-robot interaction.",
             "Developed an embedded AI interaction stack for a humanoid robot, combining real-time gesture recognition, computer vision and a fine-tuned LLM for domain-specific dialogue.",
             "Optimized on-device inference latency through GPU pipeline tuning, enabling real-time responses under hardware and runtime constraints.",
             "Implemented a Human-in-the-Loop framework to manage edge cases, improve robustness and support continuous model improvement.",
@@ -353,6 +354,7 @@ export const T: Record<Lang, Translation> = {
           logo: "/images/career/ntnu-mono.png",
           logoSize: { w: 134, h: 26 },
           bullets: [
+            "Auteur principal d'un paper accepte a HCI International 2026 (Montreal) sur une architecture de computer vision temps reel pour la reconnaissance de gestes en interaction homme-robot.",
             "Developpement d'une stack d'interaction IA embarquee pour un robot humanoide, combinant reconnaissance gestuelle temps reel, computer vision et LLM fine-tune pour le dialogue specifique au domaine.",
             "Optimisation de la latence d'inference on-device via tuning GPU, permettant des reponses temps reel sous contraintes materielles et runtime.",
             "Implementation d'un framework Human-in-the-Loop pour gerer les edge cases, ameliorer la robustesse et soutenir l'amelioration continue du modele.",
