@@ -122,6 +122,24 @@ export const T: Record<Lang, Translation> = {
       subtitle: "Selected AI/Data work with concrete outputs",
       items: [
         {
+          title: "Humanoid robot interaction stack",
+          period: "2025 · NTNU",
+          description:
+            "Embedded AI system combining real-time gesture recognition, computer vision and a fine-tuned LLM for domain-specific dialogue, with GPU latency tuning and Human-in-the-Loop robustness.",
+          tags: ["HRI", "Computer Vision", "Fine-tuned LLM", "Embedded AI"],
+          videos: [
+            { title: "Robot interaction demo", url: "https://youtu.be/QZ8oGMaRq6M", embedId: "QZ8oGMaRq6M" },
+            { title: "Gesture / dialogue demo", url: "https://youtu.be/bfIvyZvMxsA", embedId: "bfIvyZvMxsA" },
+          ],
+        },
+        {
+          title: "HCI International 2026 publication",
+          period: "2025 - 2026",
+          description:
+            "Lead author of an accepted HRI paper on an optimized real-time computer-vision architecture for gesture recognition, integrating MediaPipe landmarks, lightweight ML classifiers and low-latency robot actuation.",
+          tags: ["Research", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
+        },
+        {
           title: "minigpt — Transformer (GPT) from scratch",
           period: "2026 · Personal project",
           description:
@@ -144,24 +162,6 @@ export const T: Record<Lang, Translation> = {
             "Fine-tuned DistilBERT for six-class emotion classification on the HuggingFace emotion dataset (transfer learning: tokenize → fine-tune → evaluate). Reached 90.9% test accuracy / 0.849 macro-F1 after 2 epochs. Ships training, evaluation with a confusion matrix, and an inference script.",
           tags: ["Transformers", "HuggingFace", "Fine-tuning", "NLP", "Transfer Learning"],
           link: "https://github.com/lmveprog/distilbert-finetune",
-        },
-        {
-          title: "Humanoid robot interaction stack",
-          period: "2025 · NTNU",
-          description:
-            "Embedded AI system combining real-time gesture recognition, computer vision and a fine-tuned LLM for domain-specific dialogue, with GPU latency tuning and Human-in-the-Loop robustness.",
-          tags: ["HRI", "Computer Vision", "Fine-tuned LLM", "Embedded AI"],
-          videos: [
-            { title: "Robot interaction demo", url: "https://youtu.be/QZ8oGMaRq6M", embedId: "QZ8oGMaRq6M" },
-            { title: "Gesture / dialogue demo", url: "https://youtu.be/bfIvyZvMxsA", embedId: "bfIvyZvMxsA" },
-          ],
-        },
-        {
-          title: "HCI International 2026 publication",
-          period: "2025 - 2026",
-          description:
-            "Lead author of an accepted HRI paper on an optimized real-time computer-vision architecture for gesture recognition, integrating MediaPipe landmarks, lightweight ML classifiers and low-latency robot actuation.",
-          tags: ["Research", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
         },
         {
           title: "Industrial OCR pipeline",
@@ -393,6 +393,24 @@ export const T: Record<Lang, Translation> = {
       subtitle: "Travaux IA/Data selectionnes avec resultats concrets",
       items: [
         {
+          title: "Stack d'interaction pour robot humanoide",
+          period: "2025 · NTNU",
+          description:
+            "Systeme IA embarque combinant reconnaissance gestuelle temps reel, computer vision et LLM fine-tune pour le dialogue specifique au domaine, avec optimisation GPU de la latence et robustesse Human-in-the-Loop.",
+          tags: ["HRI", "Computer Vision", "LLM fine-tune", "IA embarquee"],
+          videos: [
+            { title: "Demo interaction robot", url: "https://youtu.be/QZ8oGMaRq6M", embedId: "QZ8oGMaRq6M" },
+            { title: "Demo geste / dialogue", url: "https://youtu.be/bfIvyZvMxsA", embedId: "bfIvyZvMxsA" },
+          ],
+        },
+        {
+          title: "Publication HCI International 2026",
+          period: "2025 - 2026",
+          description:
+            "Auteur principal d'un article HRI accepte sur une architecture de computer vision temps reel optimisee pour la reconnaissance de gestes, integrant les landmarks MediaPipe, des classifieurs ML legers et une actuation robot a faible latence.",
+          tags: ["Recherche", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
+        },
+        {
           title: "minigpt — Transformer (GPT) from scratch",
           period: "2026 · Projet personnel",
           description:
@@ -415,24 +433,6 @@ export const T: Record<Lang, Translation> = {
             "Fine-tuning de DistilBERT pour la classification d'emotions a 6 classes sur le dataset emotion de HuggingFace (transfer learning : tokenize → fine-tune → evaluate). 90.9% d'accuracy test / 0.849 de macro-F1 apres 2 epochs. Contient l'entrainement, l'evaluation avec matrice de confusion, et un script d'inference.",
           tags: ["Transformers", "HuggingFace", "Fine-tuning", "NLP", "Transfer Learning"],
           link: "https://github.com/lmveprog/distilbert-finetune",
-        },
-        {
-          title: "Stack d'interaction pour robot humanoide",
-          period: "2025 · NTNU",
-          description:
-            "Systeme IA embarque combinant reconnaissance gestuelle temps reel, computer vision et LLM fine-tune pour le dialogue specifique au domaine, avec optimisation GPU de la latence et robustesse Human-in-the-Loop.",
-          tags: ["HRI", "Computer Vision", "LLM fine-tune", "IA embarquee"],
-          videos: [
-            { title: "Demo interaction robot", url: "https://youtu.be/QZ8oGMaRq6M", embedId: "QZ8oGMaRq6M" },
-            { title: "Demo geste / dialogue", url: "https://youtu.be/bfIvyZvMxsA", embedId: "bfIvyZvMxsA" },
-          ],
-        },
-        {
-          title: "Publication HCI International 2026",
-          period: "2025 - 2026",
-          description:
-            "Auteur principal d'un article HRI accepte sur une architecture de computer vision temps reel optimisee pour la reconnaissance de gestes, integrant les landmarks MediaPipe, des classifieurs ML legers et une actuation robot a faible latence.",
-          tags: ["Recherche", "HRI", "Computer Vision", "MediaPipe", "Springer Proceedings"],
         },
         {
           title: "Pipeline OCR industriel",
