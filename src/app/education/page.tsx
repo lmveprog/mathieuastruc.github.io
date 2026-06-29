@@ -10,13 +10,17 @@ export default function Education() {
   return (
     <PageLayout title={t.title} subtitle={t.subtitle}>
       <div style={{ display:"flex",flexDirection:"column" }}>
-        {t.schools.map(({ period, school, location, degree, description, main, photo, logo }, i) => (
+        {t.schools.map(({ period, school, location, degree, description, main, photo, logo, link, handle }, i) => (
           <div key={i} className="timeline-row" style={{ paddingBottom:i<t.schools.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,marginBottom:i<t.schools.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,borderBottom:i<t.schools.length-1?"0.5px solid var(--color-border)":"none" }}>
             <div className="timeline-date" style={{ paddingTop:"3px",fontSize:"var(--text-xs)",color:"var(--color-text-tertiary)",letterSpacing:"0.01em",lineHeight:1.5,fontVariantNumeric:"tabular-nums",whiteSpace:"pre-line" }}>{period}</div>
             <div>
               <div style={{ display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"12px",marginBottom:"4px" }}>
                 <div style={{ display:"flex",alignItems:"baseline",gap:"10px",flexWrap:"wrap" }}>
-                  <h2 style={{ fontSize:"var(--text-base)",fontWeight:500,color:"var(--color-text)",letterSpacing:"-0.02em",margin:0 }}>{school}</h2>
+                  <h2 style={{ fontSize:"var(--text-base)",fontWeight:500,color:"var(--color-text)",letterSpacing:"-0.02em",margin:0 }}>
+                    {link ? (
+                      <a href={link} target="_blank" rel="noopener noreferrer" className="company-link" style={{ color:"inherit",textDecoration:"none" }}>{handle ?? school}</a>
+                    ) : school}
+                  </h2>
                   {main && <span style={{ fontSize:"var(--text-xs)",color:"var(--color-text-tertiary)",background:"var(--color-bg-secondary)",padding:"2px 8px",borderRadius:"var(--radius-full)",letterSpacing:"0.02em" }}>{t.mainLabel}</span>}
                 </div>
                 {logo && (

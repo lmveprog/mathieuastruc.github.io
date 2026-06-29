@@ -708,6 +708,10 @@ html.dark .career-logo { filter: invert(1) opacity(0.62); }
   html:not(.light) .career-logo { filter: invert(1) opacity(0.62); }
 }
 
+/* Clickable company names link to the company's profile */
+.company-link { transition: opacity 0.18s ease; text-underline-offset: 3px; }
+.company-link:hover { opacity: 0.6; text-decoration: underline; }
+
 .home-row-co {
   font-size: var(--text-base);
   font-weight: 500;
