@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { T } from "@/lib/translations";
+import Logo from "@/components/Logo";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -37,7 +38,8 @@ export default function Navigation() {
     <>
       <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:100,height:"52px",display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:0,paddingBottom:0,paddingLeft:"max(env(safe-area-inset-left), clamp(1.25rem, 5vw, 3.5rem))",paddingRight:"max(env(safe-area-inset-right), clamp(1.25rem, 5vw, 3.5rem))",transition:"background 280ms ease, border-color 280ms ease",background:scrolled||mobileOpen?"var(--nav-scrolled-bg)":"transparent",backdropFilter:scrolled||mobileOpen?"blur(24px) saturate(1.8)":"none",WebkitBackdropFilter:scrolled||mobileOpen?"blur(24px) saturate(1.8)":"none",borderBottom:scrolled||mobileOpen?"0.5px solid var(--color-border)":"0.5px solid transparent" }}>
         <div style={{ display:"flex",alignItems:"center",gap:"8px",flexShrink:0 }}>
-          <Link href="/" style={{ fontSize:"var(--text-sm)",fontWeight:500,letterSpacing:"-0.015em",color:"var(--color-text)",textDecoration:"none" }}>
+          <Link href="/" aria-label="Mathieu Astruc - home" style={{ display:"inline-flex",alignItems:"center",gap:"8px",fontSize:"var(--text-sm)",fontWeight:500,letterSpacing:"-0.015em",color:"var(--color-text)",textDecoration:"none" }}>
+            <Logo size={22} className="nav-logo" />
             Mathieu Astruc
           </Link>
           <a href="https://www.linkedin.com/in/mathieu-astruc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ display:"flex",alignItems:"center",color:"var(--color-text-tertiary)",transition:"color 120ms ease" }}

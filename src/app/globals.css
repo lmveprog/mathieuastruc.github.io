@@ -611,15 +611,15 @@ body {
   border-radius: var(--radius-md);
   border: none;
   cursor: pointer;
-  /* glow/shadow at rest (low) and at the top of the float (spread + soft halo) */
+  /* glow/shadow at rest (already visible) and at the top of the float (spread + warm halo) */
   --pg-rest:
-    0 6px 14px -6px rgba(24, 22, 20, 0.20),
-    0 14px 30px -14px rgba(24, 22, 20, 0.14),
-    0 0 0 0 rgba(120, 92, 56, 0);
+    0 8px 18px -6px rgba(24, 22, 20, 0.28),
+    0 18px 38px -14px rgba(24, 22, 20, 0.22),
+    0 0 34px -2px rgba(120, 92, 56, 0.14);
   --pg-float:
-    0 16px 28px -10px rgba(24, 22, 20, 0.16),
-    0 34px 58px -22px rgba(24, 22, 20, 0.18),
-    0 26px 64px -8px rgba(120, 92, 56, 0.20);
+    0 20px 34px -10px rgba(24, 22, 20, 0.24),
+    0 40px 70px -22px rgba(24, 22, 20, 0.26),
+    0 32px 80px -4px rgba(120, 92, 56, 0.34);
   box-shadow: var(--pg-rest);
   animation: portrait-float 6s ease-in-out infinite;
 }
@@ -636,24 +636,24 @@ body {
 }
 html.dark .home-portrait.portrait-swap {
   --pg-rest:
-    0 6px 14px -6px rgba(0, 0, 0, 0.50),
-    0 14px 30px -14px rgba(0, 0, 0, 0.42),
-    0 0 0 0 rgba(237, 233, 227, 0);
+    0 8px 18px -6px rgba(0, 0, 0, 0.55),
+    0 18px 38px -14px rgba(0, 0, 0, 0.48),
+    0 0 36px -2px rgba(237, 233, 227, 0.07);
   --pg-float:
-    0 16px 28px -10px rgba(0, 0, 0, 0.50),
-    0 34px 58px -22px rgba(0, 0, 0, 0.46),
-    0 26px 70px -6px rgba(237, 233, 227, 0.08);
+    0 20px 34px -10px rgba(0, 0, 0, 0.55),
+    0 40px 70px -22px rgba(0, 0, 0, 0.52),
+    0 32px 84px -4px rgba(237, 233, 227, 0.16);
 }
 @media (prefers-color-scheme: dark) {
   html:not(.light) .home-portrait.portrait-swap {
     --pg-rest:
-      0 6px 14px -6px rgba(0, 0, 0, 0.50),
-      0 14px 30px -14px rgba(0, 0, 0, 0.42),
-      0 0 0 0 rgba(237, 233, 227, 0);
+      0 8px 18px -6px rgba(0, 0, 0, 0.55),
+      0 18px 38px -14px rgba(0, 0, 0, 0.48),
+      0 0 36px -2px rgba(237, 233, 227, 0.07);
     --pg-float:
-      0 16px 28px -10px rgba(0, 0, 0, 0.50),
-      0 34px 58px -22px rgba(0, 0, 0, 0.46),
-      0 26px 70px -6px rgba(237, 233, 227, 0.08);
+      0 20px 34px -10px rgba(0, 0, 0, 0.55),
+      0 40px 70px -22px rgba(0, 0, 0, 0.52),
+      0 32px 84px -4px rgba(237, 233, 227, 0.16);
   }
 }
 @media (prefers-reduced-motion: reduce) {
