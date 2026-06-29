@@ -88,13 +88,22 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="home-portrait">
+        <div className="home-portrait portrait-swap">
           <Image
-            src="/images/about-portrait.png"
+            className="portrait-default"
+            src="/images/portrait-default.png"
             alt="Mathieu Astruc"
-            width={300}
-            height={400}
+            width={800}
+            height={800}
             priority
+          />
+          <Image
+            className="portrait-hover"
+            src="/images/portrait-hover.png"
+            alt="Mathieu Astruc"
+            width={1672}
+            height={941}
+            aria-hidden="true"
           />
         </div>
       </header>

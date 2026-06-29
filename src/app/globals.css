@@ -602,6 +602,39 @@ body {
   display: block;
 }
 
+/* Portrait that swipes from the headshot to the candid shot on hover */
+.home-portrait.portrait-swap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  border: 0.5px solid var(--color-border-strong);
+  cursor: pointer;
+}
+.portrait-swap img {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: auto;
+  border: none;
+  border-radius: 0;
+  object-fit: cover;
+  transition: transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.portrait-swap .portrait-default { transform: translateX(0);    object-position: center 18%; }
+.portrait-swap .portrait-hover   { transform: translateX(101%); object-position: 50% 50%; }
+.home-portrait.portrait-swap:hover .portrait-default { transform: translateX(-101%); }
+.home-portrait.portrait-swap:hover .portrait-hover   { transform: translateX(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-swap img { transition: opacity 0.3s ease; transform: none !important; }
+  .portrait-swap .portrait-hover { opacity: 0; }
+  .home-portrait.portrait-swap:hover .portrait-hover { opacity: 1; }
+}
+
 /* Sections */
 .home-section {
   margin-top: clamp(2.5rem, 5vw, 3.75rem);
