@@ -810,6 +810,89 @@ html.dark .career-logo { filter: invert(1) opacity(0.62); }
   .home-row-logo { max-height: 18px; max-width: 92px; }
 }
 
+/* ─── Single-page document - inline contact + full sections ── */
+/* byron-style one-pager, kept in the LaTeX serif aesthetic */
+.doc-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 16px 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+.doc-contact a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-text-tertiary);
+  padding-bottom: 0.5px;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+.doc-contact a:hover { color: var(--color-text); border-color: var(--color-text); }
+.doc-contact-sep { color: var(--color-text-tertiary); margin: 0 10px; }
+
+/* itemize-style bullet list, like a LaTeX \begin{itemize} */
+.doc-bullets {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+.doc-bullets li {
+  position: relative;
+  padding-left: 17px;
+  margin-top: 6px;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+.doc-bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 2px;
+  top: -0.02em;
+  color: var(--color-text-tertiary);
+}
+
+/* full (un-clamped) description for projects and schools */
+.doc-desc {
+  margin: 6px 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.62;
+  color: var(--color-text-secondary);
+}
+
+/* row of demo / code links under an entry */
+.doc-links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 9px; }
+.doc-links .home-row-demo { margin-top: 0; }
+
+/* skills - label column + inline tags, like a definition list */
+.doc-skill-row {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  padding: 13px 0;
+  border-bottom: 0.5px solid var(--color-border);
+  align-items: start;
+}
+.doc-skill-row:last-child { border-bottom: 0; }
+.doc-skill-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+.doc-skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.doc-skill-tags span {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  line-height: 1.4;
+}
+@media (max-width: 560px) {
+  .doc-skill-row { grid-template-columns: 1fr; gap: 7px; }
+}
+
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 720px) {
   .hero-intro {
