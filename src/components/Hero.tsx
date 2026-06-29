@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import CompanyLink from "@/components/CompanyLink";
 import { useLanguage } from "@/context/LanguageContext";
 import { T } from "@/lib/translations";
 
@@ -74,9 +75,7 @@ export default function Hero() {
                 <div className="home-row-title">
                   <div className="home-row-titlemain">
                     <span className="home-row-co">
-                      {e.link ? (
-                        <a href={e.link} target="_blank" rel="noopener noreferrer" className="company-link" style={{ color:"inherit",textDecoration:"none" }}>{e.company}</a>
-                      ) : e.company}
+                      <CompanyLink name={e.company} handle={e.handle} link={e.link} />
                     </span>
                     <span className="home-row-role">{e.role.split(" - ")[0]}</span>
                     {e.current && <span className="home-row-current">{t.career.current}</span>}
@@ -166,9 +165,7 @@ export default function Hero() {
               <div className="home-row-body">
                 <div className="home-row-titlemain">
                   <span className="home-row-co">
-                    {s.link ? (
-                      <a href={s.link} target="_blank" rel="noopener noreferrer" className="company-link" style={{ color:"inherit",textDecoration:"none" }}>{s.school}</a>
-                    ) : s.school}
+                    <CompanyLink name={s.school} handle={s.handle} link={s.link} />
                   </span>
                   <span className="home-row-role">{s.degree}</span>
                 </div>

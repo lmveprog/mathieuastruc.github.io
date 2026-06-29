@@ -708,9 +708,12 @@ html.dark .career-logo { filter: invert(1) opacity(0.62); }
   html:not(.light) .career-logo { filter: invert(1) opacity(0.62); }
 }
 
-/* Clickable company names link to the company's profile */
-.company-link { transition: opacity 0.18s ease; text-underline-offset: 3px; }
-.company-link:hover { opacity: 0.6; text-decoration: underline; }
+/* Clickable company / school names: swap to their @handle on hover */
+.company-link { display: inline-grid; color: inherit; text-decoration: none; cursor: pointer; vertical-align: baseline; }
+.company-link > span { grid-area: 1 / 1; transition: opacity 0.16s ease; white-space: nowrap; }
+.company-link .co-handle { opacity: 0; }
+.company-link:hover .co-name { opacity: 0; }
+.company-link:hover .co-handle { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
 
 .home-row-co {
   font-size: var(--text-base);
