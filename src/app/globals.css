@@ -602,7 +602,8 @@ body {
   display: block;
 }
 
-/* Portrait that swipes from the headshot to the candid shot on hover */
+/* Portrait that dissolves from the headshot to the candid shot on hover:
+   soft crossfade + gentle zoom + blur, matching the rest of the motion language */
 .home-portrait.portrait-swap {
   position: relative;
   aspect-ratio: 3 / 4;
@@ -620,19 +621,20 @@ body {
   border: none;
   border-radius: 0;
   object-fit: cover;
-  transition: transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
+  transition:
+    opacity 0.62s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.62s ease;
+  will-change: opacity, transform;
   backface-visibility: hidden;
 }
-.portrait-swap .portrait-default { transform: translateX(0);    object-position: center 18%; }
-.portrait-swap .portrait-hover   { transform: translateX(101%); object-position: 50% 50%; }
-.home-portrait.portrait-swap:hover .portrait-default { transform: translateX(-101%); }
-.home-portrait.portrait-swap:hover .portrait-hover   { transform: translateX(0); }
+.portrait-swap .portrait-default { object-position: center 18%; opacity: 1; transform: scale(1);    filter: blur(0); }
+.portrait-swap .portrait-hover   { object-position: 50% 42%;   opacity: 0; transform: scale(1.08); filter: blur(8px); }
+.home-portrait.portrait-swap:hover .portrait-default { opacity: 0; transform: scale(1.06); filter: blur(8px); }
+.home-portrait.portrait-swap:hover .portrait-hover   { opacity: 1; transform: scale(1);    filter: blur(0); }
 
 @media (prefers-reduced-motion: reduce) {
-  .portrait-swap img { transition: opacity 0.3s ease; transform: none !important; }
-  .portrait-swap .portrait-hover { opacity: 0; }
-  .home-portrait.portrait-swap:hover .portrait-hover { opacity: 1; }
+  .portrait-swap img { transition: opacity 0.35s ease; transform: none !important; filter: none !important; }
 }
 
 /* Sections */
