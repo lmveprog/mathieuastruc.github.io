@@ -1,23 +1,21 @@
-/** Mathieu Astruc monogram — outer triangle (A) with an inner mountain "M".
-    Drawn with currentColor so it adapts to the theme. */
+/** Mathieu Astruc monogram — the real artwork, driven as a mask filled with the
+    current theme text color so it shows correctly in both light and dark modes. */
 export default function Logo({ size = 22, className }: { size?: number; className?: string }) {
+  const mask = "url(/images/logo-mark.png) center / contain no-repeat";
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 120 120"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={4.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+    <span
+      role="img"
+      aria-label="Mathieu Astruc logo"
       className={className}
-      aria-hidden="true"
-    >
-      {/* outer triangle with open base + slightly extended corners */}
-      <path d="M60 22 L30 92 M60 22 L90 92 M24 92 L50 92 M70 92 L96 92" />
-      {/* inner double-peak mountain (M) */}
-      <path d="M41 85 L50 55 L60 68 L70 55 L79 85" />
-    </svg>
+      style={{
+        display: "inline-block",
+        width: size,
+        height: size,
+        flexShrink: 0,
+        backgroundColor: "var(--color-text)",
+        WebkitMask: mask,
+        mask,
+      }}
+    />
   );
 }
