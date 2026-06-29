@@ -73,7 +73,11 @@ export default function Hero() {
               <div className="home-row-body">
                 <div className="home-row-title">
                   <div className="home-row-titlemain">
-                    <span className="home-row-co">{e.company}</span>
+                    <span className="home-row-co">
+                      {e.link ? (
+                        <a href={e.link} target="_blank" rel="noopener noreferrer" className="company-link" style={{ color:"inherit",textDecoration:"none" }}>{e.company}</a>
+                      ) : e.company}
+                    </span>
                     <span className="home-row-role">{e.role.split(" - ")[0]}</span>
                     {e.current && <span className="home-row-current">{t.career.current}</span>}
                   </div>
@@ -161,7 +165,11 @@ export default function Hero() {
               <span className="home-row-year">{startYear(s.period)}</span>
               <div className="home-row-body">
                 <div className="home-row-titlemain">
-                  <span className="home-row-co">{s.school}</span>
+                  <span className="home-row-co">
+                    {s.link ? (
+                      <a href={s.link} target="_blank" rel="noopener noreferrer" className="company-link" style={{ color:"inherit",textDecoration:"none" }}>{s.school}</a>
+                    ) : s.school}
+                  </span>
                   <span className="home-row-role">{s.degree}</span>
                 </div>
                 <p className="doc-desc">{s.description}</p>

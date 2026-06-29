@@ -10,7 +10,7 @@ export default function Career() {
   return (
     <PageLayout title={t.title} subtitle={t.subtitle}>
       <div style={{ display:"flex",flexDirection:"column" }}>
-        {t.experiences.map(({ period, company, location, role, description, bullets, current, logo, logoSize, photo, videos, link, handle }, i) => (
+        {t.experiences.map(({ period, company, location, role, description, bullets, current, logo, logoSize, photo, videos, link }, i) => (
           <div key={i} className="timeline-row" style={{ paddingBottom:i<t.experiences.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,marginBottom:i<t.experiences.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,borderBottom:i<t.experiences.length-1?"0.5px solid var(--color-border)":"none" }}>
             <div className="timeline-date" style={{ paddingTop:"3px",fontSize:"var(--text-xs)",color:"var(--color-text-tertiary)",letterSpacing:"0.01em",lineHeight:1.5,fontVariantNumeric:"tabular-nums",whiteSpace:"pre-line" }}>{period}</div>
             <div>
@@ -18,7 +18,7 @@ export default function Career() {
                 <div style={{ display:"flex",alignItems:"baseline",gap:"10px",flexWrap:"wrap" }}>
                   <h2 style={{ fontSize:"var(--text-base)",fontWeight:500,color:"var(--color-text)",letterSpacing:"-0.02em",margin:0 }}>
                     {link ? (
-                      <a href={link} target="_blank" rel="noopener noreferrer" className="company-link" style={{ color:"inherit",textDecoration:"none" }}>{handle ?? company}</a>
+                      <a href={link} target="_blank" rel="noopener noreferrer" className="company-link" style={{ color:"inherit",textDecoration:"none" }}>{company}</a>
                     ) : company}
                   </h2>
                   {current && <span style={{ fontSize:"var(--text-xs)",color:"#34c759",background:"rgba(52,199,89,0.10)",padding:"2px 8px",borderRadius:"var(--radius-full)",letterSpacing:"0.02em" }}>{t.current}</span>}

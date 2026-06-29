@@ -64,7 +64,6 @@ export const T: Record<Lang, Translation> = {
           period: "Mar 2026\nSep 2026",
           company: "Airbus",
           link: "https://x.com/Airbus",
-          handle: "@airbus",
           location: "France",
           role: "Applied AI Engineer - Master Thesis",
           bullets: [
@@ -80,7 +79,6 @@ export const T: Record<Lang, Translation> = {
           period: "May 2025\nAug 2025",
           company: "NTNU",
           link: "https://www.linkedin.com/school/ntnu/",
-          handle: "@ntnu",
           location: "Norway",
           role: "Research Engineer Intern",
           logo: "/images/career/ntnu-mono.png",
@@ -101,7 +99,6 @@ export const T: Record<Lang, Translation> = {
           period: "May 2024\nAug 2024",
           company: "Banque de France",
           link: "https://x.com/banquedefrance",
-          handle: "@banquedefrance",
           location: "France",
           role: "Data Scientist Intern",
           bullets: [
@@ -115,7 +112,6 @@ export const T: Record<Lang, Translation> = {
           period: "Jan 2025\nMay 2025",
           company: "Comat Specific",
           link: "https://www.linkedin.com/company/groupe-comat/",
-          handle: "@groupe-comat",
           location: "France",
           role: "Machine Learning Engineer - Part-time role alongside studies",
           bullets: [
@@ -180,7 +176,6 @@ export const T: Record<Lang, Translation> = {
           period: "Sep 2021\nSep 2026",
           school: "ESAIP",
           link: "https://www.linkedin.com/school/esaip-cole-sup-rieure-angevine-en-informatique-et-productique/",
-          handle: "@esaip",
           location: "France",
           degree: "Master of Engineering, Data Science",
           description:
@@ -192,7 +187,6 @@ export const T: Record<Lang, Translation> = {
           period: "Sep 2025\nFeb 2026",
           school: "Universidad Politecnica de Madrid",
           link: "https://www.linkedin.com/school/universidad-politecnica-de-madrid/",
-          handle: "@upm",
           location: "Spain",
           degree: "Study Abroad",
           description: "Machine Learning, cloud computing, large-scale data architectures.",
@@ -202,7 +196,6 @@ export const T: Record<Lang, Translation> = {
           period: "Jan 2024\nJun 2024",
           school: "SeAMK - University of Applied Sciences",
           link: "https://www.linkedin.com/school/seinajoki-university-of-applied-sciences/",
-          handle: "@seamk",
           location: "Finland",
           degree: "Study Abroad",
           description: "Machine Learning, Deep Learning, Software Development, Embedded Systems.",
@@ -326,7 +319,6 @@ export const T: Record<Lang, Translation> = {
           period: "Mar 2026\nSep 2026",
           company: "Airbus",
           link: "https://x.com/Airbus",
-          handle: "@airbus",
           location: "France",
           role: "Applied AI Engineer - Master Thesis",
           bullets: [
@@ -342,7 +334,6 @@ export const T: Record<Lang, Translation> = {
           period: "May 2025\nAug 2025",
           company: "NTNU",
           link: "https://www.linkedin.com/school/ntnu/",
-          handle: "@ntnu",
           location: "Norway",
           role: "Research Engineer Intern",
           logo: "/images/career/ntnu-mono.png",
@@ -363,7 +354,6 @@ export const T: Record<Lang, Translation> = {
           period: "May 2024\nAug 2024",
           company: "Banque de France",
           link: "https://x.com/banquedefrance",
-          handle: "@banquedefrance",
           location: "France",
           role: "Data Scientist Intern",
           bullets: [
@@ -377,7 +367,6 @@ export const T: Record<Lang, Translation> = {
           period: "Jan 2025\nMay 2025",
           company: "Comat Specific",
           link: "https://www.linkedin.com/company/groupe-comat/",
-          handle: "@groupe-comat",
           location: "France",
           role: "Machine Learning Engineer - Part-time role alongside studies",
           bullets: [
@@ -442,7 +431,6 @@ export const T: Record<Lang, Translation> = {
           period: "Sep 2021\nSep 2026",
           school: "ESAIP",
           link: "https://www.linkedin.com/school/esaip-cole-sup-rieure-angevine-en-informatique-et-productique/",
-          handle: "@esaip",
           location: "France",
           degree: "Master of Engineering, Data Science",
           description:
@@ -454,7 +442,6 @@ export const T: Record<Lang, Translation> = {
           period: "Sep 2025\nFeb 2026",
           school: "Universidad Politecnica de Madrid",
           link: "https://www.linkedin.com/school/universidad-politecnica-de-madrid/",
-          handle: "@upm",
           location: "Spain",
           degree: "Study Abroad",
           description: "Machine Learning, cloud computing, large-scale data architectures.",
@@ -464,7 +451,6 @@ export const T: Record<Lang, Translation> = {
           period: "Jan 2024\nJun 2024",
           school: "SeAMK - University of Applied Sciences",
           link: "https://www.linkedin.com/school/seinajoki-university-of-applied-sciences/",
-          handle: "@seamk",
           location: "Finland",
           degree: "Study Abroad",
           description: "Machine Learning, Deep Learning, Software Development, Embedded Systems.",
@@ -582,10 +568,9 @@ export type Experience = {
   photo?: string;
   videos?: Video[];
   link?: string;
-  handle?: string;
 };
 export type Project = { title: string; period: string; description: string; tags: string[]; videos?: Video[]; link?: string };
-export type School = { period: string; school: string; location: string; degree: string; description: string; main?: boolean; photo?: string; logo?: string; link?: string; handle?: string };
+export type School = { period: string; school: string; location: string; degree: string; description: string; main?: boolean; photo?: string; logo?: string; link?: string };
 export type SkillGroup = { title: string; description: string; tags: string[] };
 export type SoftSkill = { title: string; description: string };
 export type HobbyItem = {
