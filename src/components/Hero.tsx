@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import CompanyLink from "@/components/CompanyLink";
+import ContactLink from "@/components/ContactLink";
 import { useLanguage } from "@/context/LanguageContext";
 import { T } from "@/lib/translations";
 
@@ -36,13 +37,49 @@ export default function Hero() {
           <p className="home-headline">{t.hero.headline}</p>
 
           <nav className="doc-contact">
-            <a href="https://www.linkedin.com/in/mathieu-astruc/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <ContactLink
+              href="https://www.linkedin.com/in/mathieu-astruc/"
+              label="LinkedIn"
+              icon={
+                <svg viewBox="0 0 24 24" fill="#0A66C2" aria-hidden="true">
+                  <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+                </svg>
+              }
+            />
             <span className="doc-contact-sep">·</span>
-            <a href="mailto:mathastruc@gmail.com">Email</a>
+            <ContactLink
+              href="mailto:mathastruc@gmail.com"
+              label="Email"
+              external={false}
+              icon={
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" />
+                </svg>
+              }
+            />
             <span className="doc-contact-sep">·</span>
-            <a href="/MathieuResume.pdf" target="_blank" rel="noopener noreferrer">{lang === "fr" ? "CV" : "Resume"}</a>
+            <ContactLink
+              href="/MathieuResume.pdf"
+              label={lang === "fr" ? "CV" : "Resume"}
+              icon={
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                  <path d="M15 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-4-5z" />
+                  <path d="M9 13h6M9 17h4" />
+                </svg>
+              }
+            />
             <span className="doc-contact-sep">·</span>
-            <a href="https://github.com/lmveprog" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <ContactLink
+              href="https://github.com/lmveprog"
+              label="GitHub"
+              icon={
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7 0-.7 0-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z" />
+                </svg>
+              }
+            />
           </nav>
 
           <p className="home-avail">

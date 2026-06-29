@@ -749,6 +749,11 @@ html.dark .career-logo { filter: invert(1) opacity(0.62); }
   .company-link .co-handle { background-size: 100% 1px; }
 }
 
+/* Contact nav: label swaps to a brand logo on hover */
+.contact-swap { justify-items: start; }
+.contact-swap .co-handle { background-image: none; display: inline-flex; align-items: center; height: 1.15em; }
+.contact-swap svg { height: 1.15em; width: auto; display: block; }
+
 .home-row-co {
   font-size: var(--text-base);
   font-weight: 500;
