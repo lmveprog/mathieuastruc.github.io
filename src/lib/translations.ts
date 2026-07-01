@@ -124,6 +124,18 @@ export const T: Record<Lang, Translation> = {
           logo: "/images/career/comat-mono.png",
           logoSize: { w: 120, h: 40 },
         },
+        {
+          period: "Until\nlycée",
+          company: "Basketball",
+          location: "France",
+          role: "National level",
+          bullets: [
+            "Sports-elite program — national level.",
+            "Balanced daily high-level training within a high-level athlete program.",
+            "Team captain and point guard.",
+          ],
+          photo: "/images/career/basketball.png",
+        },
       ],
     },
     projects: {
@@ -385,6 +397,18 @@ export const T: Record<Lang, Translation> = {
           ],
           logo: "/images/career/comat-mono.png",
           logoSize: { w: 120, h: 40 },
+        },
+        {
+          period: "Jusqu'au\nlycee",
+          company: "Basketball",
+          location: "France",
+          role: "Niveau national",
+          bullets: [
+            "Sport-etudes, section elite — niveau national.",
+            "Entrainement haut niveau au quotidien dans un programme sportif d'excellence.",
+            "Capitaine et meneur (point guard).",
+          ],
+          photo: "/images/career/basketball.png",
         },
       ],
     },
