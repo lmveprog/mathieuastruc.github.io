@@ -817,6 +817,13 @@ html.dark .career-logo { filter: invert(1) opacity(0.62); }
   html:not(.light) .career-logo { filter: invert(1) opacity(0.62); }
 }
 
+/* Detailed crest logos keep their internal detail (no flatten) */
+.home-row-logo-crest { filter: opacity(0.72); }
+html.dark .home-row-logo-crest { filter: invert(1) opacity(0.62); }
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .home-row-logo-crest { filter: invert(1) opacity(0.62); }
+}
+
 /* Clickable company / school names: name rises out, @handle rolls up into place on hover */
 .company-link {
   display: inline-grid;

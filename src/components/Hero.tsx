@@ -132,7 +132,7 @@ export default function Hero() {
                       alt={e.company}
                       width={e.logoSize.w}
                       height={e.logoSize.h}
-                      className="home-row-logo"
+                      className={`home-row-logo${e.logo.includes("smuc") ? " home-row-logo-crest" : ""}`}
                     />
                   )}
                 </div>
