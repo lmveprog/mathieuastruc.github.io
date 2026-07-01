@@ -129,8 +129,10 @@ export const T: Record<Lang, Translation> = {
           company: "Basketball",
           location: "France",
           role: "National level",
+          logo: "/images/career/smuc.png",
+          logoSize: { w: 48, h: 48 },
           bullets: [
-            "Sports-elite program — national level.",
+            "Sports-elite program (sport-études).",
             "Balanced daily high-level training within a high-level athlete program.",
             "Team captain and point guard.",
           ],
@@ -404,8 +406,10 @@ export const T: Record<Lang, Translation> = {
           company: "Basketball",
           location: "France",
           role: "Niveau national",
+          logo: "/images/career/smuc.png",
+          logoSize: { w: 48, h: 48 },
           bullets: [
-            "Sport-etudes, section elite — niveau national.",
+            "Sport-etudes, section elite.",
             "Entrainement haut niveau au quotidien dans un programme sportif d'excellence.",
             "Capitaine et meneur (point guard).",
           ],
