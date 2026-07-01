@@ -125,7 +125,7 @@ export const T: Record<Lang, Translation> = {
           logoSize: { w: 120, h: 40 },
         },
         {
-          period: "Until\nlycée",
+          period: "→ 2022",
           company: "Basketball",
           location: "France",
           role: "National level",
@@ -135,6 +135,7 @@ export const T: Record<Lang, Translation> = {
             "Team captain and point guard.",
           ],
           photo: "/images/career/basketball.png",
+          photoWidth: 220,
         },
       ],
     },
@@ -399,7 +400,7 @@ export const T: Record<Lang, Translation> = {
           logoSize: { w: 120, h: 40 },
         },
         {
-          period: "Jusqu'au\nlycee",
+          period: "→ 2022",
           company: "Basketball",
           location: "France",
           role: "Niveau national",
@@ -409,6 +410,7 @@ export const T: Record<Lang, Translation> = {
             "Capitaine et meneur (point guard).",
           ],
           photo: "/images/career/basketball.png",
+          photoWidth: 220,
         },
       ],
     },
@@ -604,6 +606,7 @@ export type Experience = {
   logo?: string;
   logoSize?: { w: number; h: number };
   photo?: string;
+  photoWidth?: number;
   videos?: Video[];
   link?: string;
   handle?: string;

@@ -11,7 +11,7 @@ export default function Career() {
   return (
     <PageLayout title={t.title} subtitle={t.subtitle}>
       <div style={{ display:"flex",flexDirection:"column" }}>
-        {t.experiences.map(({ period, company, location, role, description, bullets, current, logo, logoSize, photo, videos, link, handle }, i) => (
+        {t.experiences.map(({ period, company, location, role, description, bullets, current, logo, logoSize, photo, photoWidth, videos, link, handle }, i) => (
           <div key={i} className="timeline-row" style={{ paddingBottom:i<t.experiences.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,marginBottom:i<t.experiences.length-1?"clamp(1.75rem, 3.5vw, 2.5rem)":0,borderBottom:i<t.experiences.length-1?"0.5px solid var(--color-border)":"none" }}>
             <div className="timeline-date" style={{ paddingTop:"3px",fontSize:"var(--text-xs)",color:"var(--color-text-tertiary)",letterSpacing:"0.01em",lineHeight:1.5,fontVariantNumeric:"tabular-nums",whiteSpace:"pre-line" }}>{period}</div>
             <div>
@@ -40,7 +40,7 @@ export default function Career() {
                 </ul>
               )}
               {photo && (
-                <div style={{ marginTop:"var(--space-md)",borderRadius:"var(--radius-md)",overflow:"hidden",border:"0.5px solid var(--color-border)",maxWidth:"380px" }}>
+                <div style={{ marginTop:"var(--space-md)",borderRadius:"var(--radius-md)",overflow:"hidden",border:"0.5px solid var(--color-border)",maxWidth:`${photoWidth??380}px` }}>
                   <Image src={photo} alt={company} width={760} height={400} style={{ width:"100%",height:"auto",display:"block",objectFit:"cover" }} />
                 </div>
               )}
