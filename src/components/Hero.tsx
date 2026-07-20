@@ -60,7 +60,7 @@ export default function Hero() {
             />
             <span className="doc-contact-sep">·</span>
             <ContactLink
-              href="/MathieuResume.pdf"
+              href="/MathieuASTRUC_CV.pdf"
               label={lang === "fr" ? "CV" : "Resume"}
               icon={
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

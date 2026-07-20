@@ -2,10 +2,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'light' | 'dark' | 'system';
-const ThemeContext = createContext<{ theme: Theme; cycle: () => void }>({ theme: 'system', cycle: () => {} });
+const ThemeContext = createContext<{ theme: Theme; cycle: () => void }>({ theme: 'light', cycle: () => {} });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system');
+  const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
     const stored = localStorage.getItem('theme') as Theme | null;
