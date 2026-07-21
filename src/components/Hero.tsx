@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import CompanyLink from "@/components/CompanyLink";
 import ContactLink from "@/components/ContactLink";
 import { useLanguage } from "@/context/LanguageContext";
@@ -18,6 +19,15 @@ function startYear(period: string): string {
 function periodContext(period: string): string | null {
   const parts = period.split("·");
   return parts.length > 1 ? parts.slice(1).join("·").trim() : null;
+}
+
+/** Full year span, e.g. "Sep 2021\nSep 2026" -> "2021 - 2026" (single year if same). */
+function yearRange(period: string): string {
+  const years = period.match(/\d{4}/g);
+  if (!years || years.length === 0) return startYear(period);
+  const start = years[0];
+  const end = years[years.length - 1];
+  return start === end ? start : `${start} - ${end}`;
 }
 
 export default function Hero() {
@@ -108,10 +118,12 @@ export default function Hero() {
         </div>
       </header>
 
-      {/* ── Experience - full entries ── */}
+      {/* ── Experience - role + company only (no descriptions) ── */}
       <section className="home-section">
         <div className="home-section-head">
-          <h2>{t.career.title}</h2>
+          <Link href="/career" className="home-section-link">
+            <h2>{t.career.title}</h2>
+          </Link>
         </div>
         <ul className="home-list">
           {experiences.map((e, i) => (
@@ -136,11 +148,6 @@ export default function Hero() {
                     />
                   )}
                 </div>
-                <ul className="doc-bullets">
-                  {(e.bullets ?? (e.description ? [e.description] : [])).map((b, j) => (
-                    <li key={j}>{b}</li>
-                  ))}
-                </ul>
                 {e.videos && e.videos.length > 0 && (
                   <div className="doc-links">
                     {e.videos.map((v) => (
@@ -156,10 +163,12 @@ export default function Hero() {
         </ul>
       </section>
 
-      {/* ── Projects - all entries ── */}
+      {/* ── Projects - titles, tags, links (no descriptions) ── */}
       <section className="home-section">
         <div className="home-section-head">
-          <h2>{t.projects.title}</h2>
+          <Link href="/projects" className="home-section-link">
+            <h2>{t.projects.title}</h2>
+          </Link>
         </div>
         <ul className="home-list">
           {projects.map((p, i) => {
@@ -174,7 +183,6 @@ export default function Hero() {
                       {ctx && <span className="home-row-role">{ctx}</span>}
                     </div>
                   </div>
-                  <p className="doc-desc">{p.description}</p>
                   <div className="home-row-tags">
                     {p.tags.map((tag) => <span key={tag}>{tag}</span>)}
                   </div>
@@ -199,15 +207,17 @@ export default function Hero() {
         </ul>
       </section>
 
-      {/* ── Education ── */}
+      {/* ── Education - school + degree only (no descriptions) ── */}
       <section className="home-section">
         <div className="home-section-head">
-          <h2>{t.education.title}</h2>
+          <Link href="/education" className="home-section-link">
+            <h2>{t.education.title}</h2>
+          </Link>
         </div>
         <ul className="home-list">
           {schools.map((s, i) => (
             <li key={i} className="home-row">
-              <span className="home-row-year">{startYear(s.period)}</span>
+              <span className="home-row-year">{yearRange(s.period)}</span>
               <div className="home-row-body">
                 <div className="home-row-titlemain">
                   <span className="home-row-co">
@@ -215,7 +225,6 @@ export default function Hero() {
                   </span>
                   <span className="home-row-role">{s.degree}</span>
                 </div>
-                <p className="doc-desc">{s.description}</p>
               </div>
             </li>
           ))}

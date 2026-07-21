@@ -128,7 +128,7 @@ export const T: Record<Lang, Translation> = {
           period: "→ 2022",
           company: "Basketball",
           location: "France",
-          role: "National level",
+          role: "High-level athlete",
           logo: "/images/career/smuc.png",
           logoSize: { w: 64, h: 64 },
           bullets: [
@@ -145,6 +145,18 @@ export const T: Record<Lang, Translation> = {
       title: "Projects",
       subtitle: "Selected AI/Data work with concrete outputs",
       items: [
+        {
+          title: "Mistral AI Hackathon — Finalist & 3rd place",
+          period: "2026",
+          description:
+            "Impostral, a real-time social deduction game built in 8 hours where autonomous Mistral agents infiltrate a group of humans and try to survive by acting human. A multiplayer social Turing test: players and AI agents answer personal questions, then vote to eliminate the suspected AI. Finalist and 3rd place overall — our first hackathon.",
+          tags: ["Mistral", "LLM Agents", "Multi-agent", "Real-time"],
+          link: "https://github.com/MistralGagnant/impostralv2",
+          videos: [
+            { title: "Impostral demo", url: "https://youtu.be/wsBaHW688Lc", embedId: "wsBaHW688Lc" },
+          ],
+          image: "/images/projects/impostral-team.jpeg",
+        },
         {
           title: "Humanoid robot interaction stack",
           period: "2025 · NTNU",
@@ -405,7 +417,7 @@ export const T: Record<Lang, Translation> = {
           period: "→ 2022",
           company: "Basketball",
           location: "France",
-          role: "Niveau national",
+          role: "Athlete haut niveau",
           logo: "/images/career/smuc.png",
           logoSize: { w: 64, h: 64 },
           bullets: [
@@ -422,6 +434,18 @@ export const T: Record<Lang, Translation> = {
       title: "Projets",
       subtitle: "Travaux IA/Data selectionnes avec resultats concrets",
       items: [
+        {
+          title: "Hackathon Mistral AI — Finaliste & 3e place",
+          period: "2026",
+          description:
+            "Impostral, un jeu de deduction sociale temps reel construit en 8h ou des agents Mistral autonomes s'infiltrent dans un groupe d'humains et tentent de survivre en se faisant passer pour humains. Un test de Turing social multijoueur : joueurs et agents IA repondent a des questions personnelles avant de voter pour eliminer l'IA suspectee. Finaliste et 3e au general — notre premier hackathon.",
+          tags: ["Mistral", "Agents LLM", "Multi-agent", "Temps reel"],
+          link: "https://github.com/MistralGagnant/impostralv2",
+          videos: [
+            { title: "Demo Impostral", url: "https://youtu.be/wsBaHW688Lc", embedId: "wsBaHW688Lc" },
+          ],
+          image: "/images/projects/impostral-team.jpeg",
+        },
         {
           title: "Stack d'interaction pour robot humanoide",
           period: "2025 · NTNU",
@@ -615,7 +639,7 @@ export type Experience = {
   link?: string;
   handle?: string;
 };
-export type Project = { title: string; period: string; description: string; tags: string[]; videos?: Video[]; link?: string };
+export type Project = { title: string; period: string; description: string; tags: string[]; videos?: Video[]; link?: string; image?: string };
 export type School = { period: string; school: string; location: string; degree: string; description: string; main?: boolean; photo?: string; logo?: string; link?: string; handle?: string };
 export type SkillGroup = { title: string; description: string; tags: string[] };
 export type SoftSkill = { title: string; description: string };

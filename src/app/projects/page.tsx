@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import PageLayout from "@/components/PageLayout";
 import { useLanguage } from "@/context/LanguageContext";
 import { T } from "@/lib/translations";
@@ -35,9 +36,9 @@ export default function Projects() {
               </div>
             </div>
             <p className="project-description">{project.description}</p>
-            {project.videos && (
-              <div className="project-videos" aria-label="Project videos">
-                {project.videos.map((video) => (
+            {(project.videos || project.image) && (
+              <div className="project-videos" aria-label="Project media">
+                {project.videos?.map((video) => (
                   <div key={video.embedId} className="project-video">
                     <iframe
                       src={`https://www.youtube-nocookie.com/embed/${video.embedId}`}
@@ -51,6 +52,17 @@ export default function Projects() {
                     </a>
                   </div>
                 ))}
+                {project.image && (
+                  <div className="project-video project-photo-cell">
+                    <Image
+                      className="project-photo"
+                      src={project.image}
+                      alt={project.title}
+                      width={2000}
+                      height={1506}
+                    />
+                  </div>
+                )}
               </div>
             )}
           </article>
