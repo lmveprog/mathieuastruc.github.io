@@ -51,7 +51,7 @@ export const T: Record<Lang, Translation> = {
         "I have worked or studied in France, Norway, Spain and Finland, with experience across enterprise AI, research engineering and data engineering.",
       ],
       stats: ["Countries", "AI domains", "Accepted paper", "Availability"],
-      availability: "Seeking a full-time role in Data Science / AI from Oct. 2026",
+      availability: "Seeking a full-time Applied AI role — Sep/Oct 2026",
     },
     career: {
       title: "Experience",
@@ -340,7 +340,7 @@ export const T: Record<Lang, Translation> = {
         "J'ai travaille ou etudie en France, Norvege, Espagne et Finlande, avec des experiences en IA enterprise, research engineering et data engineering.",
       ],
       stats: ["Pays", "Domaines IA", "Article accepte", "Disponibilite"],
-      availability: "Recherche un poste full-time en Data Science / IA a partir d'oct. 2026",
+      availability: "Recherche un poste full-time en Applied AI — sept/oct 2026",
     },
     career: {
       title: "Experience",
