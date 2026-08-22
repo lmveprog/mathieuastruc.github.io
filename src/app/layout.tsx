@@ -1,30 +1,28 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Navigation from "@/components/Navigation";
-import { LanguageProvider } from "@/context/LanguageContext";
-import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
-  title: "Mathieu Astruc · AI & Data Science Engineer",
-  description: "AI & Data Science engineer building RAG, LLM, computer vision, OCR, multimodal AI and human-robot interaction systems. Seeking a full-time Data Science / AI role from Oct. 2026.",
+  title: "Mathieu Astruc · AI Engineer",
+  description:
+    "AI engineer building applied AI systems: RAG, LLM engineering, computer vision and human-robot interaction.",
   metadataBase: new URL("https://mathieuastruc.com"),
   alternates: { canonical: "/" },
-  keywords: ["Mathieu Astruc", "AI Engineer", "Data Science", "Machine Learning", "Computer Vision", "RAG", "LLM", "Airbus", "NTNU", "portfolio"],
+  keywords: ["Mathieu Astruc", "AI Engineer", "Data Science", "Machine Learning", "Computer Vision", "RAG", "LLM", "portfolio"],
   authors: [{ name: "Mathieu Astruc", url: "https://mathieuastruc.com" }],
   creator: "Mathieu Astruc",
   openGraph: {
     type: "website",
     url: "https://mathieuastruc.com",
-    title: "Mathieu Astruc · AI & Data Science Engineer",
-    description: "Applied AI engineer building RAG, LLM, computer vision and human-robot interaction systems. Seeking a full-time Data Science / AI role from Oct. 2026.",
+    title: "Mathieu Astruc · AI Engineer",
+    description: "AI engineer building applied AI systems: RAG, LLM engineering, computer vision and human-robot interaction.",
     siteName: "Mathieu Astruc",
-    images: [{ url: "/mathieu.png", width: 1200, height: 630, alt: "Mathieu Astruc · AI & Data" }],
+    images: [{ url: "/mathieu.png", width: 1200, height: 630, alt: "Mathieu Astruc · AI Engineer" }],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mathieu Astruc · AI & Data Science Engineer",
-    description: "Applied AI engineer building RAG, LLM, computer vision and human-robot interaction systems.",
+    title: "Mathieu Astruc · AI Engineer",
+    description: "AI engineer building applied AI systems: RAG, LLM engineering, computer vision and human-robot interaction.",
     images: ["/mathieu.png"],
   },
   robots: {
@@ -37,12 +35,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  // Let content extend into the safe areas (notch / home indicator) so we can
-  // pad with env(safe-area-inset-*) ourselves. Zoom stays enabled for a11y.
-  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f9f8f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f0e0c" },
+    { media: "(prefers-color-scheme: dark)", color: "#12110f" },
   ],
 };
 
@@ -52,11 +47,11 @@ const jsonLd = {
   name: "Mathieu Astruc",
   url: "https://mathieuastruc.com",
   image: "https://mathieuastruc.com/mathieu.png",
-  jobTitle: "AI & Data Science Engineer",
-  description: "AI & Data Science engineer specializing in RAG, LLM engineering, computer vision, OCR, multimodal AI and human-robot interaction.",
-  sameAs: ["https://www.linkedin.com/in/mathieu-astruc/"],
+  jobTitle: "AI Engineer",
+  description: "AI engineer specializing in RAG, LLM engineering, computer vision and human-robot interaction.",
+  sameAs: ["https://www.linkedin.com/in/mathieu-astruc/", "https://github.com/lmveprog"],
   nationality: "French",
-  knowsAbout: ["Machine Learning", "Computer Vision", "LLMs", "RAG", "Human-Robot Interaction", "Data Engineering"],
+  knowsAbout: ["Machine Learning", "Computer Vision", "LLMs", "RAG", "Human-Robot Interaction"],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -64,16 +59,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <script dangerouslySetInnerHTML={{ __html: `try{const t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark');else document.documentElement.classList.add('light');}catch(e){}` }} />
       </head>
-      <body>
-        <ThemeProvider>
-          <LanguageProvider>
-            <Navigation />
-            {children}
-          </LanguageProvider>
-        </ThemeProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

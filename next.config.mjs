@@ -30,7 +30,7 @@ const nextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
-          // Content Security Policy — allows self + Groq API
+          // Content Security Policy
           {
             key: "Content-Security-Policy",
             value: [
@@ -39,9 +39,8 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob:",
               "font-src 'self'",
-              "connect-src 'self' https://api.groq.com",
+              "connect-src 'self'",
               "media-src 'self'",
-              "frame-src https://www.youtube.com https://www.youtube-nocookie.com",
               "frame-ancestors 'none'",
             ].join("; "),
           },
