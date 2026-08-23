@@ -139,7 +139,7 @@ export default function Home() {
       </header>
 
       <section aria-labelledby="experience-title">
-        <h2 id="experience-title"><DecryptText text="experience" trigger="visible" replayOnHover /></h2>
+        <h2 id="experience-title"><DecryptText text="experience" trigger="visible" /></h2>
         <ol className="row-list exp-list">
           {experience.map((e) => (
             <li key={e.role + e.org}>
@@ -150,7 +150,7 @@ export default function Home() {
                 <span className="exp-fav exp-fav--mystery" aria-hidden="true">?</span>
               )}
               <p className="what">
-                <strong><DecryptText text={e.role} trigger="hover" hoverParent="li" /></strong>{e.org ? <> <span>{e.org}</span></> : null}
+                <strong>{e.role}</strong>{e.org ? <> <span>{e.org}</span></> : null}
               </p>
               <time>{e.period}</time>
             </li>
@@ -159,7 +159,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="projects-title">
-        <h2 id="projects-title"><DecryptText text="projects" trigger="visible" replayOnHover /></h2>
+        <h2 id="projects-title"><DecryptText text="projects" trigger="visible" /></h2>
         <ul className="project-list">
           {projects.map((p) => (
             <li key={p.title}>
@@ -193,12 +193,12 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="education-title">
-        <h2 id="education-title"><DecryptText text="education" trigger="visible" replayOnHover /></h2>
+        <h2 id="education-title"><DecryptText text="education" trigger="visible" /></h2>
         <ol className="row-list">
           {education.map((e) => (
             <li key={e.degree}>
               <p className="what">
-                <strong><DecryptText text={e.degree} trigger="hover" hoverParent="li" /></strong> <span>{e.org}</span>
+                <strong>{e.degree}</strong> <span>{e.org}</span>
               </p>
               <time>{e.period}</time>
             </li>
@@ -207,19 +207,19 @@ export default function Home() {
       </section>
 
       <section className="interests-section" aria-labelledby="interests-title">
-        <h2 id="interests-title"><DecryptText text="interests" trigger="visible" replayOnHover /></h2>
+        <h2 id="interests-title"><DecryptText text="interests" trigger="visible" /></h2>
         <div className="polaroid-row">
           <figure className="polaroid">
             <AsciiPolaroid src="/images/interests/basketball.png" alt="Mathieu playing basketball for SMUC" />
-            <figcaption><DecryptText text="basketball" trigger="hover" hoverParent=".polaroid" /></figcaption>
+            <figcaption>basketball</figcaption>
           </figure>
           <figure className="polaroid">
             <AsciiPolaroid src="/images/interests/associations.jpg" alt="Speaking at a student event" />
-            <figcaption><DecryptText text="content creation" trigger="hover" hoverParent=".polaroid" /></figcaption>
+            <figcaption>content creation</figcaption>
           </figure>
           <figure className="polaroid">
             <AsciiPolaroid src="/images/interests/building.png" alt="Mathieu at a hackathon holding a pixel-art invader" />
-            <figcaption><DecryptText text="building" trigger="hover" hoverParent=".polaroid" /></figcaption>
+            <figcaption>building</figcaption>
           </figure>
         </div>
         <p className="interest-more">and most things competitive.</p>
