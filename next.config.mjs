@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // /matheus (et /matheus/) -> le dashboard statique du hub matheusgen
+  async rewrites() {
+    return [
+      { source: "/matheus", destination: "/matheus/index.html" },
+      { source: "/matheus/", destination: "/matheus/index.html" },
+    ];
+  },
   async headers() {
     return [
       {
