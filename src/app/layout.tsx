@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Mathieu Astruc",
   description:
-    "AI engineer building applied AI systems: RAG, LLM engineering, computer vision and human-robot interaction.",
+    "Portfolio of Mathieu Astruc, a 23-year-old engineer passionate about building the future with AI.",
   metadataBase: new URL("https://mathieuastruc.com"),
   alternates: { canonical: "/" },
   keywords: ["Mathieu Astruc", "AI Engineer", "Data Science", "Machine Learning", "Computer Vision", "RAG", "LLM", "portfolio"],
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://mathieuastruc.com",
     title: "Mathieu Astruc",
-    description: "AI engineer building applied AI systems: RAG, LLM engineering, computer vision and human-robot interaction.",
+    description: "Portfolio of Mathieu Astruc, a 23-year-old engineer passionate about building the future with AI.",
     siteName: "Mathieu Astruc",
     images: [{ url: "/mathieu.png", width: 1200, height: 630, alt: "Mathieu Astruc" }],
     locale: "en_US",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mathieu Astruc",
-    description: "AI engineer building applied AI systems: RAG, LLM engineering, computer vision and human-robot interaction.",
+    description: "Portfolio of Mathieu Astruc, a 23-year-old engineer passionate about building the future with AI.",
     images: ["/mathieu.png"],
   },
   robots: {
@@ -47,8 +47,6 @@ const jsonLd = {
   name: "Mathieu Astruc",
   url: "https://mathieuastruc.com",
   image: "https://mathieuastruc.com/mathieu.png",
-  jobTitle: "AI Engineer",
-  description: "AI engineer specializing in RAG, LLM engineering, computer vision and human-robot interaction.",
   sameAs: ["https://www.linkedin.com/in/mathieu-astruc/", "https://github.com/lmveprog"],
   nationality: "French",
   knowsAbout: ["Machine Learning", "Computer Vision", "LLMs", "RAG", "Human-Robot Interaction"],
