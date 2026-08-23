@@ -150,7 +150,7 @@ export default function Home() {
                 <span className="exp-fav exp-fav--mystery" aria-hidden="true">?</span>
               )}
               <p className="what">
-                <strong>{e.role}</strong>{e.org ? <> <span>{e.org}</span></> : null}
+                <strong><DecryptText text={e.role} trigger="hover" hoverParent="li" /></strong>{e.org ? <> <span>{e.org}</span></> : null}
               </p>
               <time>{e.period}</time>
             </li>
@@ -166,7 +166,7 @@ export default function Home() {
               {p.href ? (
                 <a className="project-row" href={p.href} target="_blank" rel="noreferrer">
                   <span className="project-copy">
-                    <span className="project-title"><DecryptText text={p.title} replayOnHover /></span>
+                    <span className="project-title"><DecryptText text={p.title} trigger="hover" hoverParent="li" /></span>
                     <span className="project-desc">{p.desc}</span>
                   </span>
                   {p.detail ? <span className="project-detail">{p.detail}</span> : null}
@@ -175,7 +175,7 @@ export default function Home() {
                 <span className="project-row">
                   <span className="project-copy">
                     <span className="project-title">
-                      <DecryptText text={p.title} replayOnHover />
+                      <DecryptText text={p.title} trigger="hover" hoverParent="li" />
                       {p.platforms ? <PlatformIcons /> : null}
                     </span>
                     <span className="project-desc">{p.desc}</span>
@@ -198,7 +198,7 @@ export default function Home() {
           {education.map((e) => (
             <li key={e.degree}>
               <p className="what">
-                <strong>{e.degree}</strong> <span>{e.org}</span>
+                <strong><DecryptText text={e.degree} trigger="hover" hoverParent="li" /></strong> <span>{e.org}</span>
               </p>
               <time>{e.period}</time>
             </li>
@@ -211,15 +211,15 @@ export default function Home() {
         <div className="polaroid-row">
           <figure className="polaroid">
             <AsciiPolaroid src="/images/interests/basketball.png" alt="Mathieu playing basketball for SMUC" />
-            <figcaption>basketball</figcaption>
+            <figcaption><DecryptText text="basketball" trigger="hover" hoverParent=".polaroid" /></figcaption>
           </figure>
           <figure className="polaroid">
             <AsciiPolaroid src="/images/interests/associations.jpg" alt="Speaking at a student event" />
-            <figcaption>content creation</figcaption>
+            <figcaption><DecryptText text="content creation" trigger="hover" hoverParent=".polaroid" /></figcaption>
           </figure>
           <figure className="polaroid">
             <AsciiPolaroid src="/images/interests/building.png" alt="Mathieu at a hackathon holding a pixel-art invader" />
-            <figcaption>building</figcaption>
+            <figcaption><DecryptText text="building" trigger="hover" hoverParent=".polaroid" /></figcaption>
           </figure>
         </div>
         <p className="interest-more">and most things competitive.</p>

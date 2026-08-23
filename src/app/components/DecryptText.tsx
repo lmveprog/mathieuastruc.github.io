@@ -9,16 +9,20 @@ const GLYPHS = "!#$%&*+-:;=?@";
 
 type Props = {
   text: string;
-  /** "mount" = au chargement, "visible" = à l'entrée dans le viewport */
-  trigger?: "mount" | "visible";
+  /** "mount" = au chargement, "visible" = à l'entrée dans le viewport,
+   *  "hover" = uniquement au survol (rien au chargement) */
+  trigger?: "mount" | "visible" | "hover";
   /** rejoue le brouillage quand le curseur passe dessus */
   replayOnHover?: boolean;
+  /** sélecteur closest() : le survol de cet ancêtre déclenche l'effet
+   *  (ex. "li" pour toute la ligne, ".polaroid" pour la carte) */
+  hoverParent?: string;
 };
 
-export default function DecryptText({ text, trigger = "mount", replayOnHover = false }: Props) {
+export default function DecryptText({ text, trigger = "mount", replayOnHover = false, hoverParent }: Props) {
   // au rendu serveur le vrai texte est là : rien à perdre côté SEO
   const [display, setDisplay] = useState(text);
-  const [armed, setArmed] = useState(trigger === "mount");
+  const [armed, setArmed] = useState(trigger !== "visible");
   const [runId, setRunId] = useState(0);
   const animating = useRef(false);
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -41,7 +45,19 @@ export default function DecryptText({ text, trigger = "mount", replayOnHover = f
   }, [trigger, armed]);
 
   useEffect(() => {
+    if (!hoverParent) return;
+    const parent = spanRef.current?.closest(hoverParent);
+    if (!parent) return;
+    const onEnter = () => {
+      if (!animating.current) setRunId((v) => v + 1);
+    };
+    parent.addEventListener("pointerenter", onEnter);
+    return () => parent.removeEventListener("pointerenter", onEnter);
+  }, [hoverParent]);
+
+  useEffect(() => {
     if (!armed) return;
+    if (trigger === "hover" && runId === 0) return; // rien au chargement
 
     const totalFrames = 26;
     animating.current = true;
@@ -67,7 +83,7 @@ export default function DecryptText({ text, trigger = "mount", replayOnHover = f
       window.clearInterval(interval);
       animating.current = false;
     };
-  }, [armed, runId, text]);
+  }, [armed, runId, text, trigger]);
 
   return (
     <span
