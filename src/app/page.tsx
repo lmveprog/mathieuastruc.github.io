@@ -1,5 +1,6 @@
 import AsciiBackground from "./components/AsciiBackground";
 import AsciiPortrait from "./components/AsciiPortrait";
+import DecryptText from "./components/DecryptText";
 import HoverIndicator from "./components/HoverIndicator";
 import LocalTime from "./components/LocalTime";
 import ThemeToggle from "./components/ThemeToggle";
@@ -117,7 +118,8 @@ export default function Home() {
           </div>
           <div className="identity-copy">
             <h1 className="hero-name">
-              Mathieu Astruc<span aria-hidden="true">.</span>
+              <DecryptText text="Mathieu Astruc" />
+              <span aria-hidden="true">.</span>
             </h1>
             <SocialLinks />
           </div>
