@@ -159,10 +159,10 @@ a:hover {
   pointer-events: none;
   transform: translate3d(var(--row-x, 0), var(--row-y, 0), 0);
   transition:
-    width 240ms var(--ease-smooth-out),
-    height 240ms var(--ease-smooth-out),
-    opacity 120ms ease-out,
-    transform 280ms var(--ease-smooth-out);
+    width 150ms var(--ease-smooth-out),
+    height 150ms var(--ease-smooth-out),
+    opacity 100ms ease-out,
+    transform 170ms var(--ease-smooth-out);
   will-change: width, height, transform;
 }
 .row-hover-indicator.is-visible {
@@ -359,13 +359,6 @@ section:nth-of-type(4) {
     opacity: 0;
     filter: blur(2.5px);
     transform: translateY(10px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lede-line,
-  section {
-    transition: none;
   }
 }
 

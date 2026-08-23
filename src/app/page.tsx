@@ -119,7 +119,7 @@ export default function Home() {
           </div>
           <div className="identity-copy">
             <h1 className="hero-name">
-              <DecryptText text="Mathieu Astruc" />
+              <DecryptText text="Mathieu Astruc" replayOnHover />
               <span aria-hidden="true">.</span>
             </h1>
             <SocialLinks />
@@ -139,7 +139,7 @@ export default function Home() {
       </header>
 
       <section aria-labelledby="experience-title">
-        <h2 id="experience-title"><DecryptText text="experience" trigger="visible" /></h2>
+        <h2 id="experience-title"><DecryptText text="experience" trigger="visible" replayOnHover /></h2>
         <ol className="row-list exp-list">
           {experience.map((e) => (
             <li key={e.role + e.org}>
@@ -159,14 +159,14 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="projects-title">
-        <h2 id="projects-title"><DecryptText text="projects" trigger="visible" /></h2>
+        <h2 id="projects-title"><DecryptText text="projects" trigger="visible" replayOnHover /></h2>
         <ul className="project-list">
           {projects.map((p) => (
             <li key={p.title}>
               {p.href ? (
                 <a className="project-row" href={p.href} target="_blank" rel="noreferrer">
                   <span className="project-copy">
-                    <span className="project-title">{p.title}</span>
+                    <span className="project-title"><DecryptText text={p.title} replayOnHover /></span>
                     <span className="project-desc">{p.desc}</span>
                   </span>
                   {p.detail ? <span className="project-detail">{p.detail}</span> : null}
@@ -175,7 +175,7 @@ export default function Home() {
                 <span className="project-row">
                   <span className="project-copy">
                     <span className="project-title">
-                      {p.title}
+                      <DecryptText text={p.title} replayOnHover />
                       {p.platforms ? <PlatformIcons /> : null}
                     </span>
                     <span className="project-desc">{p.desc}</span>
@@ -193,7 +193,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="education-title">
-        <h2 id="education-title"><DecryptText text="education" trigger="visible" /></h2>
+        <h2 id="education-title"><DecryptText text="education" trigger="visible" replayOnHover /></h2>
         <ol className="row-list">
           {education.map((e) => (
             <li key={e.degree}>
@@ -207,7 +207,7 @@ export default function Home() {
       </section>
 
       <section className="interests-section" aria-labelledby="interests-title">
-        <h2 id="interests-title"><DecryptText text="interests" trigger="visible" /></h2>
+        <h2 id="interests-title"><DecryptText text="interests" trigger="visible" replayOnHover /></h2>
         <div className="polaroid-row">
           <figure className="polaroid">
             <AsciiPolaroid src="/images/interests/basketball.png" alt="Mathieu playing basketball for SMUC" />

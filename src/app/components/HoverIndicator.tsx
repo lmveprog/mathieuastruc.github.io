@@ -22,10 +22,21 @@ export default function HoverIndicator() {
       const pageRect = page.getBoundingClientRect();
       const rowRect = row.getBoundingClientRect();
       const padding = 7;
+      const wasVisible = indicator.classList.contains("is-visible");
+
+      // invisible -> apparaît directement sous la ligne visée, sans glisser
+      // depuis son ancienne position à travers la page
+      if (!wasVisible) indicator.style.transition = "opacity 100ms ease-out";
+
       indicator.style.setProperty("--row-x", `${rowRect.left - pageRect.left - padding}px`);
       indicator.style.setProperty("--row-y", `${rowRect.top - pageRect.top - padding}px`);
       indicator.style.setProperty("--row-w", `${rowRect.width + padding * 2}px`);
       indicator.style.setProperty("--row-h", `${rowRect.height + padding * 2}px`);
+
+      if (!wasVisible) {
+        indicator.getBoundingClientRect(); // pose la position avant de réactiver
+        indicator.style.transition = "";
+      }
       indicator.classList.add("is-visible");
     };
 

@@ -11,12 +11,16 @@ type Props = {
   text: string;
   /** "mount" = au chargement, "visible" = à l'entrée dans le viewport */
   trigger?: "mount" | "visible";
+  /** rejoue le brouillage quand le curseur passe dessus */
+  replayOnHover?: boolean;
 };
 
-export default function DecryptText({ text, trigger = "mount" }: Props) {
+export default function DecryptText({ text, trigger = "mount", replayOnHover = false }: Props) {
   // au rendu serveur le vrai texte est là : rien à perdre côté SEO
   const [display, setDisplay] = useState(text);
   const [armed, setArmed] = useState(trigger === "mount");
+  const [runId, setRunId] = useState(0);
+  const animating = useRef(false);
   const spanRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -38,9 +42,9 @@ export default function DecryptText({ text, trigger = "mount" }: Props) {
 
   useEffect(() => {
     if (!armed) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const totalFrames = 26;
+    animating.current = true;
     let frame = 0;
     const interval = window.setInterval(() => {
       frame += 1;
@@ -53,11 +57,26 @@ export default function DecryptText({ text, trigger = "mount" }: Props) {
             : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
       }
       setDisplay(frame >= totalFrames ? text : out);
-      if (frame >= totalFrames) window.clearInterval(interval);
+      if (frame >= totalFrames) {
+        window.clearInterval(interval);
+        animating.current = false;
+      }
     }, 42);
 
-    return () => window.clearInterval(interval);
-  }, [armed, text]);
+    return () => {
+      window.clearInterval(interval);
+      animating.current = false;
+    };
+  }, [armed, runId, text]);
 
-  return <span ref={spanRef}>{display}</span>;
+  return (
+    <span
+      ref={spanRef}
+      onPointerEnter={() => {
+        if (replayOnHover && armed && !animating.current) setRunId((v) => v + 1);
+      }}
+    >
+      {display}
+    </span>
+  );
 }
