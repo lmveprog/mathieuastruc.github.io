@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>matheusgen · dashboard</title>
+<style>
+  :root { color-scheme: light dark; }
+  .viz-root {
+    --surface-1: #fcfcfb; --surface-2: #f2f2ef; --surface-3: #e9e8e4;
+    --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #8a8880;
+    --grid: rgba(11,11,11,.08); --line: rgba(11,11,11,.1);
+    --series-tiktok:#2a78d6; --series-instagram:#eb6834; --series-youtube:#1baf7a;
+    --series-facebook:#eda100; --series-x:#e87ba4;
+    --good:#1baf7a; --bad:#d64545;
+  }
+  @media (prefers-color-scheme: dark) {
+    .viz-root {
+      --surface-1:#1a1a19; --surface-2:#232322; --surface-3:#2c2c2a;
+      --text-primary:#fff; --text-secondary:#c3c2b7; --text-muted:#85847c;
+      --grid:rgba(255,255,255,.09); --line:rgba(255,255,255,.12);
+      --series-tiktok:#3987e5; --series-instagram:#d95926; --series-youtube:#199e70;
+      --series-facebook:#c98500; --series-x:#d55181; --good:#2fcf8f; --bad:#ef6a6a;
+    }
+  }
+  * { margin:0; box-sizing:border-box; }
+  body.viz-root {
+    font-family: ui-sans-serif,-apple-system,"SF Pro Text",sans-serif;
+    background:var(--surface-1); color:var(--text-primary);
+    padding:clamp(20px,4vw,48px); max-width:1120px; margin:0 auto;
+  }
+  a { color:inherit; }
+  header { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+  h1 { font-size:20px; font-weight:650; letter-spacing:-.01em; }
+  h1 span { color:var(--text-muted); font-weight:500; }
+  #maj { color:var(--text-muted); font-size:12.5px; }
+
+  nav.tabs { display:flex; gap:6px; margin-top:20px; }
+  nav.tabs button {
+    font:inherit; font-size:13.5px; font-weight:600; color:var(--text-secondary);
+    background:none; border:0; border-radius:9px; padding:8px 16px; cursor:pointer;
+  }
+  nav.tabs button[aria-selected="true"] { background:var(--surface-2); color:var(--text-primary); }
+
+  .pane { display:none; }
+  .pane[data-active] { display:block; }
+
+  .hero { margin-top:26px; }
+  .hero .n { font-size:clamp(42px,8vw,68px); font-weight:700; letter-spacing:-.03em; font-variant-numeric:tabular-nums; }
+  .hero .l { color:var(--text-secondary); font-size:14px; margin-top:2px; }
+  .d { font-size:13px; font-weight:600; margin-left:8px; }
+  .up{color:var(--good)} .down{color:var(--bad)} .flat{color:var(--text-muted)}
+
+  .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(178px,1fr)); gap:12px; margin-top:24px; }
+  .tile { background:var(--surface-2); border-radius:12px; padding:14px 16px 10px; text-decoration:none; color:inherit; display:block; }
+  .tile .head { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-secondary); font-weight:600; }
+  .tile .chip { width:10px; height:10px; border-radius:3px; flex:0 0 auto; }
+  .tile .n { font-size:25px; font-weight:700; margin-top:6px; font-variant-numeric:tabular-nums; }
+  .tile .sub { color:var(--text-muted); font-size:11.5px; margin-top:2px; min-height:14px; }
+  .tile svg { display:block; width:100%; height:32px; margin-top:8px; }
+
+  section.block { margin-top:34px; }
+  .block-head { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  .block-head h2 { font-size:15px; font-weight:650; }
+  .legend { display:flex; gap:13px; flex-wrap:wrap; font-size:12.5px; color:var(--text-secondary); }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .legend i { width:14px; height:3px; border-radius:2px; }
+  .toggle { font:inherit; font-size:12.5px; color:var(--text-secondary); background:var(--surface-2); border:0; border-radius:8px; padding:6px 12px; cursor:pointer; }
+
+  #plot-wrap { position:relative; margin-top:14px; }
+  #plot { display:block; width:100%; height:290px; }
+  #tip {
+    position:absolute; pointer-events:none; display:none; background:var(--surface-2);
+    border-radius:8px; padding:8px 10px; font-size:12px; color:var(--text-secondary);
+    box-shadow:0 6px 18px rgba(0,0,0,.18); white-space:nowrap; z-index:2;
+  }
+  #tip b { color:var(--text-primary); font-variant-numeric:tabular-nums; }
+  #tip .row { display:flex; align-items:center; gap:6px; margin-top:2px; }
+  #tip i { width:8px; height:8px; border-radius:2px; }
+
+  table { width:100%; border-collapse:collapse; margin-top:14px; font-size:13px; }
+  th,td { text-align:right; padding:7px 10px; font-variant-numeric:tabular-nums; }
+  th:first-child,td:first-child { text-align:left; }
+  th { color:var(--text-muted); font-weight:600; border-bottom:1px solid var(--grid); }
+  td { border-bottom:1px solid var(--grid); color:var(--text-secondary); }
+  td:first-child { color:var(--text-primary); }
+  #hist { display:none; }
+
+  /* contenus : barres horizontales de vues, par contenu */
+  .bars { margin-top:14px; display:grid; gap:9px; }
+  .bar-row { display:grid; grid-template-columns: 1fr auto; gap:10px 12px; align-items:center; }
+  .bar-row .lbl { font-size:12.5px; color:var(--text-secondary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .bar-row .lbl b { color:var(--text-primary); font-weight:600; }
+  .bar-row .val { font-size:12.5px; font-variant-numeric:tabular-nums; color:var(--text-primary); font-weight:600; }
+  .bar-track { grid-column:1 / -1; height:8px; background:var(--surface-3); border-radius:5px; overflow:hidden; }
+  .bar-fill { display:block; height:100%; border-radius:5px 0 0 5px; }
+
+  /* grille des viraux */
+  .viral-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-top:14px; }
+  .viral { background:var(--surface-2); border-radius:12px; overflow:hidden; text-decoration:none; color:inherit; display:block; }
+  .viral .thumb { aspect-ratio:1/1; background:var(--surface-3) center/cover no-repeat; position:relative; }
+  .viral .score { position:absolute; top:8px; left:8px; background:rgba(0,0,0,.72); color:#fff; font-size:12px; font-weight:700; padding:3px 8px; border-radius:20px; }
+  .viral .meta { padding:9px 11px 11px; }
+  .viral .who { font-size:11.5px; color:var(--text-muted); }
+  .viral .cap { font-size:12px; margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .viral .stat { font-size:11.5px; color:var(--text-secondary); margin-top:5px; font-variant-numeric:tabular-nums; }
+
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .chips a { background:var(--surface-2); border-radius:20px; padding:6px 13px; font-size:13px; text-decoration:none; color:var(--text-secondary); }
+  .chips a b { color:var(--text-primary); }
+  .chips a i { color:var(--text-muted); font-style:normal; font-size:11px; margin-left:4px; }
+
+  .slot-grid { display:grid; grid-template-columns:1fr; gap:16px; margin-top:14px; }
+  .slot-row { display:flex; gap:5px; align-items:flex-end; }
+  .slot-cell { flex:1; display:flex; flex-direction:column; align-items:center; gap:5px; }
+  .slot-bar { width:100%; background:var(--surface-3); border-radius:4px; position:relative; height:52px; display:flex; align-items:flex-end; }
+  .slot-fill { width:100%; border-radius:4px; background:var(--series-instagram); }
+  .slot-lbl { font-size:10.5px; color:var(--text-muted); }
+  .slot-title { font-size:12px; color:var(--text-secondary); margin-bottom:7px; }
+  .acc-thumb { width:34px; height:34px; border-radius:6px; object-fit:cover; vertical-align:middle; margin-right:8px; background:var(--surface-3); }
+  .fmt-best { color:var(--text-muted); font-size:11.5px; font-weight:400; margin-left:6px; }
+  .note { color:var(--text-muted); font-size:12.5px; margin-top:12px; line-height:1.5; }
+  .note code { font-family:ui-monospace,monospace; }
+  footer { margin-top:40px; color:var(--text-muted); font-size:12px; }
+  footer code { font-family:ui-monospace,monospace; }
+</style>
+</head>
+<body class="viz-root">
+  <header>
+    <h1>matheusgen <span>· dashboard</span></h1>
+    <div id="maj">—</div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="overview">vue d'ensemble</button>
+    <button role="tab" aria-selected="false" data-tab="content">mes contenus</button>
+    <button role="tab" aria-selected="false" data-tab="labo">labo matheus</button>
+  </nav>
+
+  <!-- ===== VUE D'ENSEMBLE ===== -->
+  <div class="pane" data-tab="overview" data-active>
+    <div class="hero">
+      <div class="n" id="total">—</div>
+      <div class="l">reach total (abonnés cumulés) <span class="d" id="total-delta"></span></div>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <section class="block">
+      <div class="block-head">
+        <h2>abonnés par plateforme</h2>
+        <div class="legend" id="legend"></div>
+        <button class="toggle" id="toggle-hist">tableau</button>
+      </div>
+      <div id="plot-wrap"><svg id="plot" role="img" aria-label="courbes des abonnés"></svg><div id="tip"></div></div>
+      <table id="hist"></table>
+    </section>
+  </div>
+
+  <!-- ===== MES CONTENUS ===== -->
+  <div class="pane" data-tab="content">
+    <section class="block">
+      <div class="block-head"><h2>derniers contenus · par vues</h2><div class="legend" id="clegend"></div></div>
+      <div class="bars" id="content-bars"></div>
+    </section>
+  </div>
+
+  <!-- ===== LABO ===== -->
+  <div class="pane" data-tab="labo">
+    <section class="block">
+      <div class="block-head"><h2>🔥 contenus viraux de la niche</h2></div>
+      <div class="viral-grid" id="viral-grid"></div>
+      <p class="note" id="labo-empty" style="display:none"></p>
+    </section>
+    <section class="block">
+      <div class="block-head"><h2>formats qui cartonnent</h2></div>
+      <div class="bars" id="formats"></div>
+    </section>
+    <section class="block">
+      <div class="block-head"><h2>sujets chauds</h2></div>
+      <div class="chips" id="topics"></div>
+    </section>
+    <section class="block">
+      <div class="block-head"><h2>meilleurs créneaux · posts viraux</h2></div>
+      <div id="slots"></div>
+    </section>
+    <section class="block">
+      <div class="block-head"><h2>comptes surveillés</h2></div>
+      <table id="accounts"></table>
+    </section>
+  </div>
+
+  <footer>relevé public sans login · <code>python3 fetch.py</code> (stats) · <code>python3 labo.py</code> (niche) · l'historique nourrit les courbes</footer>
+
+<script>
+const PLATFORMS = [
+  { id:"tiktok", label:"TikTok", url:"https://www.tiktok.com/@matheusgen" },
+  { id:"instagram", label:"Instagram", url:"https://www.instagram.com/matheusgen_/" },
+  { id:"youtube", label:"YouTube", url:"https://www.youtube.com/@MatheusGen" },
+  { id:"facebook", label:"Facebook", url:"https://www.facebook.com/profile.php?id=61587192072326" },
+  { id:"x", label:"X", url:"https://x.com/matheusnpu" },
+];
+const css = v => getComputedStyle(document.body).getPropertyValue(v).trim();
+const color = id => css(`--series-${id}`);
+const fmt = n => n==null ? "—" : n.toLocaleString("fr-FR");
+const kfmt = n => n==null ? "—" : n>=1e6 ? (n/1e6).toFixed(1).replace(".0","")+"M" : n>=1e3 ? (n/1e3).toFixed(1).replace(".0","")+"k" : ""+n;
+const fdate = ts => new Date(ts*1000).toLocaleDateString("fr-FR",{day:"numeric",month:"short"});
+
+function seriesOf(history, id) {
+  let last = null;
+  return history.map(s => {
+    const v = s.platforms[id]?.followers ?? null;
+    if (v!=null && v>0) last = v;
+    return { ts:s.ts, v:(v!=null && v>0)?v:last };
+  });
+}
+function delta(series){ const v=series.map(p=>p.v).filter(x=>x!=null); return v.length<2?null:v[v.length-1]-v[v.length-2]; }
+const deltaHtml = d => d==null?"":d>0?`<span class="d up">▲ ${fmt(d)}</span>`:d<0?`<span class="d down">▼ ${fmt(-d)}</span>`:`<span class="d flat">=</span>`;
+
+function spark(series, col){
+  const pts=series.filter(p=>p.v!=null); if(!pts.length) return "";
+  const w=160,h=32,pad=4;
+  const xs=pts.map((p,i)=>pts.length===1?w/2:pad+i*(w-2*pad)/(pts.length-1));
+  const mn=Math.min(...pts.map(p=>p.v)),mx=Math.max(...pts.map(p=>p.v));
+  const ys=pts.map(p=>mx===mn?h/2:h-pad-(p.v-mn)*(h-2*pad)/(mx-mn));
+  if(pts.length===1) return `<svg viewBox="0 0 ${w} ${h}"><circle cx="${w/2}" cy="${h/2}" r="4" fill="${col}"/></svg>`;
+  const d=xs.map((x,i)=>`${i?"L":"M"}${x.toFixed(1)},${ys[i].toFixed(1)}`).join(" ");
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${col}" stroke-width="2" stroke-linecap="round"/></svg>`;
+}
+function subline(id,p){
+  if(!p) return "";
+  if(id==="tiktok") return `${fmt(p.likes)} likes · ${p.videos} vidéos`;
+  if(id==="instagram") return `${p.posts} posts`;
+  if(id==="youtube") return `${kfmt(p.recent_views)} vues récentes`;
+  if(id==="facebook") return `${p.talking} en parlent`;
+  if(id==="x") return `${fmt(p.posts)} posts`;
+  return "";
+}
+
+let HISTORY=[], CONTENT=null, LABO=null;
+
+function renderOverview(){
+  const last=HISTORY[HISTORY.length-1];
+  document.getElementById("maj").textContent="relevé du "+new Date(last.ts*1000).toLocaleString("fr-FR",{day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"});
+  const totals=HISTORY.map((s,idx)=>({ts:s.ts,v:PLATFORMS.reduce((a,p)=>a+(seriesOf(HISTORY,p.id)[idx].v||0),0)}));
+  document.getElementById("total").textContent=fmt(totals[totals.length-1].v);
+  document.getElementById("total-delta").outerHTML=`<span class="d" id="total-delta">${deltaHtml(delta(totals)).replace(/^<span class="d /,'').replace(/^/,'<span class="d ')||""}</span>`;
+  document.getElementById("total-delta").innerHTML=deltaHtml(delta(totals));
+
+  document.getElementById("tiles").innerHTML=PLATFORMS.map(p=>{
+    const s=seriesOf(HISTORY,p.id), cur=s[s.length-1].v;
+    return `<a class="tile" href="${p.url}" target="_blank" title="${p.label}">
+      <div class="head"><span class="chip" style="background:${color(p.id)}"></span>${p.label} ${deltaHtml(delta(s))}</div>
+      <div class="n">${fmt(cur)}</div><div class="sub">${subline(p.id,last.platforms[p.id])}</div>${spark(s,color(p.id))}</a>`;
+  }).join("");
+  document.getElementById("legend").innerHTML=PLATFORMS.map(p=>`<span><i style="background:${color(p.id)}"></i>${p.label}</span>`).join("");
+  drawPlot();
+
+  const table=document.getElementById("hist");
+  table.innerHTML=`<tr><th>relevé</th>${PLATFORMS.map(p=>`<th>${p.label}</th>`).join("")}<th>total</th></tr>`+
+    HISTORY.map((s,i)=>`<tr><td>${new Date(s.ts*1000).toLocaleString("fr-FR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</td>`+
+      PLATFORMS.map(p=>`<td>${fmt(seriesOf(HISTORY,p.id)[i].v)}</td>`).join("")+`<td>${fmt(totals[i].v)}</td></tr>`).reverse().join("");
+}
+
+function drawPlot(){
+  const svg=document.getElementById("plot"); const W=svg.clientWidth,H=290,padL=52,padR=16,padT=12,padB=26;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const all=PLATFORMS.map(p=>({...p,s:seriesOf(HISTORY,p.id).filter(x=>x.v!=null)}));
+  const vals=all.flatMap(p=>p.s.map(x=>x.v)), ts=HISTORY.map(s=>s.ts);
+  if(!vals.length) return;
+  const vmax=Math.max(...vals)*1.12, t0=ts[0], t1=ts[ts.length-1];
+  const X=t=>t1===t0?padL+(W-padL-padR)/2:padL+(t-t0)*(W-padL-padR)/(t1-t0);
+  const Y=v=>padT+(H-padT-padB)*(1-v/vmax);
+  let g="";
+  for(let i=0;i<=4;i++){const v=vmax*i/4,y=Y(v);g+=`<line x1="${padL}" x2="${W-padR}" y1="${y}" y2="${y}" stroke="${css("--grid")}"/><text x="${padL-8}" y="${y+4}" text-anchor="end" font-size="11" fill="${css("--text-muted")}">${kfmt(Math.round(v))}</text>`;}
+  for(const p of all){const col=color(p.id);
+    if(p.s.length===1){g+=`<circle cx="${X(p.s[0].ts)}" cy="${Y(p.s[0].v)}" r="5" fill="${col}"/>`;}
+    else{const d=p.s.map((x,i)=>`${i?"L":"M"}${X(x.ts).toFixed(1)},${Y(x.v).toFixed(1)}`).join(" ");
+      g+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${X(p.s[p.s.length-1].ts)}" cy="${Y(p.s[p.s.length-1].v)}" r="3.5" fill="${col}"/>`;}}
+  g+=`<text x="${X(t0)}" y="${H-8}" font-size="11" fill="${css("--text-muted")}" text-anchor="middle">${fdate(t0)}</text>`;
+  if(t1!==t0) g+=`<text x="${X(t1)}" y="${H-8}" font-size="11" fill="${css("--text-muted")}" text-anchor="middle">${fdate(t1)}</text>`;
+  g+=`<line id="xhair" y1="${padT}" y2="${H-padB}" stroke="${css("--text-muted")}" stroke-dasharray="3 3" opacity="0"/>`;
+  svg.innerHTML=g;
+  const tip=document.getElementById("tip"),wrap=document.getElementById("plot-wrap");
+  svg.onpointermove=ev=>{const r=svg.getBoundingClientRect(),mx=(ev.clientX-r.left)*W/r.width;
+    let best=0,bd=1e18; HISTORY.forEach((s,i)=>{const d=Math.abs(X(s.ts)-mx);if(d<bd){bd=d;best=i;}});
+    const snap=HISTORY[best],xh=document.getElementById("xhair");
+    xh.setAttribute("x1",X(snap.ts));xh.setAttribute("x2",X(snap.ts));xh.setAttribute("opacity","1");
+    tip.style.display="block";
+    tip.innerHTML=`<b>${fdate(snap.ts)}</b>`+PLATFORMS.map(p=>`<div class="row"><i style="background:${color(p.id)}"></i>${p.label} <b>${fmt(seriesOf(HISTORY,p.id)[best].v)}</b></div>`).join("");
+    const wr=wrap.getBoundingClientRect(),left=Math.min(ev.clientX-wr.left+14,wr.width-tip.offsetWidth-8);
+    tip.style.left=`${Math.max(8,left)}px`; tip.style.top=`${ev.clientY-wr.top+14}px`;
+  };
+  svg.onpointerleave=()=>{tip.style.display="none";document.getElementById("xhair")?.setAttribute("opacity","0");};
+}
+
+function renderContent(){
+  if(!CONTENT) return;
+  const items=[];
+  for(const pid of ["instagram","youtube"]) (CONTENT[pid]||[]).forEach(c=>items.push({...c,platform:pid}));
+  items.sort((a,b)=>(b.views||b.likes||0)-(a.views||a.likes||0));
+  const top=items.slice(0,18);
+  const max=Math.max(...top.map(c=>c.views||c.likes||0),1);
+  document.getElementById("clegend").innerHTML=`<span><i style="background:${color("instagram")}"></i>Instagram</span><span><i style="background:${color("youtube")}"></i>YouTube</span>`;
+  document.getElementById("content-bars").innerHTML=top.map(c=>{
+    const metric=c.views||c.likes||0, col=color(c.platform);
+    return `<a class="bar-row" href="${c.url}" target="_blank" style="text-decoration:none">
+      <span class="lbl"><b>${(c.caption||"(sans texte)").slice(0,70)}</b></span>
+      <span class="val">${kfmt(metric)} ${c.views?"vues":"likes"}</span>
+      <span class="bar-track"><span class="bar-fill" style="width:${Math.max(2,100*metric/max)}%;background:${col}"></span></span>
+    </a>`;
+  }).join("") || `<p class="note">lance <code>python3 fetch.py</code> pour récupérer tes contenus.</p>`;
+}
+
+function renderLabo(){
+  const grid=document.getElementById("viral-grid"), empty=document.getElementById("labo-empty");
+  if(!LABO || !LABO.accounts?.length){
+    grid.innerHTML=""; empty.style.display="block";
+    empty.innerHTML=`le labo est vide. ajoute des comptes de ta niche dans <code>watchlist.json</code> puis lance <code>python3 labo.py</code>. il disséquera chaque compte public — abonnés, engagement, contenus viraux — sans aucun login.`;
+    document.getElementById("topics").innerHTML=""; document.getElementById("accounts").innerHTML="";
+    return;
+  }
+  empty.style.display="none";
+  grid.innerHTML=(LABO.virals||[]).map(v=>{
+    const thumb=v.thumb_local?`/matheus/data/${v.thumb_local}`:"";
+    return `<a class="viral" href="${v.url}" target="_blank">
+      <div class="thumb" style="${thumb?`background-image:url('${thumb}')`:""}"><span class="score">×${v.viral}</span></div>
+      <div class="meta"><div class="who">@${v.account}</div><div class="cap">${(v.caption||"").slice(0,80)}</div>
+      <div class="stat">${kfmt(v.views||v.likes)} ${v.views?"vues":"likes"} · ${kfmt(v.comments)} com</div></div></a>`;
+  }).join("") || `<p class="note">aucun contenu au-dessus du seuil viral pour l'instant.</p>`;
+
+  document.getElementById("topics").innerHTML=(LABO.topics||[]).map(([w,c])=>`<a href="#"><b>${w}</b><i>×${c}</i></a>`).join("") || `<span class="note">pas encore de sujet dominant.</span>`;
+
+  // formats gagnants : barres par portée médiane du format
+  const fmts=LABO.formats||[]; const fmax=Math.max(...fmts.map(f=>f.median_viral),1);
+  document.getElementById("formats").innerHTML=fmts.map(f=>`
+    <div class="bar-row">
+      <span class="lbl"><b>${f.format}</b><span class="fmt-best">${f.count} post${f.count>1?"s":""}</span></span>
+      <span class="val">×${f.median_viral} méd.</span>
+      <span class="bar-track"><span class="bar-fill" style="width:${Math.max(3,100*f.median_viral/fmax)}%;background:var(--series-instagram)"></span></span>
+    </div>`).join("") || `<p class="note">pas assez de viraux pour dégager un format.</p>`;
+
+  // créneaux : jours + heures, barres
+  const sl=LABO.slots||{days:[],hours:[]};
+  const dmax=Math.max(...sl.days.map(d=>d[1]),1), hmax=Math.max(...sl.hours.map(h=>h[1]),1);
+  const dayRow=sl.days.map(([j,n])=>`<div class="slot-cell"><div class="slot-bar"><div class="slot-fill" style="height:${n?Math.max(8,100*n/dmax):0}%;opacity:${n?1:.3}"></div></div><div class="slot-lbl">${j}</div></div>`).join("");
+  const hourRow=sl.hours.map(([h,n])=>`<div class="slot-cell"><div class="slot-bar"><div class="slot-fill" style="height:${n?Math.max(8,100*n/hmax):0}%;opacity:${n?1:.3};background:var(--series-youtube)"></div></div><div class="slot-lbl">${h%3===0?h+"h":""}</div></div>`).join("");
+  document.getElementById("slots").innerHTML=`<div class="slot-grid">
+    <div><div class="slot-title">par jour</div><div class="slot-row">${dayRow}</div></div>
+    <div><div class="slot-title">par heure (Paris)</div><div class="slot-row">${hourRow}</div></div></div>`;
+
+  document.getElementById("accounts").innerHTML=`<tr><th>compte</th><th>abonnés</th><th>eng. moy.</th><th>portée médiane</th><th>top post</th></tr>`+
+    LABO.accounts.map(a=>{
+      const th=a.top_thumb?`<img class="acc-thumb" src="/matheus/data/${a.top_thumb}" alt="">`:"";
+      const topcell=a.top_url?`<a href="${a.top_url}" target="_blank">${th}×${(a.top_viral||0).toFixed(1)}</a>`:`×${(a.top_viral||0).toFixed(1)}`;
+      return `<tr><td><a href="${a.url}" target="_blank">@${a.username}</a></td><td>${fmt(a.followers)}</td><td>${a.avg_engagement}%</td><td>${kfmt(a.median_reach)}</td><td>${topcell}</td></tr>`;
+    }).join("");
+}
+
+// onglets
+document.querySelectorAll("nav.tabs button").forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected", b===btn));
+    document.querySelectorAll(".pane").forEach(p=>p.toggleAttribute("data-active", p.dataset.tab===btn.dataset.tab));
+    if(btn.dataset.tab==="overview") drawPlot();
+  };
+});
+document.getElementById("toggle-hist").onclick=()=>{
+  const t=document.getElementById("hist"), show=t.style.display!=="table";
+  t.style.display=show?"table":"none";
+  document.getElementById("plot-wrap").style.display=show?"none":"block";
+  document.getElementById("toggle-hist").textContent=show?"courbes":"tableau";
+};
+
+async function load(path){ try { return await (await fetch(path,{cache:"no-store"})).json(); } catch { return null; } }
+async function main(){
+  HISTORY=await load("/matheus/data/history.json")||[];
+  CONTENT=await load("/matheus/data/content.json");
+  LABO=await load("/matheus/data/labo.json");
+  if(HISTORY.length) renderOverview();
+  renderContent(); renderLabo();
+  const h=location.hash.slice(1);
+  if(h){ const b=document.querySelector(`nav.tabs button[data-tab="${h}"]`); if(b) b.click(); }
+  addEventListener("resize",drawPlot);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{ if(HISTORY.length){drawPlot();} });
+}
+main();
+</script>
+</body>
+</html>

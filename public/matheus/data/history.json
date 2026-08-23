@@ -1,0 +1,59 @@
+[
+ {
+  "ts": 1787492173,
+  "platforms": {
+   "tiktok": {
+    "followers": 12800,
+    "likes": 557500,
+    "videos": 53
+   },
+   "instagram": {
+    "followers": 10196,
+    "posts": 34
+   },
+   "youtube": {
+    "followers": 8720
+   },
+   "facebook": {
+    "followers": 8078,
+    "talking": 72
+   },
+   "x": {
+    "followers": 3041,
+    "posts": 2117,
+    "likes": 1906
+   }
+  }
+ },
+ {
+  "ts": 1787493373,
+  "platforms": {
+   "tiktok": {
+    "followers": 12800,
+    "following": 34,
+    "likes": 557500,
+    "videos": 53
+   },
+   "instagram": {
+    "followers": 10196,
+    "following": 48,
+    "posts": 34
+   },
+   "youtube": {
+    "followers": 8720,
+    "recent_views": 234399
+   },
+   "facebook": {
+    "followers": 8078,
+    "talking": 72
+   },
+   "x": {
+    "followers": 3041,
+    "following": 194,
+    "posts": 2117,
+    "likes": 1906,
+    "media": 229
+   }
+  }
+ }
+]
