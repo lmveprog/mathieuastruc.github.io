@@ -89,10 +89,18 @@ export default function AsciiBackground() {
     ];
 
     const place = () => {
+      if (width < 1080) {
+        // sur mobile : une seule petite forme, glissée dans le coin bas droit
+        clouds[1].cx = width * 0.84;
+        clouds[1].cy = height * 0.86;
+        clouds[1].scale = 140;
+        return;
+      }
       clouds[0].cx = width * 0.87;
       clouds[0].cy = height * 0.36;
       clouds[1].cx = width * 0.11;
       clouds[1].cy = height * 0.74;
+      clouds[1].scale = 210;
     };
 
     const resize = () => {
@@ -108,7 +116,7 @@ export default function AsciiBackground() {
       place();
     };
 
-    const drawCloud = (c: Cloud, inkLow: string, inkHigh: string, dark: boolean) => {
+    const drawCloud = (c: Cloud, inkLow: string, inkHigh: string, dark: boolean, alphaScale = 1) => {
       const from = SHAPES[c.shape];
       const to = SHAPES[c.next];
       const t = easeInOut(Math.min(1, c.morph));
@@ -152,7 +160,7 @@ export default function AsciiBackground() {
       for (const hit of best.values()) {
         const glyph = RAMP[Math.min(RAMP.length - 1, Math.floor(hit.n * RAMP.length))];
         context.fillStyle = hit.n > 0.62 ? inkHigh : inkLow;
-        context.globalAlpha = dark ? 0.1 + hit.n * 0.32 : 0.08 + hit.n * 0.24;
+        context.globalAlpha = (dark ? 0.1 + hit.n * 0.32 : 0.08 + hit.n * 0.24) * alphaScale;
         context.fillText(glyph, hit.x, hit.y);
       }
       context.globalAlpha = 1;
@@ -160,11 +168,15 @@ export default function AsciiBackground() {
 
     const draw = () => {
       context.clearRect(0, 0, width, height);
-      if (width < 1080) return; // pas de marges = pas de formes
 
       const dark = document.documentElement.dataset.theme === "dark";
       const inkLow = dark ? "#5c6b7a" : "#8a847b";
       const inkHigh = dark ? "#96b6d4" : "#1a3a5c";
+      if (width < 1080) {
+        // mobile : une seule forme, plus discrète
+        drawCloud(clouds[1], inkLow, inkHigh, dark, 0.55);
+        return;
+      }
       for (const c of clouds) drawCloud(c, inkLow, inkHigh, dark);
     };
 

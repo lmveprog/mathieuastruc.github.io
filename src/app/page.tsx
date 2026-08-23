@@ -1,5 +1,6 @@
 import AsciiBackground from "./components/AsciiBackground";
 import AsciiPortrait from "./components/AsciiPortrait";
+import AsciiPolaroid from "./components/AsciiPolaroid";
 import DecryptText from "./components/DecryptText";
 import HoverIndicator from "./components/HoverIndicator";
 import LocalTime from "./components/LocalTime";
@@ -138,8 +139,8 @@ export default function Home() {
       </header>
 
       <section aria-labelledby="experience-title">
-        <h2 id="experience-title">experience</h2>
-        <ol className="row-list">
+        <h2 id="experience-title"><DecryptText text="experience" trigger="visible" /></h2>
+        <ol className="row-list exp-list">
           {experience.map((e) => (
             <li key={e.role + e.org}>
               {e.logo ? (
@@ -158,7 +159,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="projects-title">
-        <h2 id="projects-title">projects</h2>
+        <h2 id="projects-title"><DecryptText text="projects" trigger="visible" /></h2>
         <ul className="project-list">
           {projects.map((p) => (
             <li key={p.title}>
@@ -192,7 +193,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="education-title">
-        <h2 id="education-title">education</h2>
+        <h2 id="education-title"><DecryptText text="education" trigger="visible" /></h2>
         <ol className="row-list">
           {education.map((e) => (
             <li key={e.degree}>
@@ -206,21 +207,18 @@ export default function Home() {
       </section>
 
       <section className="interests-section" aria-labelledby="interests-title">
-        <h2 id="interests-title">interests</h2>
+        <h2 id="interests-title"><DecryptText text="interests" trigger="visible" /></h2>
         <div className="polaroid-row">
           <figure className="polaroid">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/interests/basketball.png" alt="Mathieu playing basketball for SMUC" loading="lazy" decoding="async" />
+            <AsciiPolaroid src="/images/interests/basketball.png" alt="Mathieu playing basketball for SMUC" />
             <figcaption>basketball</figcaption>
           </figure>
           <figure className="polaroid">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/interests/associations.jpg" alt="Speaking at a student event" loading="lazy" decoding="async" />
+            <AsciiPolaroid src="/images/interests/associations.jpg" alt="Speaking at a student event" />
             <figcaption>content creation</figcaption>
           </figure>
           <figure className="polaroid">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/interests/building.png" alt="Mathieu at a hackathon holding a pixel-art invader" loading="lazy" decoding="async" />
+            <AsciiPolaroid src="/images/interests/building.png" alt="Mathieu at a hackathon holding a pixel-art invader" />
             <figcaption>building</figcaption>
           </figure>
         </div>

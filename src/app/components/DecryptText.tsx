@@ -1,17 +1,43 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // le texte arrive brouillé en glyphes ASCII et se résout de gauche à
 // droite, une fois, au chargement (idée empruntée au Decrypt Reveal de
 // canvasui.dev, en version one-shot pour ne jamais gêner la lecture)
 const GLYPHS = "!#$%&*+-:;=?@";
 
-export default function DecryptText({ text }: { text: string }) {
+type Props = {
+  text: string;
+  /** "mount" = au chargement, "visible" = à l'entrée dans le viewport */
+  trigger?: "mount" | "visible";
+};
+
+export default function DecryptText({ text, trigger = "mount" }: Props) {
   // au rendu serveur le vrai texte est là : rien à perdre côté SEO
   const [display, setDisplay] = useState(text);
+  const [armed, setArmed] = useState(trigger === "mount");
+  const spanRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    if (trigger !== "visible" || armed) return;
+    const el = spanRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setArmed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.6 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [trigger, armed]);
+
+  useEffect(() => {
+    if (!armed) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const totalFrames = 26;
@@ -31,7 +57,7 @@ export default function DecryptText({ text }: { text: string }) {
     }, 42);
 
     return () => window.clearInterval(interval);
-  }, [text]);
+  }, [armed, text]);
 
-  return <>{display}</>;
+  return <span ref={spanRef}>{display}</span>;
 }
