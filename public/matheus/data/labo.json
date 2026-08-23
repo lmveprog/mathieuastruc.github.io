@@ -3172,39 +3172,11 @@
  ],
  "topics": [
   [
-   "claude",
-   36
-  ],
-  [
    "tech",
-   22
-  ],
-  [
-   "finance",
-   11
-  ],
-  [
-   "context",
-   10
-  ],
-  [
-   "google",
    8
   ],
   [
-   "engineering",
-   8
-  ],
-  [
-   "data",
-   8
-  ],
-  [
-   "work",
-   8
-  ],
-  [
-   "quantum",
+   "claude",
    8
   ],
   [
@@ -3212,111 +3184,109 @@
    7
   ],
   [
-   "guide",
-   7
+   "intelligenceartificielle",
+   6
   ],
   [
-   "full",
-   7
+   "model",
+   5
+  ],
+  [
+   "coding",
+   3
+  ],
+  [
+   "mistral",
+   3
+  ],
+  [
+   "arxiv",
+   3
+  ],
+  [
+   "aiengineer",
+   3
+  ],
+  [
+   "données",
+   3
+  ],
+  [
+   "foundation",
+   3
+  ],
+  [
+   "apprend",
+   3
   ]
  ],
  "formats": [
   {
    "format": "choc / \"a tué\"",
-   "count": 4,
-   "median_viral": 39.2,
-   "best": "Claude just killed the finance industry. \n\nComment BREAKDOWN and I’ll "
-  },
-  {
-   "format": "explication \"X expliqué\"",
-   "count": 2,
-   "median_viral": 24.8,
-   "best": "This blew my mind… your phones GPS finds you using time, not maps.\n\nWh"
+   "count": 1,
+   "median_viral": 29.2,
+   "best": "Claude peut remplacer les monteurs vidéos ! #intelligenceartificielle "
   },
   {
    "format": "tutoriel \"comment\"",
-   "count": 19,
-   "median_viral": 6.0,
-   "best": "A journey through \"Tech Role Evolution\" 🎶 (original song)\n\nTech roles "
-  },
-  {
-   "format": "annonce / \"X sort\"",
-   "count": 1,
-   "median_viral": 5.8,
-   "best": "My UPDATED career path as a fresh new grad 🤓 \n\n(This was a very highly"
+   "count": 3,
+   "median_viral": 8.6,
+   "best": "Claude est un menteur et tu peux le remettre dans le droit chemin !\n\nC"
   },
   {
    "format": "question / débat",
-   "count": 5,
-   "median_viral": 5.3,
+   "count": 4,
+   "median_viral": 5.8,
    "best": "Quel modèle d’IA tu fais sauter ?? #ia #intelligenceartificielle #clau"
-  },
-  {
-   "format": "secret / \"personne\"",
-   "count": 1,
-   "median_viral": 5.0,
-   "best": "There’s a chip architecture powering 10 billion devices that nobody ha"
-  },
-  {
-   "format": "liste \"N trucs\"",
-   "count": 1,
-   "median_viral": 3.3,
-   "best": "Likez + commentez \"Google\" pour recevoir les liens\n\nGoogle a sorti 7 o"
-  },
-  {
-   "format": "preuve / \"je teste\"",
-   "count": 1,
-   "median_viral": 2.3,
-   "best": "The day I tried the Tom Holland workout"
   }
  ],
  "slots": {
   "days": [
    [
     "lun",
-    5
+    0
    ],
    [
     "mar",
-    10
-   ],
-   [
-    "mer",
-    10
-   ],
-   [
-    "jeu",
-    12
-   ],
-   [
-    "ven",
-    4
-   ],
-   [
-    "sam",
     2
    ],
    [
+    "mer",
+    3
+   ],
+   [
+    "jeu",
+    1
+   ],
+   [
+    "ven",
+    3
+   ],
+   [
+    "sam",
+    0
+   ],
+   [
     "dim",
-    8
+    3
    ]
   ],
   "hours": [
    [
     0,
-    1
+    0
    ],
    [
     1,
-    3
+    0
    ],
    [
     2,
-    1
+    0
    ],
    [
     3,
-    2
+    0
    ],
    [
     4,
@@ -3324,11 +3294,11 @@
    ],
    [
     5,
-    1
+    0
    ],
    [
     6,
-    1
+    0
    ],
    [
     7,
@@ -3344,43 +3314,43 @@
    ],
    [
     10,
-    1
+    0
    ],
    [
     11,
-    4
-   ],
-   [
-    12,
-    3
-   ],
-   [
-    13,
     1
    ],
    [
+    12,
+    0
+   ],
+   [
+    13,
+    0
+   ],
+   [
     14,
-    3
+    1
    ],
    [
     15,
-    3
+    0
    ],
    [
     16,
-    2
+    1
    ],
    [
     17,
-    6
+    3
    ],
    [
     18,
-    4
+    1
    ],
    [
     19,
-    6
+    3
    ],
    [
     20,
@@ -3388,15 +3358,15 @@
    ],
    [
     21,
-    1
+    0
    ],
    [
     22,
-    1
+    0
    ],
    [
     23,
-    5
+    0
    ]
   ]
  },
@@ -3476,38 +3446,25 @@
   {
    "hook": "Claude vient de tuer les monteurs",
    "format": "choc / \"a tué\"",
-   "proof": "format à ×39.2 dans ta niche",
-   "example": "Claude just killed the finance industry. \n\nComment BREAKDOWN and I’ll "
+   "proof": "format à ×29.2 dans ta niche",
+   "example": "Claude peut remplacer les monteurs vidéos ! #intelligenceartificielle "
   },
   {
-   "hook": "Finance expliqué en 60 secondes",
-   "format": "explication \"X expliqué\"",
-   "proof": "format à ×24.8 dans ta niche",
-   "example": "This blew my mind… your phones GPS finds you using time, not maps.\n\nWh"
-  },
-  {
-   "hook": "Comment utiliser context pour automatiser ta veille",
+   "hook": "Comment utiliser modèle pour coder 10x plus vite",
    "format": "tutoriel \"comment\"",
-   "proof": "format à ×6.0 dans ta niche",
-   "example": "A journey through \"Tech Role Evolution\" 🎶 (original song)\n\nTech roles "
+   "proof": "format à ×8.6 dans ta niche",
+   "example": "Claude est un menteur et tu peux le remettre dans le droit chemin !\n\nC"
   },
   {
-   "hook": "Google ou engineering : lequel tu choisis ?",
+   "hook": "Intelligenceartificielle ou model : lequel tu choisis ?",
    "format": "question / débat",
-   "proof": "format à ×5.3 dans ta niche",
+   "proof": "format à ×5.8 dans ta niche",
    "example": "Quel modèle d’IA tu fais sauter ?? #ia #intelligenceartificielle #clau"
-  },
-  {
-   "hook": "Le engineering que les devs te cachent",
-   "format": "secret / \"personne\"",
-   "proof": "format à ×5.0 dans ta niche",
-   "example": "There’s a chip architecture powering 10 billion devices that nobody ha"
-  },
-  {
-   "hook": "5 usages de data que personne ne connaît",
-   "format": "liste \"N trucs\"",
-   "proof": "format à ×3.3 dans ta niche",
-   "example": "Likez + commentez \"Google\" pour recevoir les liens\n\nGoogle a sorti 7 o"
   }
+ ],
+ "core": [
+  "matheusgen_",
+  "chrispathway",
+  "consti.in.tech"
  ]
 }

@@ -171,7 +171,7 @@
   <!-- ===== LABO ===== -->
   <div class="pane" data-tab="labo">
     <section class="block">
-      <div class="block-head"><h2>💡 idées à tourner</h2></div>
+      <div class="block-head"><h2>💡 idées à tourner</h2><span class="legend" id="core-tag"></span></div>
       <div class="ideas" id="ideas"></div>
     </section>
     <section class="block">
@@ -328,6 +328,7 @@ function renderLabo(){
     return;
   }
   empty.style.display="none";
+  document.getElementById("core-tag").textContent=(LABO.core?.length?"niche : "+LABO.core.map(c=>"@"+c).join(" · "):"");
   document.getElementById("ideas").innerHTML=(LABO.ideas||[]).map(i=>`
     <div class="idea"><div class="hook">${i.hook}</div><div class="proof">↗ ${i.proof}</div>
     <div class="ex">déjà vu : ${(i.example||"").slice(0,60)}…</div></div>`).join("") || "";
