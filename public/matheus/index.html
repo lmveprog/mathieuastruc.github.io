@@ -110,6 +110,20 @@
   .chips a b { color:var(--text-primary); }
   .chips a i { color:var(--text-muted); font-style:normal; font-size:11px; margin-left:4px; }
 
+  .studio-in { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+  .studio-in input { flex:1; min-width:220px; font:inherit; font-size:15px; padding:12px 15px; border-radius:11px; border:1px solid var(--line); background:var(--surface-2); color:var(--text-primary); }
+  .studio-in input:focus { outline:none; border-color:var(--series-instagram); }
+  .studio-in button { font:inherit; font-size:15px; font-weight:650; padding:12px 22px; border-radius:11px; border:0; background:var(--series-instagram); color:#fff; cursor:pointer; }
+  .studio-in #regen { background:var(--surface-3); color:var(--text-primary); padding:12px 16px; }
+  .script { background:var(--surface-2); border-radius:14px; padding:22px 24px; margin-top:18px; line-height:1.55; }
+  .script h3 { font-size:19px; font-weight:700; letter-spacing:-.01em; margin-bottom:4px; }
+  .script .kicker { font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--series-instagram); margin-top:20px; }
+  .script .beat { margin-top:6px; }
+  .script ol { margin:6px 0 0 20px; }
+  .script ol li { margin-top:5px; }
+  .script .fill { color:var(--text-muted); font-style:italic; }
+  .script .meta { margin-top:20px; padding-top:14px; border-top:1px solid var(--grid); font-size:12.5px; color:var(--text-secondary); }
+  .script .meta b { color:var(--text-primary); }
   .ideas { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; margin-top:14px; }
   .idea { background:var(--surface-2); border-radius:12px; padding:14px 16px; border-left:3px solid var(--series-instagram); }
   .idea .hook { font-size:15px; font-weight:650; line-height:1.3; }
@@ -140,6 +154,7 @@
     <button role="tab" aria-selected="true" data-tab="overview">vue d'ensemble</button>
     <button role="tab" aria-selected="false" data-tab="content">mes contenus</button>
     <button role="tab" aria-selected="false" data-tab="labo">labo matheus</button>
+    <button role="tab" aria-selected="false" data-tab="studio">🎬 studio</button>
   </nav>
 
   <!-- ===== VUE D'ENSEMBLE ===== -->
@@ -194,6 +209,20 @@
     <section class="block">
       <div class="block-head"><h2>comptes surveillés</h2></div>
       <table id="accounts"></table>
+    </section>
+  </div>
+
+  <!-- ===== STUDIO ===== -->
+  <div class="pane" data-tab="studio">
+    <section class="block">
+      <div class="block-head"><h2>🎬 studio · un sujet, un script</h2></div>
+      <p class="note">écris un sujet, le studio te sort un script prêt à tourner — accroche existentielle, analogie, ta caution d'ingénieur, chute — dans le ton « Zebroloss de l'IA », calé sur les formats qui cartonnent dans ta niche.</p>
+      <div class="studio-in">
+        <input id="subject" type="text" placeholder="ex : les agents IA, la fin des développeurs, Claude 5…" autocomplete="off">
+        <button id="gen">générer</button>
+        <button id="regen" title="autre version" style="display:none">↻</button>
+      </div>
+      <div id="script"></div>
     </section>
   </div>
 
@@ -383,6 +412,94 @@ document.getElementById("toggle-hist").onclick=()=>{
   document.getElementById("toggle-hist").textContent=show?"courbes":"tableau";
 };
 
+
+// ===== STUDIO : générateur de script à la Zebroloss de l'IA =====
+const HOOKS = [
+  "On vient de créer {s}. Et personne ne mesure vraiment ce que ça veut dire.",
+  "{S} : dans 5 ans, tu ne reconnaîtras plus ton quotidien.",
+  "Il y a un monde avant {s}. Et un monde après. On vient de basculer.",
+  "Tu utilises {s} presque tous les jours… sans savoir ce que c'est vraiment.",
+  "Le jour où {s} a dépassé ce qu'on croyait possible, personne n'a prévenu.",
+  "{S}. Retiens ce mot. Dans 10 ans, il aura tout changé.",
+  "Ce que {s} change vraiment, ce n'est pas ce que tu crois.",
+  "On a construit {s}. Et maintenant, on ne comprend plus totalement ce qu'on a créé.",
+];
+const ANALOGIES = [
+  "Imagine expliquer internet à quelqu'un en 1990. {S}, aujourd'hui, c'est exactement ça.",
+  "C'est comme si, du jour au lendemain, chacun avait une équipe d'experts qui ne dort jamais.",
+  "Pense à l'imprimerie. Avant, savoir était rare. {S} fait la même bascule, mais en dix fois plus vite.",
+  "C'est le moment où le feu a été maîtrisé — sauf que là, ça se passe en quelques mois, sous tes yeux.",
+  "Imagine une carte qui se redessine pendant que tu marches dessus. C'est ça, vivre {s} maintenant.",
+];
+const CAUTIONS = [
+  "Et moi, en tant qu'ingénieur qui construit ça au quotidien, ce qui me frappe c'est <span class='fill'>[le détail que le grand public ignore]</span>.",
+  "Ce que je vois de l'intérieur, et qu'aucun média ne raconte : <span class='fill'>[l'angle technique rendu simple]</span>.",
+  "J'ai passé des mois à travailler avec ça. La vérité, c'est que <span class='fill'>[la nuance que personne ne dit]</span>.",
+];
+const EXEMPLES = [
+  "Un exemple concret : <span class='fill'>[le cas d'usage frappant, chiffré si possible]</span>.",
+  "Regarde ce qui vient de se passer : <span class='fill'>[le fait récent qui rend ça réel]</span>.",
+  "Le truc que ça permet déjà, là, maintenant : <span class='fill'>[la démo qui claque]</span>.",
+];
+const CHUTES = [
+  "On ne vit pas une évolution. On vit une bascule. Et toi, tu es aux premières loges.",
+  "La vraie question n'est pas de savoir si ça va te remplacer. C'est ce que TOI, tu vas en faire.",
+  "Dans 10 ans, tes enfants ne croiront pas qu'on a vécu le moment exact où c'est arrivé.",
+  "Le futur n'arrive pas. Il est déjà là. Il n'est juste pas encore réparti également.",
+  "Ceux qui comprennent ça maintenant auront dix ans d'avance. Les autres découvriront trop tard.",
+];
+
+// pseed déterministe depuis le sujet (+ variante pour le bouton ↻)
+function seeded(str, salt){ let h=salt||0; for(const c of str) h=(h*31+c.charCodeAt(0))>>>0; return ()=>{ h=(h*1103515245+12345)>>>0; return h/4294967296; }; }
+const cap = t => t.charAt(0).toUpperCase()+t.slice(1);
+function tpl(t, sujet){ return t.replace(/\{s\}/g, sujet).replace(/\{S\}/g, cap(sujet)); }
+
+let studioSalt = 0;
+function generate(){
+  const raw = document.getElementById("subject").value.trim();
+  if(!raw){ document.getElementById("script").innerHTML=""; return; }
+  const sujet = raw;                 // garde la casse (IA, Claude…)
+  const rnd = seeded(raw.toLowerCase(), studioSalt);
+  const pick = arr => arr[Math.floor(rnd()*arr.length)];
+  const three = arr => { const c=[...arr]; const out=[]; for(let i=0;i<3&&c.length;i++){ out.push(c.splice(Math.floor(rnd()*c.length),1)[0]); } return out; };
+
+  // grounding : format roi + créneau + viral le plus proche (depuis le labo)
+  const topFmt = LABO?.formats?.[0];
+  const bestDay = LABO?.slots?.days?.slice().sort((a,b)=>b[1]-a[1])[0];
+  const bestHour = LABO?.slots?.hours?.slice().sort((a,b)=>b[1]-a[1])[0];
+  const ref = (LABO?.virals||[]).find(v=>(v.caption||"").toLowerCase().split(/\W+/).some(w=>w.length>3 && sujet.includes(w)))
+            || LABO?.virals?.[0];
+
+  const hooks = three(HOOKS).map(h=>tpl(h, sujet));
+  const html = `<div class="script">
+    <h3>🎬 ${cap(raw)}</h3>
+    <div class="beat" style="color:var(--text-secondary);font-size:13px">reel ~45s · ton posé, motion design derrière · ta voix</div>
+
+    <div class="kicker">Accroche (0-3s) — choisis-en une</div>
+    <ol>${hooks.map(h=>`<li>${h}</li>`).join("")}</ol>
+
+    <div class="kicker">Déroulé (3-40s)</div>
+    <div class="beat">▸ <b>Le vertige :</b> ${tpl(pick(HOOKS), sujet)}</div>
+    <div class="beat">▸ <b>L'analogie :</b> ${tpl(pick(ANALOGIES), sujet)}</div>
+    <div class="beat">▸ <b>Ta caution :</b> ${pick(CAUTIONS)}</div>
+    <div class="beat">▸ <b>Le concret :</b> ${pick(EXEMPLES)}</div>
+
+    <div class="kicker">Chute (40-45s)</div>
+    <div class="beat">${pick(CHUTES)}</div>
+
+    <div class="meta">
+      ${topFmt?`format roi de ta niche : <b>${topFmt.format}</b> (×${topFmt.median_viral}) · `:""}
+      ${bestDay&&bestHour?`poste plutôt <b>${bestDay[0]}. vers ${bestHour[0]}h</b> · `:""}
+      ${ref?`réf virale à étudier : <b>"${(ref.caption||"").slice(0,55)}"</b> (×${ref.viral})`:""}
+    </div>
+  </div>`;
+  document.getElementById("script").innerHTML = html;
+  document.getElementById("regen").style.display = "inline-block";
+}
+document.getElementById("gen").onclick = ()=>{ studioSalt=0; generate(); };
+document.getElementById("regen").onclick = ()=>{ studioSalt++; generate(); };
+document.getElementById("subject").addEventListener("keydown", e=>{ if(e.key==="Enter"){ studioSalt=0; generate(); } });
+
 async function load(path){ try { return await (await fetch(path,{cache:"no-store"})).json(); } catch { return null; } }
 async function main(){
   HISTORY=await load("/matheus/data/history.json")||[];
@@ -390,6 +507,7 @@ async function main(){
   LABO=await load("/matheus/data/labo.json");
   if(HISTORY.length) renderOverview();
   renderContent(); renderLabo();
+  { const q=new URLSearchParams(location.search).get("sujet"); if(q){ document.getElementById("subject").value=q; generate(); } }
   const h=location.hash.slice(1);
   if(h){ const b=document.querySelector(`nav.tabs button[data-tab="${h}"]`); if(b) b.click(); }
   addEventListener("resize",drawPlot);
