@@ -72,6 +72,7 @@ function PlatformIcons() {
 type Project = {
   title: string;
   desc: string;
+  logo?: string;
   href?: string;
   platforms?: boolean;
   extra?: { label: string; href: string };
@@ -79,26 +80,36 @@ type Project = {
 };
 
 
+function ProjectLogo({ src }: { src?: string }) {
+  if (!src) return <span className="project-logo project-logo--empty" aria-hidden="true" />;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img className="project-logo" src={src} alt="" loading="lazy" decoding="async" />;
+}
+
 const projects: Project[] = [
   {
     title: "Impostral",
+    logo: "/images/projects/mistral.png",
     desc: "Mistral agents infiltrating a real-time social deduction game. 1st in our track, finalist at the Mistral AI Hackathon.",
     href: "https://github.com/MistralGagnant/impostralv2",
     extra: { label: "demo", href: "https://youtu.be/wsBaHW688Lc" },
   },
   {
     title: "AI content creation",
+    logo: "/images/projects/matheus.png",
     desc: "Breaking down AI concepts and news for a wide audience.",
     platforms: true,
   },
   {
     title: "Humanoid robot interaction stack",
+    logo: "/images/projects/humanoid.png",
     desc: "Gesture recognition and an embedded LLM running on a humanoid robot at NTNU.",
     href: "https://youtu.be/QZ8oGMaRq6M",
     detail: "video",
   },
   {
     title: "HCI International 2026 paper",
+    logo: "/images/projects/hcii.png",
     desc: "Lead author of an accepted HRI paper on real-time gesture recognition. Springer.",
     href: "https://link.springer.com/chapter/10.1007/978-3-032-29586-6_1",
     detail: "paper",
@@ -165,6 +176,7 @@ export default function Home() {
             <li key={p.title}>
               {p.href ? (
                 <a className="project-row" href={p.href} target="_blank" rel="noreferrer">
+                  <ProjectLogo src={p.logo} />
                   <span className="project-copy">
                     <span className="project-title"><DecryptText text={p.title} trigger="hover" hoverParent="li" /></span>
                     <span className="project-desc">{p.desc}</span>
@@ -173,6 +185,7 @@ export default function Home() {
                 </a>
               ) : (
                 <span className="project-row">
+                  <ProjectLogo src={p.logo} />
                   <span className="project-copy">
                     <span className="project-title">
                       <DecryptText text={p.title} trigger="hover" hoverParent="li" />
