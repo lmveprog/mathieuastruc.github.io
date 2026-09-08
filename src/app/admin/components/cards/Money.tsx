@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Card from "../Card";
 import type { MoneyDoc, MoneyEntry, Recurring } from "../types";
-import { fmtDayShort, fmtEuro, fmtMonth, fmtMonthShort, monthOf, shiftMonth, uid } from "../helpers";
+import { daysBetween, fmtDayShort, fmtEuro, fmtMonth, fmtMonthShort, fmtWhen, monthOf, shiftDay, shiftMonth, uid } from "../helpers";
 
 // les sous : ce qui rentre, ce qui sort, saisi a la main. un mois a la fois,
 // avec la repartition par categorie et les six derniers mois en barres.
@@ -56,6 +56,7 @@ export default function Money({ doc, today, onChange, i }: Props) {
   const [subKind, setSubKind] = useState<"in" | "out">("out");
   const [subEvery, setSubEvery] = useState<"month" | "year">("month");
   const [subMonth, setSubMonth] = useState(Number(today.slice(5, 7)));
+  const [subUrl, setSubUrl] = useState("");
 
   const entries = doc.entries || [];
   const recurring = doc.recurring || [];
@@ -91,6 +92,31 @@ export default function Money({ doc, today, onChange, i }: Props) {
 
   const subsMonthly = recurring.filter((r) => r.kind === "out" && r.every === "month" && occursIn(r, month)).reduce((s, r) => s + r.amount, 0);
   const subsYearly = recurring.filter((r) => r.kind === "out" && r.every === "year" && !(r.until && month > r.until)).reduce((s, r) => s + r.amount, 0);
+
+  // reste a vivre : les revenus du mois moins les fixes, puis moins le variable deja parti
+  const fixedIn = ofMonth.filter((e) => e.virtual && e.kind === "in").reduce((s, e) => s + e.amount, 0);
+  const fixedOut = ofMonth.filter((e) => e.virtual && e.kind === "out").reduce((s, e) => s + e.amount, 0);
+  const variableIn = ofMonth.filter((e) => !e.virtual && e.kind === "in").reduce((s, e) => s + e.amount, 0);
+  const variableOut = ofMonth.filter((e) => !e.virtual && e.kind === "out").reduce((s, e) => s + e.amount, 0);
+  const resteAVivre = fixedIn + variableIn - fixedOut;
+  const resteNow = resteAVivre - variableOut;
+  const isCurrent = month === monthOf(today);
+  const daysLeft = isCurrent ? daysInMonth(month) - Number(today.slice(8, 10)) + 1 : 0;
+
+  // ce qui va tomber dans les 30 prochains jours : fixes + lignes datees dans le futur
+  const upcoming = useMemo(() => {
+    const end = shiftDay(today, 30);
+    const out: (MoneyEntry & { rec?: Recurring })[] = [];
+    for (const key of [monthOf(today), shiftMonth(monthOf(today), 1)]) {
+      for (const r of recurring.filter((r) => occursIn(r, key))) {
+        const date = `${key}-${String(Math.min(r.day || 1, daysInMonth(key))).padStart(2, "0")}`;
+        if (date >= today && date <= end) out.push({ id: `up-${r.id}-${key}`, date, label: r.label, amount: r.amount, kind: r.kind, category: r.category, virtual: true, rec: r });
+      }
+    }
+    for (const e of entries) if (e.date > today && e.date <= end) out.push(e);
+    return out.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : b.amount - a.amount));
+  }, [entries, recurring, today]);
+  const upcomingOut = upcoming.filter((e) => e.kind === "out").reduce((s, e) => s + e.amount, 0);
 
   const parseAmount = (v: string) => Number(v.replace(",", ".").replace(/\s/g, ""));
   const parsed = parseAmount(amount);
@@ -131,10 +157,12 @@ export default function Money({ doc, today, onChange, i }: Props) {
       every: subEvery,
       month: subEvery === "year" ? subMonth : undefined,
       since: month,
+      cancelUrl: /^https?:\/\//.test(subUrl.trim()) ? subUrl.trim() : undefined,
     };
     onChange({ ...doc, recurring: [...recurring, r] });
     setSubLabel("");
     setSubAmount("");
+    setSubUrl("");
     setSubOpen(false);
   };
   // un abonnement arrete garde son historique : on le clot au mois affiche
@@ -256,6 +284,7 @@ export default function Money({ doc, today, onChange, i }: Props) {
                     {MONTHS.map((m, k) => <option key={m} value={k + 1}>{m}</option>)}
                   </select>
                 ) : null}
+                <input className="sub-url" value={subUrl} onChange={(e) => setSubUrl(e.target.value)} placeholder="lien pour résilier (option)" onKeyDown={(e) => e.key === "Enter" && addSub()} />
                 <span className="ev-actions">
                   <button className="primary" onClick={addSub} disabled={!subValid}>ok</button>
                   <button className="plus" onClick={() => setSubOpen(false)}>annuler</button>
@@ -263,6 +292,50 @@ export default function Money({ doc, today, onChange, i }: Props) {
               </div>
             ) : (
               <button className="plus" onClick={() => setSubOpen(true)}>+ une dépense mensuelle</button>
+            )}
+          </div>
+        </div>
+
+        <div className="money-mid">
+          <div className="rav">
+            <span className="money-k">reste à vivre · {fmtMonthShort(month)}</span>
+            <span className={`rav-big ${resteNow < 0 ? "down" : ""}`}>{fmtEuro(resteNow)}</span>
+            <span className="rav-sub">
+              {fmtEuro(fixedIn + variableIn)} de revenus − {fmtEuro(fixedOut)} de fixes = {fmtEuro(resteAVivre)}
+              {variableOut ? `, moins ${fmtEuro(variableOut)} déjà dépensés` : ""}
+            </span>
+            {isCurrent && daysLeft > 0 ? (
+              <span className="rav-day">
+                <b className={resteNow < 0 ? "down" : ""}>{fmtEuro(Math.max(0, resteNow) / daysLeft)}</b> / jour sur les {daysLeft} jours qui restent
+              </span>
+            ) : null}
+          </div>
+
+          <div className="upcoming">
+            <div className="subs-head">
+              <span className="money-k">prochains prélèvements</span>
+              <b>{fmtEuro(upcomingOut)} sur 30 j</b>
+            </div>
+            {upcoming.length ? (
+              <ul className="up-list">
+                {upcoming.map((e) => (
+                  <li key={e.id} className={daysBetween(today, e.date) <= 3 ? "is-soon" : ""}>
+                    <span className="up-when">{fmtWhen(e.date, today)}</span>
+                    <span className="up-label">
+                      {e.label}
+                      {e.rec?.cancelUrl || e.rec?.source === "paypal" ? (
+                        <small>
+                          {e.rec?.cancelUrl ? <a href={e.rec.cancelUrl} target="_blank" rel="noreferrer">résilier ↗</a> : null}
+                          {e.rec?.source === "paypal" ? <a href="https://www.paypal.com/myaccount/autopay/" target="_blank" rel="noreferrer">paypal ↗</a> : null}
+                        </small>
+                      ) : null}
+                    </span>
+                    <span className={`l-amt ${e.kind === "in" ? "up" : ""}`}>{e.kind === "in" ? "+" : "−"}{fmtEuro(e.amount, true)}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="empty">rien de prévu sur 30 jours.</p>
             )}
           </div>
         </div>

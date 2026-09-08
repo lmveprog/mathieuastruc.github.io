@@ -62,3 +62,12 @@ export const fmtRelative = (iso: string, now: Date) => {
   if (diff < 24 * 60) return `${Math.round(diff / 60)} h`;
   return `${Math.round(diff / 1440)} j`;
 };
+
+// "aujourd'hui", "demain", "dans 5 j", ou la date courte
+export const fmtWhen = (key: string, today: string) => {
+  const n = daysBetween(today, key);
+  if (n === 0) return "aujourd'hui";
+  if (n === 1) return "demain";
+  if (n > 1 && n < 7) return `dans ${n} j`;
+  return fmtDayShort(key);
+};

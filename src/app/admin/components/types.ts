@@ -36,6 +36,7 @@ export type Recurring = {
   since?: string; // yyyy-mm
   until?: string; // yyyy-mm, inclus
   source?: string; // "paypal", "cb"…
+  cancelUrl?: string; // ou resilier, quand on le sait
 };
 export type MoneyDoc = { entries: MoneyEntry[]; recurring?: Recurring[] };
 
