@@ -9,6 +9,14 @@ const nextConfig = {
   },
   async headers() {
     return [
+      // le /admin ne doit jamais etre indexe ni mis en cache
+      {
+        source: "/admin/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+          { key: "Cache-Control", value: "no-store" },
+        ],
+      },
       {
         source: "/(.*)",
         headers: [
