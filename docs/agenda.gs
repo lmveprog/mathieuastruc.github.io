@@ -6,7 +6,7 @@
 // copier l'url qui finit par /exec dans ADMIN_GAS_URL sur vercel,
 // et la cle ci-dessous dans ADMIN_GAS_SECRET.
 
-var SECRET = "2s6aiev0brrx87adtngf0ex3juvygs53";
+var SECRET = "COLLE_ICI_LA_MEME_CLE_QUE_ADMIN_GAS_SECRET";
 var TZ = "Europe/Paris";
 
 function json(o) {
