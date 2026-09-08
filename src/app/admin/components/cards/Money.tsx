@@ -2,14 +2,40 @@
 
 import { useMemo, useState } from "react";
 import Card from "../Card";
-import type { MoneyDoc, MoneyEntry } from "../types";
+import type { MoneyDoc, MoneyEntry, Recurring } from "../types";
 import { fmtDayShort, fmtEuro, fmtMonth, fmtMonthShort, monthOf, shiftMonth, uid } from "../helpers";
 
 // les sous : ce qui rentre, ce qui sort, saisi a la main. un mois a la fois,
 // avec la repartition par categorie et les six derniers mois en barres.
+// les abonnements sont comptes tout seuls chaque mois (lignes "abo").
 
-const OUT_CATS = ["loyer", "courses", "resto", "transport", "abonnements", "sport", "shopping", "santé", "autre"];
+const OUT_CATS = ["loyer", "courses", "resto", "transport", "abonnements", "outils", "sport", "shopping", "santé", "autre"];
 const IN_CATS = ["salaire", "freelance", "content", "autre"];
+const MONTHS = ["janv", "févr", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"];
+
+const daysInMonth = (month: string) => {
+  const [y, m] = month.split("-").map(Number);
+  return new Date(Date.UTC(y, m, 0)).getUTCDate();
+};
+const occursIn = (r: Recurring, month: string) => {
+  if (r.since && month < r.since) return false;
+  if (r.until && month > r.until) return false;
+  if (r.every === "year") return Number(month.slice(5, 7)) === (r.month || 1);
+  return true;
+};
+// les abonnements du mois, sous forme de lignes comme les autres
+const virtualEntries = (recurring: Recurring[], month: string): MoneyEntry[] =>
+  recurring
+    .filter((r) => occursIn(r, month))
+    .map((r) => ({
+      id: `rec-${r.id}-${month}`,
+      date: `${month}-${String(Math.min(r.day || 1, daysInMonth(month))).padStart(2, "0")}`,
+      label: r.label,
+      amount: r.amount,
+      kind: r.kind,
+      category: r.category,
+      virtual: true,
+    }));
 
 type Props = { doc: MoneyDoc; today: string; onChange: (d: MoneyDoc) => void; i: number };
 
@@ -20,11 +46,24 @@ export default function Money({ doc, today, onChange, i }: Props) {
   const [label, setLabel] = useState("");
   const [category, setCategory] = useState("courses");
   const [date, setDate] = useState(today);
+  // formulaire d'abonnement
+  const [subOpen, setSubOpen] = useState(false);
+  const [subLabel, setSubLabel] = useState("");
+  const [subAmount, setSubAmount] = useState("");
+  const [subDay, setSubDay] = useState(String(Number(today.slice(8, 10))));
+  const [subCat, setSubCat] = useState("abonnements");
+  const [subEvery, setSubEvery] = useState<"month" | "year">("month");
+  const [subMonth, setSubMonth] = useState(Number(today.slice(5, 7)));
+
   const entries = doc.entries || [];
+  const recurring = doc.recurring || [];
 
   const ofMonth = useMemo(
-    () => entries.filter((e) => e.date.startsWith(month)).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)),
-    [entries, month],
+    () =>
+      [...entries.filter((e) => e.date.startsWith(month)), ...virtualEntries(recurring, month)].sort((a, b) =>
+        a.date < b.date ? 1 : a.date > b.date ? -1 : 0,
+      ),
+    [entries, recurring, month],
   );
   const earned = ofMonth.filter((e) => e.kind === "in").reduce((s, e) => s + e.amount, 0);
   const spent = ofMonth.filter((e) => e.kind === "out").reduce((s, e) => s + e.amount, 0);
@@ -41,14 +80,18 @@ export default function Money({ doc, today, onChange, i }: Props) {
     for (let k = 5; k >= 0; k--) {
       const key = shiftMonth(month, -k);
       let i2 = 0, o = 0;
-      for (const e of entries) if (e.date.startsWith(key)) e.kind === "in" ? (i2 += e.amount) : (o += e.amount);
+      for (const e of [...entries.filter((e) => e.date.startsWith(key)), ...virtualEntries(recurring, key)]) e.kind === "in" ? (i2 += e.amount) : (o += e.amount);
       out.push({ key, in: i2, out: o });
     }
     return out;
-  }, [entries, month]);
+  }, [entries, recurring, month]);
   const monthMax = Math.max(1, ...months.map((m) => Math.max(m.in, m.out)));
 
-  const parsed = Number(amount.replace(",", ".").replace(/\s/g, ""));
+  const subsMonthly = recurring.filter((r) => r.kind === "out" && r.every === "month" && occursIn(r, month)).reduce((s, r) => s + r.amount, 0);
+  const subsYearly = recurring.filter((r) => r.kind === "out" && r.every === "year" && !(r.until && month > r.until)).reduce((s, r) => s + r.amount, 0);
+
+  const parseAmount = (v: string) => Number(v.replace(",", ".").replace(/\s/g, ""));
+  const parsed = parseAmount(amount);
   const valid = Number.isFinite(parsed) && parsed > 0 && label.trim().length > 0 && /^\d{4}-\d{2}-\d{2}$/.test(date);
   const add = () => {
     if (!valid) return;
@@ -62,6 +105,35 @@ export default function Money({ doc, today, onChange, i }: Props) {
   const switchKind = (k: "in" | "out") => {
     setKind(k);
     setCategory(k === "in" ? IN_CATS[0] : OUT_CATS[1]);
+  };
+
+  const subParsed = parseAmount(subAmount);
+  const subValid = Number.isFinite(subParsed) && subParsed > 0 && subLabel.trim().length > 0 && Number(subDay) >= 1 && Number(subDay) <= 31;
+  const addSub = () => {
+    if (!subValid) return;
+    const r: Recurring = {
+      id: uid(),
+      label: subLabel.trim(),
+      amount: Math.round(subParsed * 100) / 100,
+      kind: "out",
+      category: subCat,
+      day: Number(subDay),
+      every: subEvery,
+      month: subEvery === "year" ? subMonth : undefined,
+      since: month,
+    };
+    onChange({ ...doc, recurring: [...recurring, r] });
+    setSubLabel("");
+    setSubAmount("");
+    setSubOpen(false);
+  };
+  // un abonnement arrete garde son historique : on le clot au mois affiche
+  const stopSub = (id: string) => {
+    const prev = shiftMonth(month, -1);
+    const next = recurring
+      .map((r) => (r.id === id ? { ...r, until: r.since && prev < r.since ? undefined : prev } : r))
+      .filter((r) => !(r.id === id && r.until === undefined));
+    onChange({ ...doc, recurring: next });
   };
 
   return (
@@ -120,6 +192,65 @@ export default function Money({ doc, today, onChange, i }: Props) {
               </div>
             ))}
           </div>
+
+          <div className="subs">
+            <div className="subs-head">
+              <span className="money-k">abonnements</span>
+              <b>
+                {fmtEuro(subsMonthly)} / mois{subsYearly ? ` · ${fmtEuro(subsYearly)} / an` : ""}
+              </b>
+            </div>
+            {recurring.filter((r) => !(r.until && month > r.until)).length ? (
+              <ul className="subs-list">
+                {recurring
+                  .filter((r) => !(r.until && month > r.until))
+                  .sort((a, b) => b.amount - a.amount)
+                  .map((r) => (
+                    <li key={r.id} className="row">
+                      <span className="sub-label">
+                        {r.label}
+                        <small>
+                          {r.category} · le {r.day}
+                          {r.every === "year" ? ` ${MONTHS[(r.month || 1) - 1]}, chaque année` : ""}
+                          {r.source ? ` · ${r.source}` : ""}
+                        </small>
+                      </span>
+                      <span className="l-amt">{fmtEuro(r.amount, true)}</span>
+                      <button className="x" onClick={() => stopSub(r.id)} aria-label={`arrêter ${r.label}`} title="arrêter (l'historique reste)">×</button>
+                    </li>
+                  ))}
+              </ul>
+            ) : (
+              <p className="empty">aucun abonnement suivi.</p>
+            )}
+            {subOpen ? (
+              <div className="sub-form">
+                <input value={subLabel} onChange={(e) => setSubLabel(e.target.value)} placeholder="quoi ?" autoFocus onKeyDown={(e) => e.key === "Enter" && addSub()} />
+                <input className="amt" inputMode="decimal" value={subAmount} onChange={(e) => setSubAmount(e.target.value)} placeholder="0,00 €" onKeyDown={(e) => e.key === "Enter" && addSub()} />
+                <label className="sub-day">
+                  le <input inputMode="numeric" value={subDay} onChange={(e) => setSubDay(e.target.value.replace(/\D/g, "").slice(0, 2))} aria-label="jour" />
+                </label>
+                <select value={subCat} onChange={(e) => setSubCat(e.target.value)} aria-label="catégorie">
+                  {OUT_CATS.map((c) => <option key={c} value={c}>{c}</option>)}
+                </select>
+                <select value={subEvery} onChange={(e) => setSubEvery(e.target.value as "month" | "year")} aria-label="fréquence">
+                  <option value="month">chaque mois</option>
+                  <option value="year">chaque année</option>
+                </select>
+                {subEvery === "year" ? (
+                  <select value={subMonth} onChange={(e) => setSubMonth(Number(e.target.value))} aria-label="mois">
+                    {MONTHS.map((m, k) => <option key={m} value={k + 1}>{m}</option>)}
+                  </select>
+                ) : null}
+                <span className="ev-actions">
+                  <button className="primary" onClick={addSub} disabled={!subValid}>ok</button>
+                  <button className="plus" onClick={() => setSubOpen(false)}>annuler</button>
+                </span>
+              </div>
+            ) : (
+              <button className="plus" onClick={() => setSubOpen(true)}>+ un abonnement</button>
+            )}
+          </div>
         </div>
 
         <div className="money-right">
@@ -140,14 +271,14 @@ export default function Money({ doc, today, onChange, i }: Props) {
           {ofMonth.length ? (
             <ul className="ledger">
               {ofMonth.map((e) => (
-                <li key={e.id} className="row">
+                <li key={e.id} className={`row ${e.virtual ? "is-virtual" : ""} ${e.date > today ? "is-future" : ""}`}>
                   <span className="l-date">{fmtDayShort(e.date)}</span>
                   <span className="l-label">
                     {e.label}
-                    <small>{e.category}</small>
+                    <small>{e.virtual ? "abo" : e.category}</small>
                   </span>
                   <span className={`l-amt ${e.kind === "in" ? "up" : ""}`}>{e.kind === "in" ? "+" : "−"}{fmtEuro(e.amount, true)}</span>
-                  <button className="x" onClick={() => remove(e.id)} aria-label="supprimer">×</button>
+                  {e.virtual ? <span className="x-space" /> : <button className="x" onClick={() => remove(e.id)} aria-label="supprimer">×</button>}
                 </li>
               ))}
             </ul>

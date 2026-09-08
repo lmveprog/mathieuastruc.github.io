@@ -22,8 +22,22 @@ export type ConfigDoc = {
 export type ContentDoc = { ideas: Todo[] };
 
 // depenses / revenus saisis a la main, un mouvement = une ligne
-export type MoneyEntry = { id: string; date: string; label: string; amount: number; kind: "in" | "out"; category: string };
-export type MoneyDoc = { entries: MoneyEntry[] };
+export type MoneyEntry = { id: string; date: string; label: string; amount: number; kind: "in" | "out"; category: string; virtual?: boolean };
+// un abonnement : compte tout seul chaque mois (ou chaque annee) a partir de "since"
+export type Recurring = {
+  id: string;
+  label: string;
+  amount: number;
+  kind: "in" | "out";
+  category: string;
+  day: number; // jour du mois
+  every: "month" | "year";
+  month?: number; // 1-12, pour les annuels
+  since?: string; // yyyy-mm
+  until?: string; // yyyy-mm, inclus
+  source?: string; // "paypal", "cb"…
+};
+export type MoneyDoc = { entries: MoneyEntry[]; recurring?: Recurring[] };
 
 export type Docs = { todos: TodosDoc; habits: HabitsDoc; notes: NotesDoc; config: ConfigDoc; content: ContentDoc; money: MoneyDoc };
 
