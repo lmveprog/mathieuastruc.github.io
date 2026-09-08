@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-// interrupteur light/dark — le site démarre en sombre, le choix est retenu
+// interrupteur light/dark — le site démarre en clair, le choix est retenu
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     setDark(document.documentElement.dataset.theme === "dark");

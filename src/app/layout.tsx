@@ -36,8 +36,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f7f8" },
-    { media: "(prefers-color-scheme: dark)", color: "#111214" },
+    { media: "(prefers-color-scheme: light)", color: "#f9f8f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#12110f" },
   ],
 };
 
@@ -56,11 +56,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* avant l'hydratation : sombre par défaut, en respectant le choix précédent */}
+        {/* avant l'hydratation : clair par défaut, sombre si choisi précédemment */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}var m=location.search.match(/[?&]theme=(dark|light)/);if(m)t=m[1];document.documentElement.dataset.theme=t==="light"?"light":"dark"})();',
+              '(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}var m=location.search.match(/[?&]theme=(dark|light)/);if(m)t=m[1];document.documentElement.dataset.theme=t==="dark"?"dark":"light"})();',
           }}
         />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
