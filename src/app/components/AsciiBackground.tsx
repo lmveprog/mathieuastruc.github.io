@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { drawAmbientPanels } from "./ambientPanels";
+import { drawTransformerFlow } from "./transformerFlow";
 
-// Original particle volumes slowly transform between a globe and an orbit.
-// The centre fades out so the motion stays behind the portfolio, never the copy.
+// two particle volumes slowly morphing between a globe and an orbit, plus a
+// small wireframe transformer in the right margin. the centre fades out so the
+// motion stays behind the portfolio, never the copy.
 export default function AsciiBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -89,7 +90,7 @@ export default function AsciiBackground() {
           }
         }
       }
-      drawAmbientPanels(ctx, width, height, t, dark);
+      drawTransformerFlow(ctx, width, height, t, dark, pointerX, pointerY, scroll);
       ctx.globalCompositeOperation = "destination-in";
       ctx.fillStyle = mask;
       ctx.fillRect(0, 0, width, height);
