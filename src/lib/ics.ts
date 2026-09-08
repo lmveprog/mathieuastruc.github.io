@@ -5,6 +5,7 @@
 
 export type CalEvent = {
   id: string;
+  gid?: string; // identifiant google, quand l'evenement vient de l'apps script
   title: string;
   day: string; // yyyy-mm-dd, heure de paris
   start: string; // iso, ou yyyy-mm-dd si journee entiere
@@ -12,6 +13,7 @@ export type CalEvent = {
   allDay: boolean;
   location?: string;
   calendar?: string;
+  deletable?: boolean;
 };
 
 export const TZ = "Europe/Paris";

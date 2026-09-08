@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getDocs, getGuests, getLab, type Lab } from "@/lib/adminStore";
-import { fetchAgenda, type CalEvent } from "@/lib/ics";
+import { loadAgenda, type AgendaPayload } from "@/lib/agenda";
+export type { AgendaPayload } from "@/lib/agenda";
 
 export const dynamic = "force-dynamic";
 
@@ -23,10 +24,9 @@ export type Overview = {
   audience?: { generated: number; total: number; platforms: Platform[] };
   contents?: { platform: string; title: string; url: string; views: number; moving: boolean }[];
   veille?: { hours: number; items: { platform: string; handle: string; title: string; url: string; views: number }[] };
-  agenda: { configured: boolean; events: CalEvent[]; errors: string[] };
+  agenda: AgendaPayload;
   errors: string[];
 };
-
 const NAMES: Record<string, string> = { tiktok: "tiktok", instagram: "instagram", youtube: "youtube", facebook: "facebook", x: "x" };
 const ORDER = ["tiktok", "instagram", "youtube", "facebook", "x"];
 
@@ -118,20 +118,18 @@ export async function GET() {
     errors.push(`store : ${(e as Error).message}`);
   }
 
-  const icsUrls = (process.env.ADMIN_ICS_URL || "").split(/[\s,]+/).filter((u) => /^https?:\/\//.test(u));
-  const [w, g, l, a] = await Promise.allSettled([
-    weather(loc),
-    getGuests(),
-    getLab(),
-    icsUrls.length ? fetchAgenda(icsUrls) : Promise.resolve(null),
-  ]);
+  const [w, g, l, a] = await Promise.allSettled([weather(loc), getGuests(), getLab(), loadAgenda()]);
 
-  const out: Overview = { now: new Date().toISOString(), agenda: { configured: icsUrls.length > 0, events: [], errors: [] }, errors };
+  const out: Overview = {
+    now: new Date().toISOString(),
+    agenda: { configured: false, source: "none", writable: false, events: [], errors: [] },
+    errors,
+  };
   if (w.status === "fulfilled") out.weather = w.value; else errors.push(`météo : ${w.reason?.message || w.reason}`);
   if (g.status === "fulfilled") out.guests = g.value; else errors.push(`visiteurs : ${g.reason?.message || g.reason}`);
   if (l.status === "fulfilled") { out.audience = audience(l.value); out.contents = contents(l.value); out.veille = veille(l.value); } else errors.push(`lab : ${l.reason?.message || l.reason}`);
-  if (a.status === "fulfilled" && a.value) out.agenda = { configured: true, events: a.value.events, errors: a.value.errors };
-  else if (a.status === "rejected") out.agenda.errors.push(String(a.reason?.message || a.reason));
+  if (a.status === "fulfilled") out.agenda = a.value;
+  else out.agenda.errors.push(String(a.reason?.message || a.reason));
 
   return NextResponse.json(out, { headers: { "Cache-Control": "no-store" } });
 }

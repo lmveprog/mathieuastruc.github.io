@@ -1410,3 +1410,81 @@
     font-size: 0.85rem;
   }
 }
+
+/* ── ajout dans l'agenda ── */
+.ev-form {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto auto;
+  gap: 0.45rem;
+  align-items: center;
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+.ev-form input[type="date"],
+.ev-form input[type="time"] {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.ev-form input[placeholder="lieu (option)"] {
+  grid-column: 1 / 4;
+}
+.ev-allday {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.ev-allday input {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  padding: 0;
+}
+.ev-actions {
+  grid-column: 4 / -1;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.8rem;
+}
+.ev-actions .plus {
+  margin-top: 0;
+}
+.ev-form button.primary {
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--mono);
+  letter-spacing: 0.06em;
+}
+.ev-form button.primary:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.ev-form .hint {
+  grid-column: 1 / -1;
+}
+.ev {
+  grid-template-columns: 5.8rem 1fr auto;
+}
+@media (max-width: 600px) {
+  .ev-form {
+    grid-template-columns: 1fr 1fr;
+  }
+  .ev-form input[placeholder="quoi ?"],
+  .ev-form input[placeholder="lieu (option)"] {
+    grid-column: 1 / -1;
+  }
+  .ev-actions {
+    grid-column: 1 / -1;
+  }
+  .ev {
+    grid-template-columns: 4.6rem 1fr auto;
+  }
+}
