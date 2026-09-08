@@ -861,3 +861,7 @@ button:focus-visible,
   .polaroid img { width: 100%; height: auto; aspect-ratio: 1; }
   .polaroid figcaption { font-size: 0.75rem; }
 }
+
+/* Local SVG refraction, leaving the name crisp and selectable at rest. */
+.liquid-filter { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+.liquid-text { display: inline-block; position: relative; }

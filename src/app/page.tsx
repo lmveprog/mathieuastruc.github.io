@@ -1,5 +1,6 @@
 import AsciiBackground from "./components/AsciiBackground";
 import AsciiPolaroid from "./components/AsciiPolaroid";
+import LiquidText from "./components/LiquidText";
 import DecryptText from "./components/DecryptText";
 import HoverIndicator from "./components/HoverIndicator";
 import LocalTime from "./components/LocalTime";
@@ -130,7 +131,7 @@ export default function Home() {
           </div>
           <div className="identity-copy">
             <h1 className="hero-name">
-              <DecryptText text="Mathieu Astruc" replayOnHover />
+              <LiquidText text="Mathieu Astruc" />
               <span aria-hidden="true">.</span>
             </h1>
             <SocialLinks />

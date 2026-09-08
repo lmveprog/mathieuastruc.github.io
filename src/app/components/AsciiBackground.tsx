@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { drawPersonalObjects } from "./personalObjects";
 
 // Original particle volumes slowly transform between a globe and an orbit.
 // The centre fades out so the motion stays behind the portfolio, never the copy.
@@ -88,6 +89,7 @@ export default function AsciiBackground() {
           }
         }
       }
+      drawPersonalObjects(ctx, width, height, t, dark);
       ctx.globalCompositeOperation = "destination-in";
       ctx.fillStyle = mask;
       ctx.fillRect(0, 0, width, height);
