@@ -1686,3 +1686,88 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── depenses, version simple ── */
+.money-sum--wide {
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: 2.5rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.money-sum--wide .money-v {
+  font-size: 2.2rem;
+}
+.money-sub {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  color: var(--text-3);
+}
+.money--simple {
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2.5rem;
+}
+.fixes {
+  display: flex;
+  flex-direction: column;
+}
+.fixes li {
+  display: grid;
+  grid-template-columns: 3.4rem 1fr auto auto;
+  gap: 0.7rem;
+  align-items: baseline;
+  padding: 0.3rem 0.5rem;
+  margin: 0 -0.5rem;
+  border-radius: 7px;
+  transition: background 160ms ease;
+}
+.fixes li:hover {
+  background: var(--row-hover);
+}
+.fixes li.is-passed {
+  opacity: 0.5;
+}
+.fixes li.is-today .fx-day {
+  color: var(--accent);
+}
+.fx-day {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.fx-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fx-label small,
+.fx-label a {
+  margin-left: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+  text-decoration: none;
+}
+.fx-label a:hover {
+  color: var(--accent);
+}
+.money-right .subs-head {
+  margin-bottom: 0.6rem;
+}
+@media (max-width: 960px) {
+  .money--simple {
+    grid-template-columns: 1fr;
+  }
+  .money-sum--wide {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+  }
+  .money-sum--wide .money-v {
+    font-size: 1.6rem;
+  }
+}

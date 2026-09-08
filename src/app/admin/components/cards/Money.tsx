@@ -3,11 +3,11 @@
 import { useMemo, useState } from "react";
 import Card from "../Card";
 import type { MoneyDoc, MoneyEntry, Recurring } from "../types";
-import { daysBetween, fmtDayShort, fmtEuro, fmtMonth, fmtMonthShort, fmtWhen, monthOf, shiftDay, shiftMonth, uid } from "../helpers";
+import { fmtDayShort, fmtEuro, fmtMonth, monthOf, shiftMonth, uid } from "../helpers";
 
-// les sous : ce qui rentre, ce qui sort, saisi a la main. un mois a la fois,
-// avec la repartition par categorie et les six derniers mois en barres.
-// les abonnements sont comptes tout seuls chaque mois (lignes "abo").
+// les sous, un mois a la fois : gagne / depense / reste en haut, les fixes
+// (loyer, abonnements, salaire) a gauche avec leur jour, les mouvements du
+// mois a droite. les fixes sont comptes tout seuls chaque mois.
 
 const OUT_CATS = ["loyer", "courses", "resto", "transport", "abonnements", "outils", "sport", "shopping", "santé", "autre"];
 const IN_CATS = ["salaire", "freelance", "content", "autre"];
@@ -23,37 +23,27 @@ const occursIn = (r: Recurring, month: string) => {
   if (r.every === "year") return Number(month.slice(5, 7)) === (r.month || 1);
   return true;
 };
-// les abonnements du mois, sous forme de lignes comme les autres
-const virtualEntries = (recurring: Recurring[], month: string): MoneyEntry[] =>
-  recurring
-    .filter((r) => occursIn(r, month))
-    .map((r) => ({
-      id: `rec-${r.id}-${month}`,
-      date: `${month}-${String(Math.min(r.day || 1, daysInMonth(month))).padStart(2, "0")}`,
-      label: r.label,
-      amount: r.amount,
-      kind: r.kind,
-      category: r.category,
-      virtual: true,
-    }));
+const dateOf = (r: Recurring, month: string) => `${month}-${String(Math.min(r.day || 1, daysInMonth(month))).padStart(2, "0")}`;
+const parseAmount = (v: string) => Number(v.replace(",", ".").replace(/\s/g, ""));
 
 type Props = { doc: MoneyDoc; today: string; onChange: (d: MoneyDoc) => void; i: number };
 
 export default function Money({ doc, today, onChange, i }: Props) {
   const [month, setMonth] = useState(monthOf(today));
+  // mouvement ponctuel
   const [kind, setKind] = useState<"in" | "out">("out");
   const [amount, setAmount] = useState("");
   const [label, setLabel] = useState("");
   const [category, setCategory] = useState("courses");
   const [date, setDate] = useState(today);
   const [monthly, setMonthly] = useState(false);
-  // formulaire d'abonnement
+  // fixe
   const [subOpen, setSubOpen] = useState(false);
   const [subLabel, setSubLabel] = useState("");
   const [subAmount, setSubAmount] = useState("");
-  const [subDay, setSubDay] = useState(String(Number(today.slice(8, 10))));
-  const [subCat, setSubCat] = useState("abonnements");
+  const [subDay, setSubDay] = useState("1");
   const [subKind, setSubKind] = useState<"in" | "out">("out");
+  const [subCat, setSubCat] = useState("abonnements");
   const [subEvery, setSubEvery] = useState<"month" | "year">("month");
   const [subMonth, setSubMonth] = useState(Number(today.slice(5, 7)));
   const [subUrl, setSubUrl] = useState("");
@@ -61,76 +51,32 @@ export default function Money({ doc, today, onChange, i }: Props) {
   const entries = doc.entries || [];
   const recurring = doc.recurring || [];
 
-  const ofMonth = useMemo(
-    () =>
-      [...entries.filter((e) => e.date.startsWith(month)), ...virtualEntries(recurring, month)].sort((a, b) =>
-        a.date < b.date ? 1 : a.date > b.date ? -1 : 0,
-      ),
-    [entries, recurring, month],
+  const fixes = useMemo(
+    () => recurring.filter((r) => occursIn(r, month)).map((r) => ({ r, date: dateOf(r, month) })).sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : b.r.amount - a.r.amount)),
+    [recurring, month],
   );
-  const earned = ofMonth.filter((e) => e.kind === "in").reduce((s, e) => s + e.amount, 0);
-  const spent = ofMonth.filter((e) => e.kind === "out").reduce((s, e) => s + e.amount, 0);
-
-  const cats = useMemo(() => {
-    const m = new Map<string, number>();
-    for (const e of ofMonth) if (e.kind === "out") m.set(e.category, (m.get(e.category) || 0) + e.amount);
-    return [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 7);
-  }, [ofMonth]);
-  const catMax = cats[0]?.[1] || 1;
-
-  const months = useMemo(() => {
-    const out: { key: string; in: number; out: number }[] = [];
-    for (let k = 5; k >= 0; k--) {
-      const key = shiftMonth(month, -k);
-      let i2 = 0, o = 0;
-      for (const e of [...entries.filter((e) => e.date.startsWith(key)), ...virtualEntries(recurring, key)]) e.kind === "in" ? (i2 += e.amount) : (o += e.amount);
-      out.push({ key, in: i2, out: o });
-    }
-    return out;
-  }, [entries, recurring, month]);
-  const monthMax = Math.max(1, ...months.map((m) => Math.max(m.in, m.out)));
-
-  const subsMonthly = recurring.filter((r) => r.kind === "out" && r.every === "month" && occursIn(r, month)).reduce((s, r) => s + r.amount, 0);
-  const subsYearly = recurring.filter((r) => r.kind === "out" && r.every === "year" && !(r.until && month > r.until)).reduce((s, r) => s + r.amount, 0);
-
-  // reste a vivre : les revenus du mois moins les fixes, puis moins le variable deja parti
-  const fixedIn = ofMonth.filter((e) => e.virtual && e.kind === "in").reduce((s, e) => s + e.amount, 0);
-  const fixedOut = ofMonth.filter((e) => e.virtual && e.kind === "out").reduce((s, e) => s + e.amount, 0);
-  const variableIn = ofMonth.filter((e) => !e.virtual && e.kind === "in").reduce((s, e) => s + e.amount, 0);
-  const variableOut = ofMonth.filter((e) => !e.virtual && e.kind === "out").reduce((s, e) => s + e.amount, 0);
-  const resteAVivre = fixedIn + variableIn - fixedOut;
-  const resteNow = resteAVivre - variableOut;
+  const moves = useMemo(
+    () => entries.filter((e) => e.date.startsWith(month)).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)),
+    [entries, month],
+  );
+  const sum = (list: { kind: "in" | "out"; amount: number }[], k: "in" | "out") => list.filter((x) => x.kind === k).reduce((s, x) => s + x.amount, 0);
+  const earned = sum(fixes.map((f) => f.r), "in") + sum(moves, "in");
+  const spent = sum(fixes.map((f) => f.r), "out") + sum(moves, "out");
+  const fixedOut = sum(fixes.map((f) => f.r), "out");
+  const rest = earned - spent;
   const isCurrent = month === monthOf(today);
   const daysLeft = isCurrent ? daysInMonth(month) - Number(today.slice(8, 10)) + 1 : 0;
 
-  // ce qui va tomber dans les 30 prochains jours : fixes + lignes datees dans le futur
-  const upcoming = useMemo(() => {
-    const end = shiftDay(today, 30);
-    const out: (MoneyEntry & { rec?: Recurring })[] = [];
-    for (const key of [monthOf(today), shiftMonth(monthOf(today), 1)]) {
-      for (const r of recurring.filter((r) => occursIn(r, key))) {
-        const date = `${key}-${String(Math.min(r.day || 1, daysInMonth(key))).padStart(2, "0")}`;
-        if (date >= today && date <= end) out.push({ id: `up-${r.id}-${key}`, date, label: r.label, amount: r.amount, kind: r.kind, category: r.category, virtual: true, rec: r });
-      }
-    }
-    for (const e of entries) if (e.date > today && e.date <= end) out.push(e);
-    return out.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : b.amount - a.amount));
-  }, [entries, recurring, today]);
-  const upcomingOut = upcoming.filter((e) => e.kind === "out").reduce((s, e) => s + e.amount, 0);
-
-  const parseAmount = (v: string) => Number(v.replace(",", ".").replace(/\s/g, ""));
   const parsed = parseAmount(amount);
   const valid = Number.isFinite(parsed) && parsed > 0 && label.trim().length > 0 && /^\d{4}-\d{2}-\d{2}$/.test(date);
   const add = () => {
     if (!valid) return;
     const amt = Math.round(parsed * 100) / 100;
     if (monthly) {
-      // "chaque mois" : un prelevement qui part de ce mois-ci, le meme jour
       const r: Recurring = { id: uid(), label: label.trim(), amount: amt, kind, category, day: Number(date.slice(8, 10)), every: "month", since: monthOf(date) };
       onChange({ ...doc, recurring: [...recurring, r] });
     } else {
-      const e: MoneyEntry = { id: uid(), date, label: label.trim(), amount: amt, kind, category };
-      onChange({ ...doc, entries: [...entries, e] });
+      onChange({ ...doc, entries: [...entries, { id: uid(), date, label: label.trim(), amount: amt, kind, category }] });
     }
     setAmount("");
     setLabel("");
@@ -165,7 +111,7 @@ export default function Money({ doc, today, onChange, i }: Props) {
     setSubUrl("");
     setSubOpen(false);
   };
-  // un abonnement arrete garde son historique : on le clot au mois affiche
+  // un fixe arrete garde son historique : on le clot au mois d'avant
   const stopSub = (id: string) => {
     const prev = shiftMonth(month, -1);
     const next = recurring
@@ -181,166 +127,98 @@ export default function Money({ doc, today, onChange, i }: Props) {
         <span className="month-nav">
           <button onClick={() => setMonth(shiftMonth(month, -1))} aria-label="mois précédent">‹</button>
           <b>{fmtMonth(month)}</b>
-          <button onClick={() => setMonth(shiftMonth(month, 1))} aria-label="mois suivant" disabled={month >= monthOf(today)}>›</button>
+          <button onClick={() => setMonth(shiftMonth(month, 1))} aria-label="mois suivant">›</button>
         </span>
       }
       span={12}
       i={i}
       className="moneycard"
     >
-      <div className="money">
-        <div className="money-left">
-          <div className="money-sum">
-            <div>
-              <span className="money-k">gagné</span>
-              <span className="money-v up">{fmtEuro(earned)}</span>
-            </div>
-            <div>
-              <span className="money-k">dépensé</span>
-              <span className="money-v down">{fmtEuro(spent)}</span>
-            </div>
-            <div>
-              <span className="money-k">reste</span>
-              <span className={`money-v ${earned - spent < 0 ? "down" : ""}`}>{fmtEuro(earned - spent)}</span>
-            </div>
-          </div>
+      <div className="money-sum money-sum--wide">
+        <div>
+          <span className="money-k">gagné</span>
+          <span className="money-v up">{fmtEuro(earned)}</span>
+        </div>
+        <div>
+          <span className="money-k">dépensé</span>
+          <span className="money-v down">{fmtEuro(spent)}</span>
+          <span className="money-sub">dont {fmtEuro(fixedOut)} de fixes</span>
+        </div>
+        <div>
+          <span className="money-k">reste</span>
+          <span className={`money-v ${rest < 0 ? "down" : ""}`}>{fmtEuro(rest)}</span>
+          {daysLeft > 0 ? <span className="money-sub">{fmtEuro(Math.max(0, rest) / daysLeft)} / jour sur {daysLeft} j</span> : null}
+        </div>
+      </div>
 
-          {cats.length ? (
-            <ul className="cats">
-              {cats.map(([c, v]) => (
-                <li key={c}>
-                  <span className="cat-name">{c}</span>
-                  <span className="cat-bar"><i style={{ width: `${(v / catMax) * 100}%` }} /></span>
-                  <span className="cat-v">{fmtEuro(v)}</span>
-                </li>
-              ))}
+      <div className="money money--simple">
+        <div className="money-left">
+          <div className="subs-head">
+            <span className="money-k">fixes du mois</span>
+            <b>{fmtEuro(fixedOut)}</b>
+          </div>
+          {fixes.length ? (
+            <ul className="fixes">
+              {fixes.map(({ r, date: d }) => {
+                const passed = isCurrent ? d < today : month < monthOf(today);
+                const isToday = isCurrent && d === today;
+                return (
+                  <li key={r.id} className={`row ${passed ? "is-passed" : ""} ${isToday ? "is-today" : ""}`}>
+                    <span className="fx-day">{isToday ? "auj." : `le ${Number(d.slice(8, 10))}`}</span>
+                    <span className="fx-label">
+                      {r.label}
+                      {r.every === "year" ? <small>{MONTHS[(r.month || 1) - 1]}, annuel</small> : null}
+                      {r.cancelUrl ? <a href={r.cancelUrl} target="_blank" rel="noreferrer">résilier ↗</a> : null}
+                      {!r.cancelUrl && r.source === "paypal" ? <a href="https://www.paypal.com/myaccount/autopay/" target="_blank" rel="noreferrer">paypal ↗</a> : null}
+                    </span>
+                    <span className={`l-amt ${r.kind === "in" ? "up" : ""}`}>{r.kind === "in" ? "+" : "−"}{fmtEuro(r.amount, true)}</span>
+                    <button className="x" onClick={() => stopSub(r.id)} aria-label={`arrêter ${r.label}`} title="arrêter (l'historique reste)">×</button>
+                  </li>
+                );
+              })}
             </ul>
           ) : (
-            <p className="empty">aucune dépense ce mois-ci.</p>
+            <p className="empty">aucun fixe ce mois-ci.</p>
           )}
-
-          <div className="months" aria-label="six derniers mois">
-            {months.map((m) => (
-              <div key={m.key} className={`mbar ${m.key === month ? "is-current" : ""}`} title={`${fmtMonth(m.key)} : +${fmtEuro(m.in)} / −${fmtEuro(m.out)}`}>
-                <span className="mbar-cols">
-                  <i className="in" style={{ height: `${(m.in / monthMax) * 100}%` }} />
-                  <i className="out" style={{ height: `${(m.out / monthMax) * 100}%` }} />
-                </span>
-                <button onClick={() => setMonth(m.key)}>{fmtMonthShort(m.key)}</button>
-              </div>
-            ))}
-          </div>
-
-          <div className="subs">
-            <div className="subs-head">
-              <span className="money-k">dépenses mensuelles</span>
-              <b>
-                {fmtEuro(subsMonthly)} / mois{subsYearly ? ` · ${fmtEuro(subsYearly)} / an` : ""}
-              </b>
-            </div>
-            {recurring.filter((r) => !(r.until && month > r.until)).length ? (
-              <ul className="subs-list">
-                {recurring
-                  .filter((r) => !(r.until && month > r.until))
-                  .sort((a, b) => b.amount - a.amount)
-                  .map((r) => (
-                    <li key={r.id} className="row">
-                      <span className="sub-label">
-                        {r.label}
-                        <small>
-                          {r.category} · le {r.day}
-                          {r.every === "year" ? ` ${MONTHS[(r.month || 1) - 1]}, chaque année` : ""}
-                          {r.source ? ` · ${r.source}` : ""}
-                        </small>
-                      </span>
-                      <span className={`l-amt ${r.kind === "in" ? "up" : ""}`}>{r.kind === "in" ? "+" : ""}{fmtEuro(r.amount, true)}</span>
-                      <button className="x" onClick={() => stopSub(r.id)} aria-label={`arrêter ${r.label}`} title="arrêter (l'historique reste)">×</button>
-                    </li>
-                  ))}
-              </ul>
-            ) : (
-              <p className="empty">aucune dépense fixe.</p>
-            )}
-            {subOpen ? (
-              <div className="sub-form">
-                <input value={subLabel} onChange={(e) => setSubLabel(e.target.value)} placeholder="quoi ?" autoFocus onKeyDown={(e) => e.key === "Enter" && addSub()} />
-                <input className="amt" inputMode="decimal" value={subAmount} onChange={(e) => setSubAmount(e.target.value)} placeholder="0,00 €" onKeyDown={(e) => e.key === "Enter" && addSub()} />
-                <label className="sub-day">
-                  le <input inputMode="numeric" value={subDay} onChange={(e) => setSubDay(e.target.value.replace(/\D/g, "").slice(0, 2))} aria-label="jour" />
-                </label>
-                <select value={subKind} onChange={(e) => { const k = e.target.value as "in" | "out"; setSubKind(k); setSubCat(k === "in" ? IN_CATS[0] : "abonnements"); }} aria-label="sens">
-                  <option value="out">dépense</option>
-                  <option value="in">revenu</option>
+          {subOpen ? (
+            <div className="sub-form">
+              <input value={subLabel} onChange={(e) => setSubLabel(e.target.value)} placeholder="quoi ?" autoFocus onKeyDown={(e) => e.key === "Enter" && addSub()} />
+              <input className="amt" inputMode="decimal" value={subAmount} onChange={(e) => setSubAmount(e.target.value)} placeholder="0,00 €" onKeyDown={(e) => e.key === "Enter" && addSub()} />
+              <label className="sub-day">
+                le <input inputMode="numeric" value={subDay} onChange={(e) => setSubDay(e.target.value.replace(/\D/g, "").slice(0, 2))} aria-label="jour" />
+              </label>
+              <select value={subKind} onChange={(e) => { const k = e.target.value as "in" | "out"; setSubKind(k); setSubCat(k === "in" ? IN_CATS[0] : "abonnements"); }} aria-label="sens">
+                <option value="out">dépense</option>
+                <option value="in">revenu</option>
+              </select>
+              <select value={subCat} onChange={(e) => setSubCat(e.target.value)} aria-label="catégorie">
+                {(subKind === "in" ? IN_CATS : OUT_CATS).map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+              <select value={subEvery} onChange={(e) => setSubEvery(e.target.value as "month" | "year")} aria-label="fréquence">
+                <option value="month">chaque mois</option>
+                <option value="year">chaque année</option>
+              </select>
+              {subEvery === "year" ? (
+                <select value={subMonth} onChange={(e) => setSubMonth(Number(e.target.value))} aria-label="mois">
+                  {MONTHS.map((m, k) => <option key={m} value={k + 1}>{m}</option>)}
                 </select>
-                <select value={subCat} onChange={(e) => setSubCat(e.target.value)} aria-label="catégorie">
-                  {(subKind === "in" ? IN_CATS : OUT_CATS).map((c) => <option key={c} value={c}>{c}</option>)}
-                </select>
-                <select value={subEvery} onChange={(e) => setSubEvery(e.target.value as "month" | "year")} aria-label="fréquence">
-                  <option value="month">chaque mois</option>
-                  <option value="year">chaque année</option>
-                </select>
-                {subEvery === "year" ? (
-                  <select value={subMonth} onChange={(e) => setSubMonth(Number(e.target.value))} aria-label="mois">
-                    {MONTHS.map((m, k) => <option key={m} value={k + 1}>{m}</option>)}
-                  </select>
-                ) : null}
-                <input className="sub-url" value={subUrl} onChange={(e) => setSubUrl(e.target.value)} placeholder="lien pour résilier (option)" onKeyDown={(e) => e.key === "Enter" && addSub()} />
-                <span className="ev-actions">
-                  <button className="primary" onClick={addSub} disabled={!subValid}>ok</button>
-                  <button className="plus" onClick={() => setSubOpen(false)}>annuler</button>
-                </span>
-              </div>
-            ) : (
-              <button className="plus" onClick={() => setSubOpen(true)}>+ une dépense mensuelle</button>
-            )}
-          </div>
-        </div>
-
-        <div className="money-mid">
-          <div className="rav">
-            <span className="money-k">reste à vivre · {fmtMonthShort(month)}</span>
-            <span className={`rav-big ${resteNow < 0 ? "down" : ""}`}>{fmtEuro(resteNow)}</span>
-            <span className="rav-sub">
-              {fmtEuro(fixedIn + variableIn)} de revenus − {fmtEuro(fixedOut)} de fixes = {fmtEuro(resteAVivre)}
-              {variableOut ? `, moins ${fmtEuro(variableOut)} déjà dépensés` : ""}
-            </span>
-            {isCurrent && daysLeft > 0 ? (
-              <span className="rav-day">
-                <b className={resteNow < 0 ? "down" : ""}>{fmtEuro(Math.max(0, resteNow) / daysLeft)}</b> / jour sur les {daysLeft} jours qui restent
+              ) : null}
+              <input className="sub-url" value={subUrl} onChange={(e) => setSubUrl(e.target.value)} placeholder="lien pour résilier (option)" onKeyDown={(e) => e.key === "Enter" && addSub()} />
+              <span className="ev-actions">
+                <button className="primary" onClick={addSub} disabled={!subValid}>ok</button>
+                <button className="plus" onClick={() => setSubOpen(false)}>annuler</button>
               </span>
-            ) : null}
-          </div>
-
-          <div className="upcoming">
-            <div className="subs-head">
-              <span className="money-k">prochains prélèvements</span>
-              <b>{fmtEuro(upcomingOut)} sur 30 j</b>
             </div>
-            {upcoming.length ? (
-              <ul className="up-list">
-                {upcoming.map((e) => (
-                  <li key={e.id} className={daysBetween(today, e.date) <= 3 ? "is-soon" : ""}>
-                    <span className="up-when">{fmtWhen(e.date, today)}</span>
-                    <span className="up-label">
-                      {e.label}
-                      {e.rec?.cancelUrl || e.rec?.source === "paypal" ? (
-                        <small>
-                          {e.rec?.cancelUrl ? <a href={e.rec.cancelUrl} target="_blank" rel="noreferrer">résilier ↗</a> : null}
-                          {e.rec?.source === "paypal" ? <a href="https://www.paypal.com/myaccount/autopay/" target="_blank" rel="noreferrer">paypal ↗</a> : null}
-                        </small>
-                      ) : null}
-                    </span>
-                    <span className={`l-amt ${e.kind === "in" ? "up" : ""}`}>{e.kind === "in" ? "+" : "−"}{fmtEuro(e.amount, true)}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="empty">rien de prévu sur 30 jours.</p>
-            )}
-          </div>
+          ) : (
+            <button className="plus" onClick={() => setSubOpen(true)}>+ un fixe</button>
+          )}
         </div>
 
         <div className="money-right">
+          <div className="subs-head">
+            <span className="money-k">mouvements</span>
+            <b>{moves.length ? `${fmtEuro(sum(moves, "out"))} dépensés` : ""}</b>
+          </div>
           <div className="money-form">
             <div className="kind" role="radiogroup" aria-label="sens">
               <button role="radio" aria-checked={kind === "out"} onClick={() => switchKind("out")}>dépense</button>
@@ -357,23 +235,22 @@ export default function Money({ doc, today, onChange, i }: Props) {
             </label>
             <button className="primary" onClick={add} disabled={!valid}>ok</button>
           </div>
-
-          {ofMonth.length ? (
+          {moves.length ? (
             <ul className="ledger">
-              {ofMonth.map((e) => (
-                <li key={e.id} className={`row ${e.virtual ? "is-virtual" : ""} ${e.date > today ? "is-future" : ""}`}>
+              {moves.map((e) => (
+                <li key={e.id} className="row">
                   <span className="l-date">{fmtDayShort(e.date)}</span>
                   <span className="l-label">
                     {e.label}
-                    <small>{e.virtual ? "abo" : e.category}</small>
+                    <small>{e.category}</small>
                   </span>
                   <span className={`l-amt ${e.kind === "in" ? "up" : ""}`}>{e.kind === "in" ? "+" : "−"}{fmtEuro(e.amount, true)}</span>
-                  {e.virtual ? <span className="x-space" /> : <button className="x" onClick={() => remove(e.id)} aria-label="supprimer">×</button>}
+                  <button className="x" onClick={() => remove(e.id)} aria-label="supprimer">×</button>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="empty">rien de saisi pour {fmtMonth(month)}.</p>
+            <p className="empty">rien de saisi pour {fmtMonth(month)}, à part les fixes.</p>
           )}
         </div>
       </div>
