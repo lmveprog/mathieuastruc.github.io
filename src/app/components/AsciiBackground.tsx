@@ -2,9 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-type Point = { x: number; y: number };
-
-// A slowly breathing wire surface, with light travelling along its contours.
+// Original particle volumes slowly transform between a globe and an orbit.
 // The centre fades out so the motion stays behind the portfolio, never the copy.
 export default function AsciiBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -26,58 +24,55 @@ export default function AsciiBackground() {
     let dark = false;
     let mask: CanvasGradient;
 
-    const surface = (u: number, v: number, time: number): Point => {
-      const wave = Math.sin(u * 0.72 + time * 0.28) * Math.cos(v * 0.6 - time * 0.19);
-      const swell = Math.sin(v * 0.82 + u * 0.28 + time * 0.17);
-      const z = wave * 0.85 + swell * 0.45;
-      const perspective = 1 / (1 + v * 0.025);
-      return {
-        x: width * 0.5 + (u * width * 0.075 + v * width * 0.02) * perspective + pointerX * 12,
-        y: height * 0.5 + (v * height * 0.083 + z * height * 0.13 + u * height * 0.018) * perspective + pointerY * 10,
-      };
-    };
-
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
       const t = elapsed / 1000;
-      ctx.lineWidth = 0.7;
-      ctx.strokeStyle = dark ? "rgba(168,155,221,0.34)" : "rgba(83,89,125,0.2)";
-      const step = width < 600 ? 0.7 : 0.48;
-      // Curves share the same surface and remain continuous throughout the loop.
-      for (let axis = 0; axis < 2; axis++) {
-        for (let fixed = -11; fixed <= 11; fixed += step) {
-          ctx.beginPath();
-          for (let sample = 0; sample <= 100; sample++) {
-            const along = -11 + sample * 0.22;
-            const p = axis === 0 ? surface(fixed, along, t) : surface(along, fixed, t);
-            if (sample === 0) ctx.moveTo(p.x, p.y);
-            else ctx.lineTo(p.x, p.y);
+      const mobile = width < 900;
+      const count = mobile ? 480 : 1000;
+      ctx.font = "9px ui-monospace, SFMono-Regular, Menlo, monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      for (let cloud = 0; cloud < (mobile ? 1 : 2); cloud++) {
+        const phase = t * 0.19 + cloud * 2.6;
+        const morph = (1 - Math.cos(t * 0.16 + cloud * 2)) / 2;
+        const cx = mobile ? width * 0.94 : width * (cloud === 0 ? 0.12 : 0.88);
+        const cy = height * (cloud === 0 ? 0.32 : 0.76);
+        const size = mobile ? 125 : Math.min(190, width * 0.15);
+        const points: { x: number; y: number; z: number; seed: number }[] = [];
+        for (let i = 0; i < count; i++) {
+          const a = i * 2.39996323;
+          const y = 1 - 2 * (i + 0.5) / count;
+          const ring = Math.sqrt(1 - y * y);
+          const longitude = (i / count) * Math.PI * 2;
+          const tube = 0.32;
+          const radius = 0.85 + tube * Math.cos(a);
+          // A continuous transformation between a breathing globe and an orbit.
+          const breath = 1 + 0.055 * Math.sin(a * 0.4 + t * 0.6);
+          const px = ((1 - morph) * Math.cos(a) * ring + morph * radius * Math.cos(longitude)) * breath;
+          const py = (1 - morph) * y + morph * tube * Math.sin(a);
+          const pz = (1 - morph) * Math.sin(a) * ring + morph * radius * Math.sin(longitude);
+          const rot = phase + pointerX * 0.16;
+          const x1 = px * Math.cos(rot) + pz * Math.sin(rot);
+          const z1 = -px * Math.sin(rot) + pz * Math.cos(rot);
+          const tilt = 0.55 + Math.sin(t * 0.12) * 0.3 + pointerY * 0.12;
+          const y1 = py * Math.cos(tilt) - z1 * Math.sin(tilt);
+          const z2 = py * Math.sin(tilt) + z1 * Math.cos(tilt);
+          const perspective = 3.4 / (3.4 + z2);
+          points.push({ x: cx + x1 * size * perspective, y: cy + y1 * size * perspective, z: z2, seed: i });
+        }
+        points.sort((a, b) => b.z - a.z);
+        for (const p of points) {
+          const depth = Math.max(0, Math.min(1, (1.3 - p.z) / 2.6));
+          const alpha = (dark ? 0.12 + depth * 0.58 : 0.08 + depth * 0.34);
+          ctx.fillStyle = dark ? `rgba(177,165,219,${alpha})` : `rgba(86,83,115,${alpha})`;
+          if (p.seed % 7 === 0) {
+            const glyph = ".:+*"[Math.min(3, Math.floor(depth * 4))];
+            ctx.fillText(glyph, p.x, p.y);
+          } else {
+            const dot = 0.55 + depth * 0.8;
+            ctx.beginPath(); ctx.arc(p.x, p.y, dot, 0, Math.PI * 2); ctx.fill();
           }
-          ctx.stroke();
         }
-      }
-      // Two understated highlights trace actual grid lines, at different phases.
-      for (let i = 0; i < 2; i++) {
-        const desired = i === 0 ? 5.76 : -5.76;
-        const u = -11 + Math.round((desired + 11) / step) * step;
-        const head = ((t * 0.45 + i * 9) % 18) - 9;
-        for (let segment = 0; segment < 22; segment++) {
-          const v = head - segment * 0.06;
-          const a = surface(u, v, t);
-          const b = surface(u, v - 0.065, t);
-          const fade = Math.min(1, (9 - Math.abs(head)) / 1.2);
-          ctx.strokeStyle = dark
-            ? `rgba(180,159,255,${(1 - segment / 22) * 0.8 * fade})`
-            : `rgba(99,85,159,${(1 - segment / 22) * 0.5 * fade})`;
-          ctx.lineWidth = 1.5;
-          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-        }
-        const p = surface(u, head, t);
-        const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 16);
-        glow.addColorStop(0, dark ? "rgba(180,159,255,0.4)" : "rgba(99,85,159,0.16)");
-        glow.addColorStop(1, "transparent");
-        ctx.fillStyle = glow;
-        ctx.fillRect(p.x - 16, p.y - 16, 32, 32);
       }
       ctx.globalCompositeOperation = "destination-in";
       ctx.fillStyle = mask;
