@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import AsciiBackground from "../../components/AsciiBackground";
+import Backdrop from "../components/Backdrop";
 import LiquidText from "../../components/LiquidText";
 
 export default function LoginPage() {
@@ -33,7 +33,7 @@ export default function LoginPage() {
 
   return (
     <div className="login">
-      <AsciiBackground />
+      <Backdrop />
       <form onSubmit={submit} className="card">
         <h1>
           <LiquidText text="admin" />

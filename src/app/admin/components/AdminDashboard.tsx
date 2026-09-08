@@ -1,19 +1,21 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import AsciiBackground from "../../components/AsciiBackground";
+import Backdrop from "./Backdrop";
+import DecryptText from "../../components/DecryptText";
 import LiquidText from "../../components/LiquidText";
 import ProfileCard from "../../components/ProfileCard";
 import ThemeToggle from "../../components/ThemeToggle";
 import type { Overview } from "@/app/api/admin/overview/route";
 import { EMPTY_DOCS, type Docs } from "./types";
 import { TZ, todayKey } from "./helpers";
-import { Agenda, Audience, Contents, Countdowns, Habits, Links, Notes, Portfolio, Todos, Veille } from "./widgets";
 
 // le tableau de bord a deux faces : "mathieu" (vie perso / pro) et
 // "matheus" (le compte content). meme accroche en haut (bonjour, date,
 // heure, meteo), des cartes differentes en dessous. les docs modifiables
 // passent par /api/admin/store, le reste vient d'un seul /api/admin/overview.
+// pour l'instant les deux faces sont vides : on les construit une carte
+// a la fois.
 
 type Side = "mathieu" | "matheus";
 type Status = { kind: "idle" | "saving" | "saved" | "error"; text?: string };
@@ -81,6 +83,8 @@ export default function AdminDashboard() {
     history.replaceState(null, "", `#${s}`);
   };
 
+  // ecrit un doc entier sur le vps (ils sont petits) ; "delay" sert aux
+  // champs texte, pour ne pas envoyer une requete par frappe
   const save = useCallback(<K extends keyof Docs>(key: K, next: Docs[K], delay = 0) => {
     setDocs((d) => ({ ...(d || EMPTY_DOCS), [key]: next }));
     clearTimeout(timers.current[key]);
@@ -99,6 +103,7 @@ export default function AdminDashboard() {
       }
     }, delay);
   }, []);
+  void save; // branche a venir avec les premieres cartes
 
   const logout = async () => {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -106,12 +111,13 @@ export default function AdminDashboard() {
   };
 
   const today = now ? todayKey() : "";
+  void today;
   const w = overview?.weather;
   const hello = `${now ? greeting(now) : "bonjour"}, ${side === "matheus" ? "Matheus" : "Mathieu"}`;
 
   return (
     <>
-      <AsciiBackground />
+      <Backdrop />
       <div className="admin-top">
         <div className="sides" role="tablist" aria-label="face du tableau de bord">
           <button role="tab" aria-selected={side === "mathieu"} onClick={() => switchSide("mathieu")}>
@@ -164,30 +170,15 @@ export default function AdminDashboard() {
 
       {!docs || !now ? (
         <p className="loading">chargement…</p>
-      ) : side === "mathieu" ? (
-        <div className="grid" key="mathieu">
-          <Countdowns config={docs.config} today={today} onChange={(c) => save("config", c)} i={0} />
-          <Agenda agenda={overview?.agenda} today={today} now={now} i={1} />
-          <Todos items={docs.todos.items || []} onChange={(items) => save("todos", { items })} i={2} />
-          <Habits doc={docs.habits} today={today} onChange={(d) => save("habits", d)} i={3} />
-          <Notes notes={docs.notes} today={today} onChange={(n) => save("notes", n, 800)} i={4} />
-          <Portfolio guests={overview?.guests} links={docs.config.links || []} i={5} />
-          <Links links={docs.config.links || []} onChange={(links) => save("config", { ...docs.config, links })} i={6} />
-        </div>
       ) : (
-        <div className="grid" key="matheus">
-          <Audience audience={overview?.audience} i={0} />
-          <Todos
-            items={docs.content.ideas || []}
-            onChange={(ideas) => save("content", { ...docs.content, ideas })}
-            i={1}
-            title="à publier"
-            placeholder="une idée, puis entrée"
-            empty="pas d'idée en stock, va scroller."
-          />
-          <Contents contents={overview?.contents} i={2} />
-          <Veille veille={overview?.veille} i={3} />
-          <Links links={docs.config.contentLinks || []} onChange={(contentLinks) => save("config", { ...docs.config, contentLinks })} i={4} />
+        <div className="grid" key={side}>
+          <article className="card card--blank" style={{ "--span": 12 } as React.CSSProperties}>
+            <h2 className="card-title">
+              <span><DecryptText text="page blanche" trigger="visible" /></span>
+              <small>{side === "matheus" ? "face content" : "face perso · pro"}</small>
+            </h2>
+            <p className="hint">rien ici pour l&apos;instant. on construit cette face une carte à la fois.</p>
+          </article>
         </div>
       )}
     </>

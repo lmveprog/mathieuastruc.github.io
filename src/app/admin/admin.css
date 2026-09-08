@@ -56,6 +56,85 @@
   list-style: none;
 }
 
+/* ── fond : lumiere douce qui derive + trame de points, pas de canvas ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  --dot: rgba(24, 22, 20, 0.16);
+}
+:root[data-theme="dark"] .backdrop {
+  --dot: rgba(236, 234, 229, 0.11);
+}
+/* papier millimetre, qui s'efface vers les bords */
+.backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--dot) 0.9px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 38%, #000 20%, transparent 100%);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 38%, #000 20%, transparent 100%);
+}
+.blob {
+  position: absolute;
+  width: 62vmax;
+  height: 62vmax;
+  border-radius: 50%;
+  filter: blur(70px);
+  will-change: transform;
+  animation: blob-drift 42s ease-in-out infinite alternate;
+}
+.blob--1 {
+  left: -18vmax;
+  top: -22vmax;
+  background: radial-gradient(circle, rgba(158, 139, 224, 0.34), transparent 62%);
+}
+.blob--2 {
+  right: -22vmax;
+  top: 4vh;
+  background: radial-gradient(circle, rgba(26, 58, 92, 0.16), transparent 62%);
+  animation-duration: 54s;
+  animation-delay: -18s;
+}
+.blob--3 {
+  left: 24vw;
+  bottom: -34vmax;
+  background: radial-gradient(circle, rgba(232, 190, 150, 0.3), transparent 62%);
+  animation-duration: 48s;
+  animation-delay: -31s;
+}
+:root[data-theme="dark"] .blob--1 {
+  background: radial-gradient(circle, rgba(140, 118, 214, 0.22), transparent 62%);
+}
+:root[data-theme="dark"] .blob--2 {
+  background: radial-gradient(circle, rgba(120, 160, 210, 0.13), transparent 62%);
+}
+:root[data-theme="dark"] .blob--3 {
+  background: radial-gradient(circle, rgba(214, 150, 110, 0.12), transparent 62%);
+}
+@keyframes blob-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(9vw, 7vh, 0) scale(1.14);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .blob {
+    animation: none;
+  }
+}
+
+/* carte vide, en attendant les vraies */
+.card--blank {
+  border-style: dashed;
+  min-height: 11rem;
+}
+
 /* ── barre du haut ── */
 .admin-top {
   display: flex;
