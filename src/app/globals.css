@@ -124,7 +124,7 @@ body::before {
   margin: 0 auto;
 }
 
-.page > :not(.row-hover-indicator):not(.ascii-bg) {
+.page > :not(.row-hover-indicator):not(.ascii-bg):not(.visitors) {
   position: relative;
   z-index: 1;
 }
@@ -865,3 +865,58 @@ button:focus-visible,
 /* Local SVG refraction, leaving the name crisp and selectable at rest. */
 .liquid-filter { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
 .liquid-text { display: inline-block; position: relative; }
+
+/* ── Compteur de visiteurs, coin bas gauche ── */
+.visitors {
+  position: fixed;
+  left: clamp(1rem, 2.4vw, 2rem);
+  bottom: calc(clamp(0.9rem, 2vw, 1.5rem) + env(safe-area-inset-bottom));
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  font-family: "Mondwest", "Computer Modern", serif;
+  color: var(--text-3);
+  line-height: 1.15;
+  pointer-events: none;
+  animation: visitors-in 700ms var(--ease-smooth-out) both;
+}
+.visitors-count {
+  font-size: 1.35rem;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.visitors-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+@keyframes visitors-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* sous 1000px la marge de gauche disparaît : le compteur passe sous le footer */
+@media (max-width: 1000px) {
+  .visitors {
+    position: static;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-top: 0.7rem;
+    animation: none;
+  }
+  .visitors-count {
+    font-size: 1rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .visitors {
+    animation: none;
+  }
+}

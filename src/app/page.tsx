@@ -4,6 +4,7 @@ import LiquidText from "./components/LiquidText";
 import DecryptText from "./components/DecryptText";
 import HoverIndicator from "./components/HoverIndicator";
 import LocalTime from "./components/LocalTime";
+import VisitorCount from "./components/VisitorCount";
 import ProfileCard from "./components/ProfileCard";
 import ThemeToggle from "./components/ThemeToggle";
 
@@ -243,6 +244,7 @@ export default function Home() {
         <LocalTime />
         <p>France</p>
       </footer>
+      <VisitorCount />
     </div>
   );
 }

@@ -46,7 +46,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob:",
               "font-src 'self'",
-              "connect-src 'self'",
+              "connect-src 'self' https://lavalley.xyz",
               "media-src 'self'",
               "frame-ancestors 'none'",
             ].join("; "),
