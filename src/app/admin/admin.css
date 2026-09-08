@@ -1280,7 +1280,7 @@
 }
 .money-form {
   display: grid;
-  grid-template-columns: auto 6rem 1fr 7.5rem auto auto;
+  grid-template-columns: auto 6rem 1fr 7.5rem auto auto auto;
   gap: 0.45rem;
   align-items: center;
   margin-bottom: 0.9rem;
@@ -1401,6 +1401,9 @@
   }
   .money-form input[type="date"] {
     grid-column: 1;
+  }
+  .money-form .ev-allday {
+    grid-column: 2;
   }
   .mail {
     grid-template-columns: 1fr auto;

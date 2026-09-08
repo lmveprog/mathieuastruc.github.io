@@ -46,12 +46,14 @@ export default function Money({ doc, today, onChange, i }: Props) {
   const [label, setLabel] = useState("");
   const [category, setCategory] = useState("courses");
   const [date, setDate] = useState(today);
+  const [monthly, setMonthly] = useState(false);
   // formulaire d'abonnement
   const [subOpen, setSubOpen] = useState(false);
   const [subLabel, setSubLabel] = useState("");
   const [subAmount, setSubAmount] = useState("");
   const [subDay, setSubDay] = useState(String(Number(today.slice(8, 10))));
   const [subCat, setSubCat] = useState("abonnements");
+  const [subKind, setSubKind] = useState<"in" | "out">("out");
   const [subEvery, setSubEvery] = useState<"month" | "year">("month");
   const [subMonth, setSubMonth] = useState(Number(today.slice(5, 7)));
 
@@ -95,10 +97,18 @@ export default function Money({ doc, today, onChange, i }: Props) {
   const valid = Number.isFinite(parsed) && parsed > 0 && label.trim().length > 0 && /^\d{4}-\d{2}-\d{2}$/.test(date);
   const add = () => {
     if (!valid) return;
-    const e: MoneyEntry = { id: uid(), date, label: label.trim(), amount: Math.round(parsed * 100) / 100, kind, category };
-    onChange({ ...doc, entries: [...entries, e] });
+    const amt = Math.round(parsed * 100) / 100;
+    if (monthly) {
+      // "chaque mois" : un prelevement qui part de ce mois-ci, le meme jour
+      const r: Recurring = { id: uid(), label: label.trim(), amount: amt, kind, category, day: Number(date.slice(8, 10)), every: "month", since: monthOf(date) };
+      onChange({ ...doc, recurring: [...recurring, r] });
+    } else {
+      const e: MoneyEntry = { id: uid(), date, label: label.trim(), amount: amt, kind, category };
+      onChange({ ...doc, entries: [...entries, e] });
+    }
     setAmount("");
     setLabel("");
+    setMonthly(false);
     if (!date.startsWith(month)) setMonth(monthOf(date));
   };
   const remove = (id: string) => onChange({ ...doc, entries: entries.filter((e) => e.id !== id) });
@@ -115,7 +125,7 @@ export default function Money({ doc, today, onChange, i }: Props) {
       id: uid(),
       label: subLabel.trim(),
       amount: Math.round(subParsed * 100) / 100,
-      kind: "out",
+      kind: subKind,
       category: subCat,
       day: Number(subDay),
       every: subEvery,
@@ -195,7 +205,7 @@ export default function Money({ doc, today, onChange, i }: Props) {
 
           <div className="subs">
             <div className="subs-head">
-              <span className="money-k">abonnements</span>
+              <span className="money-k">dépenses mensuelles</span>
               <b>
                 {fmtEuro(subsMonthly)} / mois{subsYearly ? ` · ${fmtEuro(subsYearly)} / an` : ""}
               </b>
@@ -215,13 +225,13 @@ export default function Money({ doc, today, onChange, i }: Props) {
                           {r.source ? ` · ${r.source}` : ""}
                         </small>
                       </span>
-                      <span className="l-amt">{fmtEuro(r.amount, true)}</span>
+                      <span className={`l-amt ${r.kind === "in" ? "up" : ""}`}>{r.kind === "in" ? "+" : ""}{fmtEuro(r.amount, true)}</span>
                       <button className="x" onClick={() => stopSub(r.id)} aria-label={`arrêter ${r.label}`} title="arrêter (l'historique reste)">×</button>
                     </li>
                   ))}
               </ul>
             ) : (
-              <p className="empty">aucun abonnement suivi.</p>
+              <p className="empty">aucune dépense fixe.</p>
             )}
             {subOpen ? (
               <div className="sub-form">
@@ -230,8 +240,12 @@ export default function Money({ doc, today, onChange, i }: Props) {
                 <label className="sub-day">
                   le <input inputMode="numeric" value={subDay} onChange={(e) => setSubDay(e.target.value.replace(/\D/g, "").slice(0, 2))} aria-label="jour" />
                 </label>
+                <select value={subKind} onChange={(e) => { const k = e.target.value as "in" | "out"; setSubKind(k); setSubCat(k === "in" ? IN_CATS[0] : "abonnements"); }} aria-label="sens">
+                  <option value="out">dépense</option>
+                  <option value="in">revenu</option>
+                </select>
                 <select value={subCat} onChange={(e) => setSubCat(e.target.value)} aria-label="catégorie">
-                  {OUT_CATS.map((c) => <option key={c} value={c}>{c}</option>)}
+                  {(subKind === "in" ? IN_CATS : OUT_CATS).map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
                 <select value={subEvery} onChange={(e) => setSubEvery(e.target.value as "month" | "year")} aria-label="fréquence">
                   <option value="month">chaque mois</option>
@@ -248,7 +262,7 @@ export default function Money({ doc, today, onChange, i }: Props) {
                 </span>
               </div>
             ) : (
-              <button className="plus" onClick={() => setSubOpen(true)}>+ un abonnement</button>
+              <button className="plus" onClick={() => setSubOpen(true)}>+ une dépense mensuelle</button>
             )}
           </div>
         </div>
@@ -265,6 +279,9 @@ export default function Money({ doc, today, onChange, i }: Props) {
               {(kind === "in" ? IN_CATS : OUT_CATS).map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} aria-label="date" />
+            <label className="ev-allday" title="se répète tous les mois à cette date">
+              <input type="checkbox" checked={monthly} onChange={(e) => setMonthly(e.target.checked)} /> chaque mois
+            </label>
             <button className="primary" onClick={add} disabled={!valid}>ok</button>
           </div>
 
