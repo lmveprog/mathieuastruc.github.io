@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 import { drawTransformerFlow } from "./transformerFlow";
 
 // two particle volumes slowly morphing between a globe and an orbit, plus a
-// small wireframe transformer in the right margin. the centre fades out so the
-// motion stays behind the portfolio, never the copy.
+// wireframe transformer stack sharing their camera. the centre fades out so
+// the motion stays behind the portfolio, never the copy.
 export default function AsciiBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
