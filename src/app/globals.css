@@ -705,4 +705,80 @@ a:focus-visible, button:focus-visible {
 
 .project-row { grid-template-columns: 1.75rem minmax(0, 1fr) auto; }
 .project-logo { width: 1.75rem; height: 1.75rem; }
-.exp-fav[src*="bdf"] { transform: scale(1.2); }
+
+
+/* Official vector mark, without the old favicon's transparent padding. */
+.exp-fav[src*="banque-de-france"] {
+  background: #fff;
+  padding: 2px;
+  border-radius: 3px;
+}
+
+/* A translucent frame around the existing identity, with a soft moving sheen. */
+.profile-card {
+  --light-x: 72%;
+  --light-y: 18%;
+  padding: 1.75rem;
+  border: 1px solid rgba(115, 108, 144, 0.2);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.76), rgba(247,245,252,0.48));
+  -webkit-backdrop-filter: blur(20px) saturate(115%);
+  backdrop-filter: blur(20px) saturate(115%);
+  box-shadow: 0 12px 40px rgba(39,31,57,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
+  transform: perspective(1100px) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
+  transition: transform 380ms cubic-bezier(0.22,1,0.36,1), border-color 300ms ease;
+  isolation: isolate;
+}
+.profile-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(ellipse at var(--light-x) var(--light-y), rgba(158,139,224,0.14), transparent 65%);
+}
+.profile-card::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 14%;
+  width: 30%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(167,143,230,0.8), transparent);
+  animation: profile-glimmer 9s ease-in-out infinite alternate;
+}
+:root[data-theme="dark"] .profile-card {
+  border-color: rgba(195,183,225,0.19);
+  background: linear-gradient(135deg, rgba(42,39,48,0.7), rgba(26,24,30,0.5));
+  box-shadow: 0 18px 55px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.045);
+}
+.profile-card .theme-toggle { top: 1.6rem; right: 1.65rem; }
+.profile-card .hero-identity { margin-bottom: 1.4rem; padding-right: 2rem; }
+.profile-card .identity-copy { margin-top: 1.3rem; }
+.profile-card .hero-name { font-size: clamp(1.65rem, 5vw, 2.3rem); }
+.profile-card .lede { font-size: 1.0625rem; line-height: 1.6; }
+@keyframes profile-glimmer {
+  from { transform: translateX(0); opacity: 0.35; }
+  to { transform: translateX(125%); opacity: 0.8; }
+}
+@media (max-width: 560px) {
+  .profile-card { padding: 1.25rem; border-radius: 16px; }
+  .profile-card .theme-toggle { top: 0.85rem; right: 1rem; }
+  .profile-card .hero-identity { padding-top: 1rem; padding-right: 0; gap: 0.6rem; }
+  .profile-card .bust { width: 4.6rem; height: 5.4rem; margin-left: -0.35rem; }
+  .profile-card .identity-copy { margin-top: 0.8rem; }
+  .profile-card .social-links { gap: 0.8rem; }
+  .profile-card .social-links svg { width: 16px; height: 16px; }
+  .profile-card .lede { font-size: 1rem; }
+}
+@media (max-width: 360px) {
+  .profile-card { padding: 1rem; }
+  .profile-card .bust { width: 3.7rem; }
+  .profile-card .hero-name { font-size: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-card { transform: none; }
+  .profile-card::after { animation: none; }
+}

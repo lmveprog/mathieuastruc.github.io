@@ -4,6 +4,7 @@ import AsciiPolaroid from "./components/AsciiPolaroid";
 import DecryptText from "./components/DecryptText";
 import HoverIndicator from "./components/HoverIndicator";
 import LocalTime from "./components/LocalTime";
+import ProfileCard from "./components/ProfileCard";
 import ThemeToggle from "./components/ThemeToggle";
 
 const experience = [
@@ -11,7 +12,7 @@ const experience = [
   { role: "Applied AI Engineer - Master Thesis", org: "Airbus", logo: "/images/career/fav-airbus.png", period: "2026" },
   { role: "Research Engineer Intern", org: "NTNU, Norway", logo: "/images/career/fav-ntnu.png", period: "2025" },
   { role: "Machine Learning Engineer", org: "Comat Specific", logo: "/images/career/fav-comat.png", period: "2025" },
-  { role: "Data Scientist Intern", org: "Banque de France", logo: "/images/career/fav-bdf.png", period: "2024" },
+  { role: "Data Scientist Intern", org: "Banque de France", logo: "/images/career/banque-de-france.svg", period: "2024" },
 ];
 
 const education = [
@@ -122,7 +123,7 @@ export default function Home() {
       <AsciiBackground />
       <HoverIndicator />
 
-      <header className="hero">
+      <ProfileCard>
         <ThemeToggle />
         <div className="hero-identity">
           <div className="bust" aria-hidden="true">
@@ -147,7 +148,7 @@ export default function Home() {
             building.
           </p>
         </div>
-      </header>
+      </ProfileCard>
 
       <section aria-labelledby="experience-title">
         <h2 id="experience-title"><DecryptText text="experience" trigger="visible" /></h2>
