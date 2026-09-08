@@ -1,5 +1,4 @@
 import AsciiBackground from "./components/AsciiBackground";
-import AsciiPortrait from "./components/AsciiPortrait";
 import AsciiPolaroid from "./components/AsciiPolaroid";
 import DecryptText from "./components/DecryptText";
 import HoverIndicator from "./components/HoverIndicator";
@@ -126,8 +125,8 @@ export default function Home() {
       <ProfileCard>
         <ThemeToggle />
         <div className="hero-identity">
-          <div className="bust" aria-hidden="true">
-            <AsciiPortrait src="/images/portrait-ascii.png" className="bust-canvas" />
+          <div className="portrait">
+            <img src="/images/portrait.jpg" alt="Mathieu Astruc" width={384} height={384} decoding="async" fetchPriority="high" />
           </div>
           <div className="identity-copy">
             <h1 className="hero-name">
