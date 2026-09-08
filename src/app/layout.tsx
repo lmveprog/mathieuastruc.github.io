@@ -32,13 +32,11 @@ export const metadata: Metadata = {
   },
 };
 
+// pas de themeColor ici : la balise est posée par le script inline ci-dessous,
+// pour suivre le thème choisi sur le site et non celui de l'os
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f9f8f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#12110f" },
-  ],
 };
 
 const jsonLd = {
@@ -56,11 +54,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* avant l'hydratation : clair par défaut, sombre si choisi précédemment */}
+        {/* avant l'hydratation : clair par défaut, sombre si choisi précédemment,
+            et la couleur de barre du navigateur (theme-color) suit ce choix */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}var m=location.search.match(/[?&]theme=(dark|light)/);if(m)t=m[1];document.documentElement.dataset.theme=t==="dark"?"dark":"light"})();',
+              '(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}var m=location.search.match(/[?&]theme=(dark|light)/);if(m)t=m[1];var d=t==="dark";document.documentElement.dataset.theme=d?"dark":"light";var c=document.createElement("meta");c.name="theme-color";c.content=d?"#12110f":"#f9f8f5";document.head.appendChild(c)})();',
           }}
         />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

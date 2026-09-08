@@ -73,11 +73,6 @@
   --card-shadow: rgba(0, 0, 0, 0.4);
 }
 
-:root[data-theme="dark"] .exp-logo {
-  filter: grayscale(1) invert(1);
-  opacity: 0.55;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -120,7 +115,6 @@ body::before {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-
 }
 
 .page {
@@ -392,9 +386,17 @@ h2 {
 .exp-fav {
   width: 1.35rem;
   height: 1.35rem;
-  align-self: center;
+  align-self: start;
+  margin-top: 0.18rem;
   border-radius: 4px;
   object-fit: contain;
+}
+/* la marque vectorielle bdf est nue en clair (comme le swoosh comat)
+   et passe sur une tuile blanche en sombre, sinon le bleu se perd */
+:root[data-theme="dark"] .exp-fav[src*="banque-de-france"] {
+  background: #fff;
+  padding: 2px;
+  border-radius: 3px;
 }
 .exp-fav--mystery {
   display: grid;
@@ -435,23 +437,21 @@ h2 {
 }
 .project-row {
   display: grid;
-  grid-template-columns: 1.5rem minmax(0, 1fr) auto;
+  grid-template-columns: 1.75rem minmax(0, 1fr) auto;
   gap: 0.85rem;
   align-items: start;
   text-decoration: none;
   color: inherit;
 }
 .project-logo {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
   margin-top: 0.1rem;
   border-radius: 5px;
   object-fit: contain;
-  opacity: 0.9;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 a.project-row:hover .project-logo {
-  opacity: 1;
   transform: scale(1.08);
 }
 .project-copy {
@@ -510,10 +510,15 @@ a.project-row:hover .project-detail,
   height: 13px;
 }
 
-/* les marques avec des traits noirs ont besoin d'un fond en dark */
-:root[data-theme="dark"] .project-logo[src*="hcii"] {
-  background: #fff;
-  padding: 1px;
+/* en dark, les marques dessinées en noir passent sur une tuile claire,
+   et mon logo (a clair sur noir) s'inverse pour rester lisible */
+:root[data-theme="dark"] .project-logo[src*="hcii"],
+:root[data-theme="dark"] .project-logo[src*="humanoid"] {
+  background: #f9f8f5;
+  padding: 2px;
+}
+:root[data-theme="dark"] .project-logo[src*="matheus"] {
+  filter: invert(1);
 }
 
 /* ── Interests (polaroids) ── */
@@ -616,6 +621,18 @@ a.project-row:hover .project-detail,
     font-size: 0.85rem;
   }
 }
+@media (max-width: 380px) {
+  .polaroid-row {
+    gap: 0.6rem;
+  }
+  .polaroid img {
+    width: 4.6rem;
+    height: 4.6rem;
+  }
+  .polaroid figcaption {
+    font-size: 0.7rem;
+  }
+}
 
 /* ── Footer ── */
 footer {
@@ -673,60 +690,32 @@ footer time {
     transform: none;
   }
   .project-row {
-    grid-template-columns: 1.3rem minmax(0, 1fr) auto;
+    grid-template-columns: 1.5rem minmax(0, 1fr) auto;
     gap: 0.7rem;
   }
   .project-logo {
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }
 
-/* Keep original marks crisp, with room for dark artwork. */
-.exp-fav { align-self: start; margin-top: 0.18rem; }
-.project-logo { opacity: 1; }
-:root[data-theme="dark"] .project-logo[src*="humanoid"] {
-  background: #f9f8f5;
-  padding: 2px;
-}
-a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .lede-line, section { opacity: 1; filter: none; transform: none; }
-}
-@media (max-width: 380px) {
-  .polaroid-row { gap: 0.6rem; }
-  .polaroid img { width: 4.6rem; height: 4.6rem; }
-  .polaroid figcaption { font-size: 0.7rem; }
-}
-
-.project-row { grid-template-columns: 1.75rem minmax(0, 1fr) auto; }
-.project-logo { width: 1.75rem; height: 1.75rem; }
-
-
-/* Official vector mark, without the old favicon's transparent padding. */
-.exp-fav[src*="banque-de-france"] {
-  background: #fff;
-  padding: 2px;
-  border-radius: 3px;
-}
-
-/* A translucent frame around the existing identity, with a soft moving sheen. */
+/* ── Profile card ── */
+/* cadre translucide autour du hero : le fond ascii passe derrière en flou,
+   un reflet violet suit la souris et la carte s'incline d'un degré */
 .profile-card {
   --light-x: 72%;
   --light-y: 18%;
   padding: 1.75rem;
   border: 1px solid rgba(115, 108, 144, 0.2);
   border-radius: 20px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.76), rgba(247,245,252,0.48));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(247, 245, 252, 0.48));
   -webkit-backdrop-filter: blur(20px) saturate(115%);
   backdrop-filter: blur(20px) saturate(115%);
-  box-shadow: 0 12px 40px rgba(39,31,57,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
+  box-shadow:
+    0 12px 40px rgba(39, 31, 57, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   transform: perspective(1100px) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
-  transition: transform 380ms cubic-bezier(0.22,1,0.36,1), border-color 300ms ease;
+  transition: transform 380ms var(--ease-smooth-out), border-color 300ms ease;
   isolation: isolate;
 }
 .profile-card::before {
@@ -736,8 +725,9 @@ a:focus-visible, button:focus-visible {
   z-index: -1;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(ellipse at var(--light-x) var(--light-y), rgba(158,139,224,0.14), transparent 65%);
+  background: radial-gradient(ellipse at var(--light-x) var(--light-y), rgba(158, 139, 224, 0.14), transparent 65%);
 }
+/* fine ligne de lumière qui glisse le long du bord haut */
 .profile-card::after {
   content: "";
   position: absolute;
@@ -746,39 +736,105 @@ a:focus-visible, button:focus-visible {
   width: 30%;
   height: 1px;
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(167,143,230,0.8), transparent);
+  background: linear-gradient(90deg, transparent, rgba(167, 143, 230, 0.8), transparent);
   animation: profile-glimmer 9s ease-in-out infinite alternate;
 }
-:root[data-theme="dark"] .profile-card {
-  border-color: rgba(195,183,225,0.19);
-  background: linear-gradient(135deg, rgba(42,39,48,0.7), rgba(26,24,30,0.5));
-  box-shadow: 0 18px 55px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.045);
-}
-.profile-card .theme-toggle { top: 1.6rem; right: 1.65rem; }
-.profile-card .hero-identity { margin-bottom: 1.4rem; padding-right: 2rem; }
-.profile-card .identity-copy { margin-top: 1.3rem; }
-.profile-card .hero-name { font-size: clamp(1.65rem, 5vw, 2.3rem); }
-.profile-card .lede { font-size: 1.0625rem; line-height: 1.6; }
 @keyframes profile-glimmer {
-  from { transform: translateX(0); opacity: 0.35; }
-  to { transform: translateX(125%); opacity: 0.8; }
+  from {
+    transform: translateX(0);
+    opacity: 0.35;
+  }
+  to {
+    transform: translateX(125%);
+    opacity: 0.8;
+  }
 }
+:root[data-theme="dark"] .profile-card {
+  border-color: rgba(195, 183, 225, 0.19);
+  background: linear-gradient(135deg, rgba(42, 39, 48, 0.7), rgba(26, 24, 30, 0.5));
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
+}
+.profile-card .theme-toggle {
+  top: 1.6rem;
+  right: 1.65rem;
+}
+.profile-card .hero-identity {
+  margin-bottom: 1.4rem;
+  padding-right: 2rem;
+}
+.profile-card .identity-copy {
+  margin-top: 1.3rem;
+}
+.profile-card .hero-name {
+  font-size: clamp(1.65rem, 5vw, 2.3rem);
+}
+.profile-card .lede {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
 @media (max-width: 560px) {
-  .profile-card { padding: 1.25rem; border-radius: 16px; }
-  .profile-card .theme-toggle { top: 0.85rem; right: 1rem; }
-  .profile-card .hero-identity { padding-top: 1rem; padding-right: 0; gap: 0.6rem; }
-  .profile-card .bust { width: 4.6rem; height: 5.4rem; margin-left: -0.35rem; }
-  .profile-card .identity-copy { margin-top: 0.8rem; }
-  .profile-card .social-links { gap: 0.8rem; }
-  .profile-card .social-links svg { width: 16px; height: 16px; }
-  .profile-card .lede { font-size: 1rem; }
+  .profile-card {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+  .profile-card .theme-toggle {
+    top: 0.85rem;
+    right: 1rem;
+  }
+  .profile-card .hero-identity {
+    padding-top: 1rem;
+    padding-right: 0;
+    gap: 0.6rem;
+  }
+  .profile-card .bust {
+    width: 4.6rem;
+    height: 5.4rem;
+    margin-left: -0.35rem;
+  }
+  .profile-card .identity-copy {
+    margin-top: 0.8rem;
+  }
+  .profile-card .social-links {
+    gap: 0.8rem;
+  }
+  .profile-card .social-links svg {
+    width: 16px;
+    height: 16px;
+  }
+  .profile-card .lede {
+    font-size: 1rem;
+  }
 }
 @media (max-width: 360px) {
-  .profile-card { padding: 1rem; }
-  .profile-card .bust { width: 3.7rem; }
-  .profile-card .hero-name { font-size: 1.5rem; }
+  .profile-card {
+    padding: 1rem;
+  }
+  .profile-card .bust {
+    width: 3.7rem;
+  }
+  .profile-card .hero-name {
+    font-size: 1.5rem;
+  }
 }
+
+/* ── Focus ── */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* reduced motion : seules les boucles décoratives s'arrêtent (le fond
+   est géré dans AsciiBackground), les effets one-shot restent */
 @media (prefers-reduced-motion: reduce) {
-  .profile-card { transform: none; }
-  .profile-card::after { animation: none; }
+  .profile-card {
+    transform: none;
+    transition: none;
+  }
+  .profile-card::after {
+    animation: none;
+  }
 }

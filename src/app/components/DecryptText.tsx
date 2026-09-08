@@ -59,12 +59,7 @@ export default function DecryptText({ text, trigger = "mount", replayOnHover = f
     if (!armed) return;
     if (trigger === "hover" && runId === 0) return; // rien au chargement
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setDisplay(text);
-      return;
-    }
-
-    const totalFrames = 12;
+    const totalFrames = 26;
     animating.current = true;
     let frame = 0;
     const interval = window.setInterval(() => {

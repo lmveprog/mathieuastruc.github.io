@@ -14,6 +14,9 @@ export default function ThemeToggle() {
     const next = !dark;
     setDark(next);
     document.documentElement.dataset.theme = next ? "dark" : "light";
+    // la balise posée par le script du layout suit le thème du site
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+    if (meta) meta.content = next ? "#12110f" : "#f9f8f5";
     try {
       localStorage.setItem("theme", next ? "dark" : "light");
     } catch {}
