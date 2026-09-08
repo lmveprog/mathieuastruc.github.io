@@ -1279,11 +1279,20 @@
   color: var(--accent);
 }
 .money-form {
-  display: grid;
-  grid-template-columns: auto 6rem 1fr 7.5rem auto auto auto;
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.45rem;
   align-items: center;
   margin-bottom: 0.9rem;
+}
+.money-form > * {
+  flex: 0 0 auto;
+}
+.money-form input[placeholder="libellé"] {
+  flex: 1 1 11rem;
+}
+.money-form select {
+  flex: 0 1 8rem;
 }
 .money-form .amt {
   font-family: var(--mono);
@@ -1387,23 +1396,12 @@
   .money {
     grid-template-columns: 1fr;
   }
-  .money-form {
-    grid-template-columns: 1fr 1fr;
+  .money-form > * {
+    flex: 1 1 40%;
   }
-  .money-form .kind {
-    grid-column: 1 / -1;
-  }
-  .money-form input:not(.amt) {
-    grid-column: 1 / -1;
-  }
+  .money-form input[placeholder="libellé"],
   .money-form select {
-    grid-column: 1 / -1;
-  }
-  .money-form input[type="date"] {
-    grid-column: 1;
-  }
-  .money-form .ev-allday {
-    grid-column: 2;
+    flex-basis: 100%;
   }
   .mail {
     grid-template-columns: 1fr auto;
