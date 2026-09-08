@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // imapflow (lecture gmail du /admin) tourne cote node, pas besoin de le bundler
+  experimental: { serverComponentsExternalPackages: ["imapflow"] },
   // /matheus (et /matheus/) -> le dashboard statique du hub matheusgen
   async rewrites() {
     return [

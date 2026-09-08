@@ -32,3 +32,33 @@ export const fmtStamp = (unixSeconds: number) =>
 
 export const fmtNum = (n: number) => n.toLocaleString("fr-FR");
 export const uid = () => Math.random().toString(36).slice(2, 9);
+
+// la semaine commence le lundi
+export const mondayOf = (key: string) => {
+  const [y, m, d] = parts(key);
+  const dow = (new Date(Date.UTC(y, m - 1, d)).getUTCDay() + 6) % 7;
+  return shiftDay(key, -dow);
+};
+export const weekdayLong = (key: string) =>
+  new Intl.DateTimeFormat("fr-FR", { timeZone: "UTC", weekday: "long" }).format(utcDate(key));
+export const dayNumber = (key: string) => String(Number(key.slice(8, 10)));
+
+export const monthOf = (key: string) => key.slice(0, 7);
+export const shiftMonth = (month: string, n: number) => {
+  const [y, m] = month.split("-").map(Number);
+  const d = new Date(Date.UTC(y, m - 1 + n, 1));
+  return d.toISOString().slice(0, 7);
+};
+export const fmtMonth = (month: string) =>
+  new Intl.DateTimeFormat("fr-FR", { timeZone: "UTC", month: "long", year: "numeric" }).format(new Date(month + "-01T00:00:00Z"));
+export const fmtMonthShort = (month: string) =>
+  new Intl.DateTimeFormat("fr-FR", { timeZone: "UTC", month: "short" }).format(new Date(month + "-01T00:00:00Z")).replace(".", "");
+export const fmtEuro = (n: number, cents = false) =>
+  n.toLocaleString("fr-FR", { style: "currency", currency: "EUR", minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: cents ? 2 : 0 });
+export const fmtRelative = (iso: string, now: Date) => {
+  const diff = (now.getTime() - new Date(iso).getTime()) / 60_000;
+  if (diff < 1) return "à l'instant";
+  if (diff < 60) return `${Math.round(diff)} min`;
+  if (diff < 24 * 60) return `${Math.round(diff / 60)} h`;
+  return `${Math.round(diff / 1440)} j`;
+};

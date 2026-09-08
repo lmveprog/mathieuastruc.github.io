@@ -5,7 +5,7 @@
 const BASE = process.env.ADMIN_STORE_URL || "https://lavalley.xyz/api/admin-store";
 const TOKEN = process.env.ADMIN_STORE_TOKEN || "";
 
-export const DOC_KEYS = ["todos", "habits", "notes", "config", "content"] as const;
+export const DOC_KEYS = ["todos", "habits", "notes", "config", "content", "money"] as const;
 export type DocKey = (typeof DOC_KEYS)[number];
 export const isDocKey = (k: string): k is DocKey => (DOC_KEYS as readonly string[]).includes(k);
 

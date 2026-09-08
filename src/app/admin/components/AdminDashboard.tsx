@@ -9,6 +9,10 @@ import ThemeToggle from "../../components/ThemeToggle";
 import type { Overview } from "@/app/api/admin/overview/route";
 import { EMPTY_DOCS, type Docs } from "./types";
 import { TZ, todayKey } from "./helpers";
+import WeekTodos from "./cards/WeekTodos";
+import Mail from "./cards/Mail";
+import Agenda from "./cards/Agenda";
+import Money from "./cards/Money";
 
 // le tableau de bord a deux faces : "mathieu" (vie perso / pro) et
 // "matheus" (le compte content). meme accroche en haut (bonjour, date,
@@ -103,7 +107,6 @@ export default function AdminDashboard() {
       }
     }, delay);
   }, []);
-  void save; // branche a venir avec les premieres cartes
 
   const logout = async () => {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -111,7 +114,6 @@ export default function AdminDashboard() {
   };
 
   const today = now ? todayKey() : "";
-  void today;
   const w = overview?.weather;
   const hello = `${now ? greeting(now) : "bonjour"}, ${side === "matheus" ? "Matheus" : "Mathieu"}`;
 
@@ -170,12 +172,19 @@ export default function AdminDashboard() {
 
       {!docs || !now ? (
         <p className="loading">chargement…</p>
+      ) : side === "mathieu" ? (
+        <div className="grid" key="mathieu">
+          <WeekTodos items={docs.todos.items || []} today={today} onChange={(items) => save("todos", { items })} i={0} />
+          <Mail now={now} i={1} />
+          <Agenda agenda={overview?.agenda} today={today} now={now} i={2} />
+          <Money doc={docs.money} today={today} onChange={(d) => save("money", d)} i={3} />
+        </div>
       ) : (
-        <div className="grid" key={side}>
+        <div className="grid" key="matheus">
           <article className="card card--blank" style={{ "--span": 12 } as React.CSSProperties}>
             <h2 className="card-title">
               <span><DecryptText text="page blanche" trigger="visible" /></span>
-              <small>{side === "matheus" ? "face content" : "face perso · pro"}</small>
+              <small>face content</small>
             </h2>
             <p className="hint">rien ici pour l&apos;instant. on construit cette face une carte à la fois.</p>
           </article>
