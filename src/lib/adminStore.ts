@@ -64,3 +64,5 @@ export type Lab = {
 
 export const getLab = () => call<Lab>("lab");
 export const getGuests = () => call<{ visitors: number; today: number }>("guests");
+
+export const getAnalytics = () => call<{ data: import("./contentPlan").Analytics | null }>("doc/analytics").then((r) => r.data);

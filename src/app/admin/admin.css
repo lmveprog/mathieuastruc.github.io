@@ -1771,3 +1771,32 @@
     font-size: 1.6rem;
   }
 }
+
+/* face matheus : chiffres lisibles et un petit atelier editorial */
+.pro-toolbar { display:flex; justify-content:space-between; gap:1.5rem; flex-wrap:wrap; align-items:center; }
+.pro-date { display:flex; align-items:center; gap:.65rem; color:var(--text-3); }
+.pro-totals { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; padding:1.5rem 0; margin-top:.5rem; }
+.pro-totals > div { display:flex; flex-direction:column; gap:.3rem; }
+.pro-totals strong { font-family:var(--mono); font-size:2.8rem; font-weight:400; line-height:1.1; }
+.pro-totals small, .pro-table small { display:block; color:var(--text-3); font-size:.8rem; font-weight:400; }
+.pro-table-wrap { overflow-x:auto; }
+.pro-table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; margin-bottom:.8rem; }
+.pro-table th, .pro-table td { padding:.8rem .65rem; border-bottom:1px solid var(--border); text-align:right; }
+.pro-table th:first-child { text-align:left; }
+.pro-table th { font-weight:400; color:var(--text-3); }
+.pro-table td { font-family:var(--mono); }
+.pro-table a { text-decoration:none; color:var(--text); }
+.pro-eyebrow { color:var(--accent); font-family:var(--mono); font-size:.85rem; margin-bottom:.7rem; }
+.pro-subject { font-size:1.6rem; font-weight:400; margin-bottom:.8rem; }
+.pro-editor { display:block; margin:.8rem 0; }
+.pro-editor textarea { width:100%; resize:vertical; line-height:1.6; min-height:10rem; }
+.pro-actions, .pro-diffusion { display:flex; flex-wrap:wrap; gap:.6rem; margin:.8rem 0; }
+.pro-diffusion label { display:flex; align-items:center; gap:.4rem; }
+.pro-diffusion input { accent-color:var(--accent); }
+.pro-statement { font-size:1.8rem; line-height:1.2; margin:.5rem 0 1rem; }
+.pro-principles { padding-left:1.2rem; margin:1rem 0; }
+.pro-principles li { margin:.55rem 0; }
+.pro-history, .grid details { margin-top:1rem; }
+.grid summary { cursor:pointer; color:var(--text-2); }
+.pro-saved { white-space:pre-wrap; margin:.8rem 0; }
+@media(max-width:600px) { .pro-totals { grid-template-columns:1fr; gap:1rem; } .pro-totals strong { font-size:2rem; } .pro-table { min-width:640px; } .pro-toolbar .hint { display:none; } }

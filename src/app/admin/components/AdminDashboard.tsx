@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Backdrop from "./Backdrop";
-import DecryptText from "../../components/DecryptText";
+import ContentWorkspace from "./cards/ContentWorkspace";
 import LiquidText from "../../components/LiquidText";
 import ProfileCard from "../../components/ProfileCard";
 import ThemeToggle from "../../components/ThemeToggle";
@@ -57,6 +57,7 @@ export default function AdminDashboard() {
   const [docs, setDocs] = useState<Docs | null>(null);
   const [overview, setOverview] = useState<Overview | null>(null);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const [storeReady, setStoreReady] = useState(false);
   const [problems, setProblems] = useState<string[]>([]);
   const [now, setNow] = useState<Date | null>(null);
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
@@ -73,7 +74,7 @@ export default function AdminDashboard() {
     const fail = (label: string) => (e: Error) => setProblems((p) => [...p, `${label} : ${e.message}`]);
     fetch("/api/admin/store", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`http ${r.status}`))))
-      .then((d) => setDocs(withDefaults(d)))
+      .then((d) => { setDocs(withDefaults(d)); setStoreReady(true); })
       .catch((e) => { setDocs(EMPTY_DOCS); fail("stockage")(e); });
     fetch("/api/admin/overview", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`http ${r.status}`))))
@@ -181,13 +182,7 @@ export default function AdminDashboard() {
         </div>
       ) : (
         <div className="grid" key="matheus">
-          <article className="card card--blank" style={{ "--span": 12 } as React.CSSProperties}>
-            <h2 className="card-title">
-              <span><DecryptText text="page blanche" trigger="visible" /></span>
-              <small>face content</small>
-            </h2>
-            <p className="hint">rien ici pour l&apos;instant. on construit cette face une carte à la fois.</p>
-          </article>
+          {!storeReady ? <p className="hint">Stockage indisponible. Recharge la page avant de modifier tes brouillons.</p> : <ContentWorkspace overview={overview} doc={docs.content} today={today} onChange={(d) => save("content", d)} />}
         </div>
       )}
     </>

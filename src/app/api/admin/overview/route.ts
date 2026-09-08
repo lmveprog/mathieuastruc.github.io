@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDocs, getGuests, getLab, type Lab } from "@/lib/adminStore";
+import { getDocs, getGuests, getLab, getAnalytics, type Lab } from "@/lib/adminStore";
 import { loadAgenda, type AgendaPayload } from "@/lib/agenda";
 export type { AgendaPayload } from "@/lib/agenda";
 
@@ -19,6 +19,7 @@ export type Platform = {
 };
 export type Overview = {
   now: string;
+  analytics?: import("@/lib/contentPlan").Analytics;
   weather?: { city: string; temp: number; feels: number; code: number; label: string; tmax: number; tmin: number; rain: number };
   guests?: { visitors: number; today: number };
   audience?: { generated: number; total: number; platforms: Platform[] };
@@ -118,13 +119,15 @@ export async function GET() {
     errors.push(`store : ${(e as Error).message}`);
   }
 
-  const [w, g, l, a] = await Promise.allSettled([weather(loc), getGuests(), getLab(), loadAgenda()]);
+  const [w, g, l, a, metrics] = await Promise.allSettled([weather(loc), getGuests(), getLab(), loadAgenda(), getAnalytics()]);
 
   const out: Overview = {
     now: new Date().toISOString(),
     agenda: { configured: false, source: "none", writable: false, events: [], errors: [] },
     errors,
   };
+  if (metrics.status === "fulfilled" && metrics.value) out.analytics = metrics.value;
+  else errors.push("analytics : historique indisponible");
   if (w.status === "fulfilled") out.weather = w.value; else errors.push(`météo : ${w.reason?.message || w.reason}`);
   if (g.status === "fulfilled") out.guests = g.value; else errors.push(`visiteurs : ${g.reason?.message || g.reason}`);
   if (l.status === "fulfilled") { out.audience = audience(l.value); out.contents = contents(l.value); out.veille = veille(l.value); } else errors.push(`lab : ${l.reason?.message || l.reason}`);

@@ -6,7 +6,7 @@ tout ce qu'il faut savoir sur mathieuastruc.com/admin : comment c'est branché, 
 
 - une page privée sur le portfolio (next.js 14, app router, vercel). même DA que le site : papier chaud, computer modern + mondwest, cartes glass, dark mode. le fond est différent de l'accueil : trois halos flous qui dérivent + une trame de points (`Backdrop.tsx`, css pur).
 - **deux faces** : `mathieu astruc · perso / pro` et `matheus · content`. switch en haut à gauche, retenu en localStorage, `#mathieu` / `#matheus` dans l'url.
-- la face mathieu est construite. la face matheus est vide, on la fait ensuite.
+- les deux faces sont construites. la face matheus rassemble analytics et atelier éditorial (9 septembre 2026).
 
 ## arborescence
 
@@ -119,7 +119,7 @@ le script (`docs/agenda.gs`) : `doGet` liste les événements entre `from` et `t
 4. la poser dans la grille de la bonne face dans `AdminDashboard.tsx` (`span` = largeur sur 12, `i` = ordre d'apparition).
 5. build, capture, push.
 
-## la suite : la face matheus (content)
+## la face matheus (content) — sources historiques
 
 ce qui existe déjà pour l'alimenter, sans rien brancher de plus :
 
@@ -128,3 +128,39 @@ ce qui existe déjà pour l'alimenter, sans rien brancher de plus :
 - `/api/admin/overview` renvoie déjà `audience` (abonnés, deltas 24 h / 7 j, sparkline 14 jours), `contents` (top vues / ce qui bouge) et `veille` (top 6 par vues).
 - doc `content` = `{ ideas: [] }`, prévu pour les idées à publier.
 - la v1 (avant la remise à zéro) avait des cartes audience / contenus / veille / à publier / raccourcis : elles sont dans l'historique git, commit `dbbe430`, `src/app/admin/components/widgets.tsx`.
+
+
+## face matheus : version du 9 septembre 2026
+
+la page est `/admin#matheus`. `ContentWorkspace.tsx` remplace la carte vide et réutilise le store privé `content` sans supprimer les anciennes `ideas`.
+
+### comptes
+
+instagram **@matheusgen_** (underscore confirmé), X **@matheusnpu**, tiktok / facebook / youtube **@matheusgen**. le lab identifie la page facebook par son id natif ; les liens de navigation utilisent les handles publics.
+
+### analytics simples
+
+- sélection du jour (hier par défaut), abonnements cumulés, variation des abonnés, vues gagnées, détail des cinq réseaux et historique 30 jours ; date civile de Paris.
+- `scripts/admin-analytics.py` lit la base SQLite du lab en lecture seule et produit le doc privé `analytics`. installé dans `~/projects/adminstore/`, appelé après `publish.py` par le cron existant du lab (6 h / 18 h, fuseau du serveur). aucune donnée analytics dans le dossier public du site.
+- pour chaque jour, dernier relevé d’abonnés et dernière mesure de chaque contenu. variation = différence avec la veille ; pas de veille, pas de delta. vues = somme des différences des contenus présents les deux jours. les nouveaux contenus sans mesure la veille sont exclus, les corrections négatives sont conservées. ce sont des écarts entre relevés, pas les statistiques officielles minuit–minuit.
+- couverture affichée : contenus comparables / contenus mesurés. les vues ne couvrent pas forcément tout le compte. les totaux affichent le nombre de plateformes disponibles ; ne pas les présenter comme complets si une source manque. les abonnements ne sont pas des personnes dédupliquées.
+- état constaté : vues comparables sur tiktok et youtube ; pas de mesures de vues Facebook/X dans la base ; dernier relevé Instagram au 27 août. les données manquantes restent `—`, avec le dernier relevé connu à côté. il faudra une source autorisée de statistiques Facebook/X et rétablir la collecte Instagram pour avoir les cinq plateformes à jour.
+- `/api/admin/overview` lit ce doc via `getAnalytics()`. la clé n’est volontairement pas ajoutée à `DOC_KEYS` : le navigateur ne doit pas remplacer cet export.
+
+### un brouillon X par jour
+
+`GET /api/admin/content` consulte les releases officielles GitHub de transformers, vLLM et Ollama (timeout 7 s, cache de source 1 h). sélection datée parmi les releases des sept derniers jours. sans source récente accessible : idée de fond explicitement étiquetée. ce premier moteur est un gabarit déterministe, pas une veille générale ni un appel à un modèle IA. les sept idées de fond tournent chaque semaine.
+
+le brouillon se modifie, se copie et s’enregistre ; « marquer publié » est un suivi manuel, aucun appel de publication à X. les brouillons enregistrés sont prioritaires sur les nouvelles suggestions et restent dans l’historique. la recherche de conversations ouvre X : pas encore de sélection automatisée de posts auxquels répondre. le lab actuel filtre principalement des vidéos et ne fournit pas ces fils X.
+
+positionnement proposé : IA et ingénierie en pratique, preuves observables, compromis, retours de construction. référence : [dépôt X](https://github.com/xai-org/x-algorithm), consulté le 9 septembre 2026. le classement combine des probabilités prédites pour chaque lecteur ; les poids ne s’appliquent pas directement aux compteurs d’interactions. cohérence de sujet et conversations utiles sont des hypothèses éditoriales à tester, pas une promesse de portée.
+
+### vidéos : atelier de départ
+
+une idée de test réel, accroche, démonstration, verdict à compléter après l’expérience et question finale. un seul montage, cases de diffusion Instagram / TikTok / Facebook / YouTube. pas de vidéo X. références fournies par Matheus : chrispathway, becoming.lea, consti.in.tech ; aucune imitation de scripts ni analyse de leur style prétendue. le texte est un plan de tournage, pas une vidéo générée.
+
+schéma ajouté, compatible avec les anciennes idées : `content = { ideas: Todo[], drafts?: Draft[] }`, `Draft = { id, day, kind: "x" | "video", title, text, source?, sourceDate?, done, published?: string[] }`. les identifiants du jour sont `x-YYYY-MM-DD` / `video-YYYY-MM-DD`. aucune nouvelle variable d’environnement.
+
+### vérification et exploitation
+
+`npm run build` et `python3 -m unittest discover -s scripts/tests`. le test analytics couvre les jours à Paris, les sources absentes, les nouveaux contenus, les corrections négatives et l’exclusion des comptes de veille. export atomique pour éviter un fichier tronqué. sauvegarde du cron avant branchement : `lab-cron.sh.before-admin-pro` sur le VPS.
