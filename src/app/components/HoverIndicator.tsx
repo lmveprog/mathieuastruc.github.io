@@ -57,12 +57,28 @@ export default function HoverIndicator() {
       if (from && !to) scheduleHide();
     };
 
+    const onFocus = (event: FocusEvent) => {
+      const row = (event.target as Element).closest(ROW_SELECTOR);
+      if (row) move(row);
+    };
+    const onFocusOut = (event: FocusEvent) => {
+      const row = (event.relatedTarget as Element | null)?.closest?.(ROW_SELECTOR);
+      if (!row) scheduleHide();
+    };
+    const onResize = () => indicator.classList.remove("is-visible");
+    page.addEventListener("focusin", onFocus);
+    page.addEventListener("focusout", onFocusOut);
+    window.addEventListener("resize", onResize);
     page.addEventListener("pointerover", onOver);
     page.addEventListener("pointerout", onOut);
 
     return () => {
       page.removeEventListener("pointerover", onOver);
       page.removeEventListener("pointerout", onOut);
+      window.clearTimeout(hideTimer);
+      page.removeEventListener("focusin", onFocus);
+      page.removeEventListener("focusout", onFocusOut);
+      window.removeEventListener("resize", onResize);
       indicator.remove();
     };
   }, []);

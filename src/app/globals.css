@@ -41,7 +41,7 @@
   --bg: #f9f8f5;
   --text: #181614;
   --text-2: #504d48;
-  --text-3: #9c9790;
+  --text-3: #746e67;
   --border: rgba(24, 22, 20, 0.12);
   --accent: #1a3a5c;
   --ascii-ink: #2c4a68;
@@ -63,7 +63,7 @@
   --bg: #12110f;
   --text: #eceae5;
   --text-2: #b3afa7;
-  --text-3: #726e67;
+  --text-3: #918c85;
   --border: rgba(236, 234, 229, 0.14);
   --accent: #8fb4d9;
   --ascii-ink: #96b6d4;
@@ -271,7 +271,7 @@ a:hover {
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
-.hero-name span[aria-hidden="true"] {
+.hero-name > span[aria-hidden="true"] {
   color: var(--accent);
 }
 
@@ -816,7 +816,8 @@ footer time {
 
 /* ── Focus ── */
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+.ascii-photo:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
@@ -831,4 +832,32 @@ button:focus-visible {
   .profile-card::after {
     animation: none;
   }
+}
+
+/* Keep the true text's width and accessible name during ASCII transitions. */
+.decrypt-text { position: relative; display: inline-block; vertical-align: baseline; }
+.decrypt-label { opacity: 0; }
+.decrypt-display { position: absolute; inset: 0; overflow: clip; white-space: normal; }
+
+/* The photograph stays sharp while the glass catches the surrounding light. */
+.profile-card .portrait {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1), 0 0 0 1px var(--card-border);
+  transition: transform 500ms var(--ease-smooth-out), box-shadow 500ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .profile-card:hover .portrait {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12), 0 0 0 1px rgba(158,139,224,0.28);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-card:hover .portrait { transform: none; }
+}
+
+/* Keep the three existing interests together on narrow screens. */
+@media (max-width: 560px) {
+  .polaroid-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .polaroid { min-width: 0; }
+  .polaroid img { width: 100%; height: auto; aspect-ratio: 1; }
+  .polaroid figcaption { font-size: 0.75rem; }
 }

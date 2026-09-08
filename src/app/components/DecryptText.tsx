@@ -88,11 +88,13 @@ export default function DecryptText({ text, trigger = "mount", replayOnHover = f
   return (
     <span
       ref={spanRef}
+      className="decrypt-text"
       onPointerEnter={() => {
         if (replayOnHover && armed && !animating.current) setRunId((v) => v + 1);
       }}
     >
-      {display}
+      <span className="decrypt-label">{text}</span>
+      <span className="decrypt-display" aria-hidden="true">{display}</span>
     </span>
   );
 }

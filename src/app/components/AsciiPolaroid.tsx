@@ -92,6 +92,17 @@ export default function AsciiPolaroid({ src, alt }: Props) {
 
   return (
     <span
+      role="button"
+      tabIndex={0}
+      aria-label={alt}
+      aria-pressed={active}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          setActive((value) => !value);
+        }
+      }}
+      onBlur={() => setActive(false)}
       className={active ? "ascii-photo is-ascii" : "ascii-photo"}
       onPointerEnter={(e) => e.pointerType !== "touch" && setActive(true)}
       onPointerLeave={(e) => e.pointerType !== "touch" && setActive(false)}
