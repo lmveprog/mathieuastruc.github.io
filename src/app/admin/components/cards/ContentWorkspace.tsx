@@ -1,12 +1,10 @@
 "use client";
 import { useEffect, useState } from 'react';
 import Card from '../Card';
+import StudioAnalytics from './StudioAnalytics';
 import type { Overview } from '@/app/api/admin/overview/route';
 import type { ContentDoc } from '../types';
 import { channels, safeLink, type Draft, type Editorial } from '@/lib/contentPlan';
-import { fmtNum, fmtStamp, shiftDay } from '../helpers';
-const num = (n: number | null | undefined) => n == null ? '—' : fmtNum(n);
-const signed = (n: number | null | undefined) => n == null ? '—' : `${n > 0 ? '+' : ''}${fmtNum(n)}`;
 
 function Proposal({ choices, saved, onSave, kind, day }: { choices: Draft[]; saved: Draft[]; onSave: (d: Draft) => void; kind: Draft['kind']; day?: string }) {
  const [index, setIndex] = useState(0);
@@ -34,22 +32,14 @@ function Proposal({ choices, saved, onSave, kind, day }: { choices: Draft[]; sav
 }
 
 export default function ContentWorkspace({ overview, doc, today, onChange }: { overview: Overview | null; doc: ContentDoc; today: string; onChange: (d: ContentDoc) => void }) {
- const [date,setDate] = useState(shiftDay(today,-1));
  const [editorial,setEditorial] = useState<Editorial | null>(null);
  const [error,setError] = useState(false);
  useEffect(()=>{let active=true;fetch('/api/admin/content',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(v=>{if(active){setEditorial(v.editorial);setError(false);}}).catch(()=>{if(active)setError(true);});return()=>{active=false;};},[today]);
  const drafts=doc.drafts||[];
  const persist=(d:Draft)=>onChange({...doc,drafts:[...drafts.filter(v=>v.id!==d.id),d]});
- const rows=overview?.analytics?.days.find(d=>d.date===date)?.platforms||[];
- const sum=(key:'followers'|'views'|'delta')=>{const values=rows.map(r=>r[key]).filter((v):v is number=>v!=null);return{value:values.length?values.reduce((a,b)=>a+b,0):null,count:values.length};};
- const followers=sum('followers'),views=sum('views'),delta=sum('delta');
  const edition=editorial?.day===today?'aujourd’hui':editorial?`du ${editorial.day.slice(8,10)}/${editorial.day.slice(5,7)}`:'';
  return <>
-  <Card title="audience" span={12} i={0} className="content-analytics" aside={<input aria-label="jour du relevé" type="date" value={date} min={overview?.analytics?.days[0]?.date} max={today} onChange={e=>{if(e.target.value)setDate(e.target.value);}}/>}>
-   <div className="content-metrics"><div><strong>{num(followers.value)}</strong><span>abonnés <small>{followers.count}/5 réseaux</small></span></div><div><strong>{signed(delta.value)}</strong><span>depuis la veille <small>{delta.count}/5</small></span></div><div><strong>{num(views.value)}</strong><span>vues suivies <small>{views.count}/5 réseaux</small></span></div></div>
-   <table className="content-networks"><thead><tr><th>réseau</th><th>abonnés</th><th>+/−</th><th>vues</th></tr></thead><tbody>{channels.map(c=>{const r=rows.find(p=>p.key===c.key);return <tr key={c.key}><th><a href={c.url} target="_blank" rel="noreferrer" title={`@${c.handle}`}>{c.name} ↗</a></th><td>{num(r?.followers)}</td><td>{signed(r?.delta)}</td><td>{num(r?.views)}</td></tr>;})}</tbody></table>
-   <div className="content-analytics-footer"><span>totaux partiels · — indisponible</span><details><summary>détail & historique</summary><p className="hint">Écarts entre les derniers relevés de deux jours consécutifs, heure de Paris. Vues des contenus comparables uniquement ; nouveaux contenus exclus. Abonnements non dédupliqués.{date===today?' Journée en cours.':''}</p>{channels.map(c=>{const r=rows.find(p=>p.key===c.key);const last=overview?.audience?.platforms.find(p=>p.key===c.key);return <p className="hint" key={c.key}>{c.name} · {r?.ts?`${r.compared}/${r.observed} contenus · ${fmtStamp(r.ts)}`:last?`dernier relevé : ${num(last.followers)} abonnés · ${fmtStamp(last.ts)}`:'aucun relevé'}</p>;})}<div className="content-history"><table className="content-networks"><thead><tr><th>jour</th>{channels.map(c=><th key={c.key}>{c.name}<small>abonnés / vues</small></th>)}</tr></thead><tbody>{[...(overview?.analytics?.days||[])].reverse().map(d=><tr key={d.date}><th><button onClick={()=>setDate(d.date)}>{d.date.slice(5)}</button></th>{channels.map(c=>{const r=d.platforms.find(p=>p.key===c.key);return <td key={c.key}>{num(r?.followers)} / {num(r?.views)}</td>;})}</tr>)}</tbody></table></div></details></div>
-  </Card>
+  <StudioAnalytics/>
   <Card title="sur X" span={6} i={1} aside={edition} className="content-proposal"><Proposal key={`x-${editorial?.day}`} choices={editorial?.x||[]} saved={drafts} onSave={persist} kind="x" day={editorial?.day}/></Card>
   <Card title="en vidéo" span={6} i={2} aside={editorial ? `${editorial.video.length} sujets · ${edition}` : edition} className="content-proposal content-proposal--video"><Proposal key={`video-${editorial?.day}`} choices={editorial?.video||[]} saved={drafts} onSave={persist} kind="video" day={editorial?.day}/></Card>
   {error && <p className="hint">Propositions indisponibles. Recharge la page pour réessayer.</p>}

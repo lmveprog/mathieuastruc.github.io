@@ -54,7 +54,7 @@ const nextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob:",
+              "img-src 'self' data: blob: https://*.cdninstagram.com https://*.fbcdn.net https://i.ytimg.com https://*.tiktokcdn-eu.com",
               "font-src 'self'",
               "connect-src 'self' https://lavalley.xyz",
               "media-src 'self'",

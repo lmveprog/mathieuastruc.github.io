@@ -150,7 +150,7 @@ instagram **@matheusgen_** (underscore confirmé), X **@matheusnpu**, tiktok / f
 
 ### interface simplifiée et sujets quotidiens
 
-Trois cartes : audience, sur X, en vidéo. Le texte de conseils, les cartes de stratégie et la grande accroche météo de la face Matheus ont été retirés. Les limites analytics et l’historique sont repliés ; un indicateur de couverture reste visible. Les archives ne prennent plus une carte entière.
+Trois cartes : studio, sur X, en vidéo. Le texte de conseils, les cartes de stratégie et la grande accroche météo de la face Matheus ont été retirés. Les limites analytics et l’historique sont repliés ; un indicateur de couverture reste visible. Les archives ne prennent plus une carte entière.
 
 `GET /api/admin/content` lit maintenant le doc privé `editorial`, vérifié par `readEditorial()`. Suppression du moteur à releases GitHub et de la rotation de gabarits. Les propositions sont préparées après lecture de sources, selon [CONTENT-EDITORIAL.md](CONTENT-EDITORIAL.md). Chaque édition porte sa vraie date ; une édition ancienne ne s’affiche pas comme celle du jour.
 
@@ -165,3 +165,17 @@ Vérifications : `npm run build`, validation du JSON éditorial, lecture du stor
 ### ajustement éditorial du 9 septembre
 
 La carte vidéo affiche directement le script parlé complet du sujet sélectionné. Copier et modifier portent sur ce même texte. Pas de résumé, de timecodes ou de déroulé. Les posts X peuvent dépasser 280 caractères ; la voix demandée est orale, en minuscules et très peu ponctuée. Le corpus de cinq transcriptions et son analyse sont conservés dans le doc privé `editorial-voice`, jamais dans le dépôt public. Le brief `CONTENT-EDITORIAL.md` définit les critères de la routine quotidienne.
+
+### studio analytics (9 septembre)
+
+`StudioAnalytics.tsx` remplace l’ancien tableau daté d’hier. Les abonnés actuels sont les derniers relevés disponibles par réseau, indépendants de la période du graphique. Filtres par réseau, périodes 7/28 jours, courbe vues/abonnés, dernières publications avec miniature, vues cumulées, variation 24 h si comparable, likes et commentaires. Un clic ouvre les relevés datés de la publication. Le tableau se transforme en fiches sur mobile.
+
+`GET /api/admin/studio`, protégé par le middleware admin, lit les docs privés `studio`, `analytics` et `studio-sync`. La page relit ces docs toutes les 60 secondes lorsqu’elle est visible et au retour dans l’onglet. Le bouton actualiser relit les dernières données collectées ; il ne déclenche pas une requête à chaque plateforme.
+
+Sur le VPS, `admin-studio-collect.py` collecte uniquement les comptes personnels toutes les 15 minutes (cron à :07, :22, :37 et :52). Instagram utilise l’API officielle existante, YouTube/TikTok les lecteurs existants, Facebook/X leurs compteurs de profil. Verrou anti-chevauchement et limite de dix minutes. Les secrets restent dans leur emplacement existant. Aucun contenu social n’est publié. `admin-studio.py` exporte les 30 publications les plus récentes par réseau en conservant les dates réelles des mesures. La collecte quotidienne du lab et de la veille reste indépendante.
+
+Les données ne sont pas un flux à la seconde : la cadence cible est 15 minutes, avec le délai de chaque plateforme. Les compteurs publics YouTube peuvent être arrondis. Facebook/X n’ont pas encore de statistiques de publications. Les variations 24 h exigent un relevé de référence dans une fenêtre de 24–27 h ; sinon `null`. Une mesure de vues nulle n’efface pas un précédent relevé valide. L’historique quotidien garde son périmètre partiel (contenus comparables, nouvelles publications exclues avant deux relevés). Le doc `studio-sync` signale les collectes en échec sans faire disparaître les derniers chiffres.
+
+Vérification : `python3 -m unittest discover -s scripts/tests`, `npm run build`, contrôle navigateur des filtres, de la période et du détail d’une publication.
+
+Miniatures : le collecteur TikTok conserve maintenant `thumbnails[-1].url` dans `miniature` (ancienne source sauvegardée sur le VPS). YouTube utilise la miniature standard de son identifiant vidéo si elle manque ; Instagram utilise l’URL officielle renouvelée à chaque collecte. La CSP autorise les domaines CDN Instagram, Facebook, YouTube et TikTok EU nécessaires aux miniatures. Aucun jeton API n’est envoyé au navigateur.
