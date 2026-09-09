@@ -179,3 +179,11 @@ Les données ne sont pas un flux à la seconde : la cadence cible est 15 minutes
 Vérification : `python3 -m unittest discover -s scripts/tests`, `npm run build`, contrôle navigateur des filtres, de la période et du détail d’une publication.
 
 Miniatures : le collecteur TikTok conserve maintenant `thumbnails[-1].url` dans `miniature` (ancienne source sauvegardée sur le VPS). YouTube utilise la miniature standard de son identifiant vidéo si elle manque ; Instagram utilise l’URL officielle renouvelée à chaque collecte. La CSP autorise les domaines CDN Instagram, Facebook, YouTube et TikTok EU nécessaires aux miniatures. Aucun jeton API n’est envoyé au navigateur.
+
+### boîte à idées et navigation
+
+La face Matheus comporte désormais trois onglets : studio, à publier, boîte à idées. La sélection est retenue dans sessionStorage ; les panneaux restent montés pour préserver une modification en cours. Navigation clavier par flèches, début et fin.
+
+`IdeaBox.tsx` affiche les propositions éditoriales possédant une source HTTPS dans « à explorer », avec liens directs vers la source et la discussion quand elle existe. « Garder » copie titre, lien, format et identifiant source dans `content.ideas` ; les idées retenues survivent donc au renouvellement du brief. Les éléments historiques `{id,text,done,created}` restent compatibles. Les champs optionnels ajoutés sont `url`, `note`, `format` et `sourceId`. Ajout manuel, modification, recherche, classement retenues/faites et restauration d’une idée faite. Le lien saisi doit être HTTPS. Pas de récupération automatique d’une URL saisie côté serveur.
+
+Les anciennes idées quittent le simple bloc d’archives et sont éditables dans la boîte ; les brouillons X/vidéo restent dans « à publier ». La routine continue de produire son brief : ses nouvelles idées sourcées alimentent automatiquement la boîte sans modifier les idées conservées par Matheus.

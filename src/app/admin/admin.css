@@ -1920,3 +1920,28 @@
  .studio-video-detail { display:block; }
  .studio-video-detail>td { display:block; width:100%; box-sizing:border-box; }
 }
+
+.content-nav { grid-column:1/-1; display:flex; gap:.4rem; margin:0 0 .4rem; border-bottom:1px solid var(--border); }
+.content-nav button { padding:.75rem 1rem; font-size:.95rem; border-bottom:2px solid transparent; color:var(--text-3); }
+.content-nav button[aria-selected="true"] { color:var(--text); border-color:var(--text); }
+.content-nav small { font-size:.7rem; background:var(--field); padding:.12rem .4rem; border-radius:10px; margin-left:.45rem; }
+.idea-toolbar { display:flex; align-items:center; flex-wrap:wrap; justify-content:space-between; gap:1rem; margin-bottom:1.3rem; }
+.idea-toolbar>input { padding:.6rem .8rem; border-radius:8px; font-size:.85rem; max-width:240px; }
+.idea-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+.idea-item { display:flex; flex-direction:column; padding:1.1rem; border:1px solid var(--border); border-radius:12px; min-width:0; }
+.idea-meta { color:var(--text-3); font-size:.7rem; }
+.idea-item h3 { font-size:1.13rem; font-weight:400; line-height:1.4; margin:.6rem 0 1rem; }
+.idea-item p { white-space:pre-wrap; overflow-wrap:anywhere; font-size:.9rem; line-height:1.5; }
+.idea-links { display:flex; flex-wrap:wrap; gap:.7rem; margin-top:auto; font-size:.8rem; color:var(--text-2); }
+.idea-links a { overflow-wrap:anywhere; }
+.idea-keep { align-self:flex-start; margin-top:1rem; font-size:.8rem!important; }
+.idea-keep:disabled { opacity:.5; cursor:default; }
+.idea-item .content-actions { margin-top:1rem; }
+.idea-form { padding:1rem; background:var(--field); border-radius:12px; margin-bottom:1.4rem; display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.idea-form label { display:grid; gap:.4rem; font-size:.8rem; }
+.idea-form label:nth-child(3) { grid-column:1/-1; }
+.idea-form input,.idea-form textarea,.idea-form select { width:100%; padding:.65rem; border:1px solid var(--field-border); border-radius:7px; font:inherit; background:var(--field); color:var(--text); box-sizing:border-box; }
+.idea-form .content-actions { grid-column:1/-1; }
+.idea-empty { padding:2rem 0; color:var(--text-3); font-size:.9rem; }
+@media(max-width:900px) { .idea-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:540px) { .idea-grid,.idea-form { grid-template-columns:1fr; } .content-nav button { padding:.7rem .6rem; font-size:.85rem; } .idea-toolbar>input { max-width:none; width:100%; } }

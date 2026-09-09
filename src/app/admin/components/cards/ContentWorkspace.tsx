@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Card from '../Card';
 import StudioAnalytics from './StudioAnalytics';
+import IdeaBox from './IdeaBox';
 import type { Overview } from '@/app/api/admin/overview/route';
 import type { ContentDoc } from '../types';
 import { channels, safeLink, type Draft, type Editorial } from '@/lib/contentPlan';
@@ -32,17 +33,25 @@ function Proposal({ choices, saved, onSave, kind, day }: { choices: Draft[]; sav
 }
 
 export default function ContentWorkspace({ overview, doc, today, onChange }: { overview: Overview | null; doc: ContentDoc; today: string; onChange: (d: ContentDoc) => void }) {
+ const [panel,setPanel]=useState<'studio'|'publish'|'ideas'>('studio');
+ useEffect(()=>{try {const saved=sessionStorage.getItem('matheus-panel');if(saved==='studio'||saved==='publish'||saved==='ideas')setPanel(saved);}catch{}},[]);
+ const choosePanel=(p:typeof panel)=>{setPanel(p);try{sessionStorage.setItem('matheus-panel',p);}catch{}};
  const [editorial,setEditorial] = useState<Editorial | null>(null);
  const [error,setError] = useState(false);
  useEffect(()=>{let active=true;fetch('/api/admin/content',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(v=>{if(active){setEditorial(v.editorial);setError(false);}}).catch(()=>{if(active)setError(true);});return()=>{active=false;};},[today]);
  const drafts=doc.drafts||[];
  const persist=(d:Draft)=>onChange({...doc,drafts:[...drafts.filter(v=>v.id!==d.id),d]});
+ const ideaCount=new Set([...(editorial?.video||[]),...(editorial?.x||[])].filter(d=>safeLink(d.source)).map(d=>d.id).concat((doc.ideas||[]).filter(i=>!i.done).map(i=>i.sourceId||i.id))).size;
  const edition=editorial?.day===today?'aujourd’hui':editorial?`du ${editorial.day.slice(8,10)}/${editorial.day.slice(5,7)}`:'';
  return <>
-  <StudioAnalytics/>
+  <div className="content-nav" role="tablist" aria-label="atelier Matheus">{([{key:'studio',label:'studio'},{key:'publish',label:'à publier'},{key:'ideas',label:'boîte à idées'}] as const).map(p=><button key={p.key} id={`tab-${p.key}`} role="tab" aria-selected={panel===p.key} aria-controls={`panel-${p.key}`} tabIndex={panel===p.key?0:-1} onClick={()=>choosePanel(p.key)} onKeyDown={e=>{const keys=['studio','publish','ideas'] as const;const i=keys.indexOf(p.key);const next=e.key==='ArrowRight'?keys[(i+1)%3]:e.key==='ArrowLeft'?keys[(i+2)%3]:e.key==='Home'?keys[0]:e.key==='End'?keys[2]:null;if(next){e.preventDefault();choosePanel(next);document.getElementById(`tab-${next}`)?.focus();}}}>{p.label}{p.key==='ideas'&&<small>{ideaCount}</small>}</button>)}</div>
+  <div id="panel-studio" role="tabpanel" aria-labelledby="tab-studio" hidden={panel!=='studio'} style={{display:panel==='studio'?'contents':'none'}}><StudioAnalytics/></div>
+  <div id="panel-publish" role="tabpanel" aria-labelledby="tab-publish" hidden={panel!=='publish'} style={{display:panel==='publish'?'contents':'none'}}>
   <Card title="sur X" span={6} i={1} aside={edition} className="content-proposal"><Proposal key={`x-${editorial?.day}`} choices={editorial?.x||[]} saved={drafts} onSave={persist} kind="x" day={editorial?.day}/></Card>
   <Card title="en vidéo" span={6} i={2} aside={editorial ? `${editorial.video.length} sujets · ${edition}` : edition} className="content-proposal content-proposal--video"><Proposal key={`video-${editorial?.day}`} choices={editorial?.video||[]} saved={drafts} onSave={persist} kind="video" day={editorial?.day}/></Card>
   {error && <p className="hint">Propositions indisponibles. Recharge la page pour réessayer.</p>}
-  {(drafts.length>0||doc.ideas?.length>0)&&<div className="content-archive"><details><summary>brouillons enregistrés ({drafts.length+(doc.ideas?.length||0)})</summary>{[...drafts].sort((a,b)=>b.day.localeCompare(a.day)).map(d=><details key={d.id}><summary>{d.day} · {d.kind==='x'?'X':'vidéo'} · {d.title}{d.done?' ✓':''}</summary><p className="content-detail">{d.text}</p></details>)}{doc.ideas?.map(d=><p key={d.id}>{d.text}</p>)}</details></div>}
+  {(drafts.length>0)&&<div className="content-archive"><details><summary>brouillons enregistrés ({drafts.length})</summary>{[...drafts].sort((a,b)=>b.day.localeCompare(a.day)).map(d=><details key={d.id}><summary>{d.day} · {d.kind==='x'?'X':'vidéo'} · {d.title}{d.done?' ✓':''}</summary><p className="content-detail">{d.text}</p></details>)}</details></div>}
+  </div>
+  <div id="panel-ideas" role="tabpanel" aria-labelledby="tab-ideas" hidden={panel!=='ideas'} style={{display:panel==='ideas'?'contents':'none'}}><IdeaBox doc={doc} editorial={editorial} today={today} onChange={onChange}/></div>
  </>;
 }
