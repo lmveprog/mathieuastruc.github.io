@@ -20,16 +20,21 @@ def validate(data):
             assert isinstance(d['id'], str) and re.fullmatch(r'[a-z0-9-]{1,100}', d['id']) and d['id'] not in ids
             ids.add(d['id'])
             assert isinstance(d['title'], str) and 0 < len(d['title']) <= 140
-            assert isinstance(d['text'], str) and 0 < len(d['text']) <= (280 if kind == 'x' else 350)
+            assert isinstance(d['text'], str) and 0 < len(d['text']) <= 6000
             assert isinstance(d.get('detail', ''), str) and len(d.get('detail', '')) <= 2500
-            assert d.get('done') is False and d.get('edition') == 'opinion-v2'
+            assert d.get('done') is False and d.get('edition') in ('opinion-v2', 'voice-v3')
+            if d.get('edition') == 'voice-v3':
+                assert not d.get('detail'), 'le texte final doit vivre dans text'
+                if kind == 'video':
+                    assert 80 <= len(d['text'].split()) <= 320, 'script parlé complet requis'
+                    assert not re.search(r'(?im)^\s*(?:\d+[–-]\d+\s*s|hook\s*:|angle\s*:|cta\s*:|plan\s*:|0:00)', d['text']), 'pas de consignes de tournage'
             if d.get('trend'):
                 assert isinstance(d['trend']['label'], str) and len(d['trend']['label']) <= 350
                 assert isinstance(d['trend']['checkedAt'], str)
                 if d['trend'].get('url'): assert urlparse(d['trend']['url']).scheme == 'https'
             if d.get('source'):
                 assert urlparse(d['source']).scheme == 'https' and urlparse(d['source']).netloc
-                date.fromisoformat(d['sourceDate'][:10])
+                if d.get('sourceDate'): date.fromisoformat(d['sourceDate'][:10])
     return data
 
 REMOTE = '''import json,sys,pathlib,datetime

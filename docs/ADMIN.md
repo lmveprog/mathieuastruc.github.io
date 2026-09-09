@@ -160,3 +160,7 @@ La routine Codex `pr-parer-le-contenu-quotidien-de-matheus` est prévue à 7 h E
 `content = { ideas: Todo[], drafts?: Draft[] }` reste le document utilisateur. Les anciennes idées et les brouillons de la V1 sont conservés. Les nouveaux identifiants incluent sujet et édition, pour qu’un ancien gabarit enregistré ne masque pas une nouvelle proposition. Les choix de diffusion et les modifications appartiennent au brouillon concerné.
 
 Vérifications : `npm run build`, validation du JSON éditorial, lecture du store, affichage desktop/mobile, changement de sujet, édition puis relecture et case de diffusion dans une session de test isolée.
+
+### ajustement éditorial du 9 septembre
+
+La carte vidéo affiche directement le script parlé complet du sujet sélectionné. Copier et modifier portent sur ce même texte. Pas de résumé, de timecodes ou de déroulé. Les posts X peuvent dépasser 280 caractères ; la voix demandée est orale, en minuscules et très peu ponctuée. Le corpus de cinq transcriptions et son analyse sont conservés dans le doc privé `editorial-voice`, jamais dans le dépôt public. Le brief `CONTENT-EDITORIAL.md` définit les critères de la routine quotidienne.

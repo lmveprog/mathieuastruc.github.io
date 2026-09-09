@@ -1,64 +1,45 @@
 # matheus — brief éditorial
 
-Objectif : une communauté de gens qui construisent avec l’IA, ingénieurs et professionnels du secteur. La page `/admin#matheus` doit rester simple. Le contenu du jour vit dans le doc privé `editorial`, jamais dans le code public.
+Objectif : faire grandir une communauté IA, ingénieurs et gens du milieu. La page `/admin#matheus` montre le contenu à publier, pas des instructions de rédaction. Les propositions vivent dans le doc privé `editorial`. Le corpus et l’analyse de la voix vivent dans `editorial-voice` sur le même store.
 
-## ce qui a été rejeté
+## avant d’écrire
 
-Les titres de releases GitHub suivis de « vous en pensez quoi ? », les sujets techniques interchangeables, les listes de bonnes pratiques, le ton formateur LinkedIn et les énormes plans vidéo. Ne pas recycler les sept anciens gabarits. Une nouvelle version d’Ollama n’est pas un sujet par défaut.
+Lire par SSH `/home/ubuntu/projects/adminstore/store/editorial-voice.json`. Ce document contient cinq transcriptions réelles des vidéos de Matheus et l’analyse de leur écriture. Relire au moins deux transcriptions adaptées au sujet. Elles servent de référence de voix, jamais de preuve factuelle pour une actualité. Ne pas prétendre analyser le montage ou les images à partir des seules transcriptions.
 
-## la voix
+La référence X choisie est https://x.com/BetterCallMedhi/status/2097472336257863722, accessible lors de l’analyse via https://threadreaderapp.com/user/BetterCallMedhi. En retenir l’oralité, les minuscules, le débit continu, la faible ponctuation et les arguments concrets. Les formulations, opinions et vérifications doivent être originales. Le message de référence comporte des affirmations à contrôler : ne jamais importer automatiquement sa conclusion sur les mathématiques ou une accusation.
 
-Une position compréhensible et discutable, défendue par un mécanisme concret. Relier une annonce à une conséquence pour ceux qui construisent : dépendance à un fournisseur, coût de vérification, valeur d’une compétence, contrôle du matériel, distribution, capacité à livrer. Précis, oral, personnel, sans leçon ni mise en scène de supériorité.
+## sur X
 
-Référence choisie : BetterCallMedhi. Les posts consultés via Thread Reader et des reprises accessibles montrent une structure fait → explication → conséquence → avis. Retenir cette construction ; écrire des formulations originales. Ne pas emprunter sa biographie, ses expressions récurrentes, ses certitudes géopolitiques ou ses affirmations non vérifiées. Ne jamais raconter une expérience que Matheus n’a pas faite.
+Deux posts originaux en français, généralement 90–160 mots chacun. L’utilisateur a explicitement demandé une écriture brute, peu structurée en apparence, presque sans ponctuation. Pas de limite arbitraire à 280 caractères. Minuscules, 1–3 paragraphes de longueurs différentes, phrases qui s’enchaînent comme un avis développé à l’oral. Garder les apostrophes, accents et notations utiles. Pas de faux défauts ajoutés exprès.
 
-Références de lecture (analyse de structure uniquement, pas sources factuelles) :
-- https://threadreaderapp.com/user/BetterCallMedhi
-- https://x.com/BetterCallMedhi/status/2026466690574463291
+Commencer par quelque chose à défendre, donner des éléments précis, aller au bout du raisonnement. Ne pas afficher un plan fait / mécanisme / conséquence / opinion. Éviter les conclusions de consultant, la question d’engagement finale, le résumé neutre, le jargon gratuit et les insultes prises à la référence. Ne jamais inventer une expérience vécue, une certitude ou une accusation pour avoir un ton fort. Un style libre peut soutenir une pensée rigoureuse.
 
-## chaque jour
+Tout le post est dans `text`. Pas de version raccourcie doublée d’un développement caché. Ne pas publier sur X automatiquement.
 
-1. Commencer par les discussions qui montent réellement sur X, Hacker News et dans la presse spécialisée, puis remonter aux sources. Les références de pertinence données par Matheus le 9 septembre sont Navier–Stokes et la démission de Jacob Coxon : grandes percées, controverses et décisions humaines qui font parler le milieu IA. Ne pas réduire la veille à des sorties de produits ou à des tutoriels de développeur. Classer les sujets par traction, fraîcheur et intérêt narratif. Lire des sources primaires récentes (24–72 h idéalement, une semaine si le fond le justifie) : annonces majeures, recherches, infrastructure, produits ayant une vraie conséquence. Lire le contenu de la source, pas seulement son titre. Contrôler date de publication ET date du fait. Ne pas transformer une promesse marketing en résultat établi.
-2. Choisir un sujet principal et un autre angle réellement différent. La thèse doit pouvoir être contestée ; un simple résumé ne suffit pas. Distinguer fait attesté et interprétation proposée. Pas de statistiques inventées, d’annonce ancienne présentée comme nouvelle, ni d’extrapolation « tout le monde sera remplacé ».
-3. Écrire 2 propositions X : `text` <= 280 caractères, autonome, 2–3 petits paragraphes ; `detail` développe le raisonnement en 80–150 mots maximum, disponible au clic. Lien primaire et date dans `source` / `sourceDate`, hors du texte à copier. Éviter la question de fin automatique.
-4. Relever pour chaque sujet vidéo un signal de traction public, daté, avec URL (discussion, score observé, reprises indépendantes). Une annonce seule ne prouve pas une tendance. Indiquer clairement un signal faible ou absent. Enregistrer cela dans `trend: { label, url?, checkedAt }`. Ne pas inventer des métriques de viralité. Écrire 4 sujets vidéo distincts (3 si seulement 3 sont solides) : titre = accroche précise, `text` = une phrase sur ce qu’on va montrer (350 caractères maximum), `detail` = 3 temps de tournage concrets en 60–100 mots. Faire comprendre une tension en montrant quelque chose. Même vidéo sur Instagram, TikTok, Facebook, YouTube ; pas de vidéo X. Ne pas confondre idée de tournage et résultat déjà obtenu. Références utilisateur : chrispathway, becoming.lea, consti.in.tech, avec son propre vécu comme matière.
-5. Comparer les propositions aux jours précédents dans le store ; éviter les répétitions. Si aucune actualité ne mérite un avis, proposer un sujet de fond explicitement daté comme édition, sans fausse fraîcheur. Ne jamais remplir avec une release mineure pour respecter une cadence.
-6. Publier seulement dans le dashboard privé avec `python3 scripts/publish-editorial.py CHEMIN_JSON`. Cela ne publie aucun tweet, vidéo, commentaire ou message. Ne jamais modifier le doc `content` : les brouillons et statuts utilisateur doivent rester intacts.
+## en vidéo
 
-## format privé
+Quatre sujets, trois si seulement trois sont solides. Pour chacun, `title` sert uniquement à choisir le sujet ; `text` contient uniquement le script parlé complet, généralement 150–210 mots. La première phrase est directement l’accroche. Écrire le texte que Matheus peut lire face caméra, avec des paragraphes qui laissent respirer.
 
-```json
-{
-  "day": "YYYY-MM-DD",
-  "generated": "ISO-8601",
-  "x": [{
-    "id": "x-YYYY-MM-DD-sujet-v2",
-    "day": "YYYY-MM-DD",
-    "kind": "x",
-    "edition": "opinion-v2",
-    "title": "sujet court",
-    "text": "prise de position originale",
-    "detail": "raisonnement développé",
-    "source": "https://source-primaire.exemple/article",
-    "sourceDate": "YYYY-MM-DD",
-    "done": false
-  }],
-  "video": [{
-    "id": "video-YYYY-MM-DD-sujet-v2",
-    "day": "YYYY-MM-DD",
-    "kind": "video",
-    "edition": "opinion-v2",
-    "title": "accroche",
-    "text": "ce qu’on va montrer",
-    "detail": "3 temps de tournage",
-    "done": false,
-    "published": []
-  }]
-}
-```
+Retenir ce qui est observé dans ses vidéos : tutoiement, accroche directe, explication accessible, exemple concret, précision sur la limite. Connecteurs naturels comme « en gros », « imagine », « donc », « mais attention », sans les placer mécaniquement. Ponctuation normale pour les scripts vidéo. Le ton sans ponctuation concerne X seulement. Adapter la construction au sujet, ne pas forcer une leçon technique sur une démission ou une controverse.
 
-Le script valide les tailles et types, conserve l’ancienne édition dans `store/editorial-history/`, puis remplace atomiquement `store/editorial.json`. Le serveur lit ce doc via `getDocs(['editorial'])`. Une édition ancienne affiche sa date réelle. Aucun gabarit ne se fait passer pour une actualité générée.
+Aucun timecode, aucune consigne « montrer / filmer / ton avis », aucun titre hook / angle / déroulé / CTA, aucun résumé ajouté au script. Ne pas promettre de guide ou de lien envoyé en commentaire si la ressource et sa distribution n’existent pas. Ne pas prétendre avoir essayé un produit inaccessible. Même script pour Instagram, TikTok, Facebook et YouTube ; pas de vidéo sur X.
 
-## renouvellement à 7 h
+## choisir les sujets chaque matin
 
-Routine Codex quotidienne à 7 h Europe/Paris, attachée à la tâche actuelle qui utilise `gpt-6-astra`. Elle hérite du modèle de cette tâche : ne pas changer ce modèle si Astra doit continuer à préparer les sujets. Cette routine dépend de la disponibilité de Codex et du Mac ; ce n’est pas un cron Vercel. Identifiant : `pr-parer-le-contenu-quotidien-de-matheus`. Quatre vidéos (trois si nécessaire), deux avis X. Pas de publication sociale automatique.
+1. Commencer par les discussions qui montent sur X, Hacker News et dans la presse spécialisée. Remonter aux sources primaires et les lire. Priorité aux dernières 24–48 h, en contrôlant date du fait et date de publication. Les repères de pertinence donnés par Matheus le 9 septembre sont Navier–Stokes et la démission de Jacob Coxon : percées, controverses et décisions humaines qui font parler le milieu IA. Ne pas réduire la veille aux sorties de produits.
+2. Classer par traction observable, fraîcheur et intérêt narratif. Conserver un signal daté par vidéo dans `trend: { label, url?, checkedAt }`. Une annonce seule n’est pas une preuve de viralité ; indiquer si le signal est faible ou manque. Ne pas inventer de métriques. Ces notes restent dans les données, hors du script et de l’affichage principal.
+3. Distinguer résultat annoncé, validation indépendante, hypothèse et opinion. Pour une controverse, confronter la déclaration au document original et à une source contradictoire pertinente. Ne jamais appeler « arnaque » un résultat parce qu’un compte influent le fait.
+4. Comparer à `editorial.json` et `editorial-history/` pour éviter les répétitions. Une édition ancienne conserve sa date réelle. Ne pas remplir avec des releases mineures ou de faux sujets du jour.
+5. Lire tous les scripts à voix haute mentalement : peuvent-ils être dits tels quels ? Chaque post X défend-il une idée concrète avec une écriture naturelle ? Retirer les phrases génériques qui pourraient se coller à n’importe quelle annonce.
+
+## format privé et publication
+
+`editorial` contient `day` (YYYY-MM-DD Paris), `generated` (ISO-8601), `x` et `video`.
+
+Chaque proposition contient `id` unique (par exemple `video-YYYY-MM-DD-sujet-v3`), `day`, `kind`, `edition: "voice-v3"`, `title`, `text`, `source` (HTTPS), `sourceDate` si connue, `done: false`. Les vidéos contiennent aussi `published: []` et `trend`. Ne pas inventer une date pour une source historique. Aucun `detail` en v3. Maximum technique : 6000 caractères par texte ; privilégier les budgets éditoriaux ci-dessus.
+
+Valider puis publier avec `python3 scripts/publish-editorial.py CHEMIN_JSON`. Le script conserve l’édition précédente dans `editorial-history/` et remplace `editorial.json` atomiquement. Vérifier la relecture. Ne jamais modifier `content` : brouillons, modifications et statuts de publication appartiennent à l’utilisateur. Une réécriture change l’identifiant pour ne pas masquer un brouillon sauvegardé.
+
+## routine
+
+Routine quotidienne à 7 h Europe/Paris, attachée à la tâche utilisant `gpt-6-astra`, identifiant `pr-parer-le-contenu-quotidien-de-matheus`. Quatre scripts vidéo et deux posts X. Elle dépend de la disponibilité de Codex et du Mac. Les mises à jour normales restent silencieuses. Pas de publication sociale automatique.
