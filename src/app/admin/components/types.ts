@@ -19,7 +19,7 @@ export type ConfigDoc = {
 };
 
 // la face "matheus" : idees de contenu a publier
-export type ContentIdea = Todo & { url?: string; note?: string; format?: "x" | "video"; sourceId?: string };
+export type ContentIdea = Todo & { url?: string; note?: string; format?: "x" | "video"; sourceId?: string; discussionUrl?: string; draft?: import("@/lib/contentPlan").Draft };
 export type ContentDoc = { ideas: ContentIdea[]; drafts?: import("@/lib/contentPlan").Draft[] };
 
 // depenses / revenus saisis a la main, un mouvement = une ligne

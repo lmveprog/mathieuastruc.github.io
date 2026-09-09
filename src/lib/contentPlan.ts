@@ -21,3 +21,17 @@ export function readEditorial(raw: unknown): Editorial | null {
  if (!Array.isArray(e.x) || !e.x.length || !e.x.every(d=>valid(d,'x')) || !Array.isArray(e.video) || !e.video.length || !e.video.every(d=>valid(d,'video'))) return null;
  return { ...e, x: e.x.slice(0,3), video: e.video.slice(0,4) };
 }
+
+// une source = un sujet dans la boite, meme si elle inspire un post et une video.
+export function editorialIdeas(editorial: Editorial | null): Draft[] {
+ const seen = new Set<string>();
+ return [...(editorial?.video || []), ...(editorial?.x || [])].filter(d => {
+  const link = safeLink(d.source);
+  if (!link) return false;
+  const url = new URL(link); url.hash = '';
+  for (const key of [...url.searchParams.keys()]) if (key.startsWith('utm_') || key === 's') url.searchParams.delete(key);
+  const key = url.href;
+  if (seen.has(key)) return false;
+  seen.add(key); return true;
+ });
+}
