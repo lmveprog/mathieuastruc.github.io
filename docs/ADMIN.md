@@ -189,3 +189,9 @@ La face Matheus comporte désormais trois onglets : studio, à publier, boîte �
 Les anciennes idées quittent le simple bloc d’archives et sont éditables dans la boîte ; les brouillons X/vidéo restent dans « à publier ». La routine continue de produire son brief : ses nouvelles idées sourcées alimentent automatiquement la boîte sans modifier les idées conservées par Matheus.
 
 Les sujets de la boîte sont dédupliqués par source (paramètres de suivi ignorés, identifiants de vidéos conservés). « Ouvrir le script/post » ouvre directement le texte dans une vue dédiée de l’onglet à publier. Garder une idée enregistre désormais aussi son script et son lien de discussion : elle reste exploitable après le renouvellement du brief. Les anciens éléments utilisent le brouillon enregistré ou le sujet du jour quand ils existent. La recherche ignore les accents.
+
+### accès à l’information et lisibilité
+
+Le studio propose une recherche par titre/réseau et un tri récentes / vues cumulées / progression 24 h. Les métriques absentes restent en fin de classement. Chaque publication a un lien externe direct avec un nom accessible. Le bouton « voir les dernières vidéos » déplace la lecture et le focus vers la liste sans changer le hash Matheus. Les courbes disposent d’un tableau de valeurs replié ; leurs nombreux points ne rallongent plus la navigation par Tab.
+
+Navigation de l’atelier fixe en haut pendant le défilement, focus clavier visible, cibles tactiles agrandies, métadonnées plus lisibles et prise en compte de prefers-reduced-motion. Les titres des cartes admin s’affichent sans déchiffrement animé. La recherche d’idées porte aussi sur l’URL et propose un bouton d’effacement.
