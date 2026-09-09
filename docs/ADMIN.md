@@ -147,20 +147,16 @@ instagram **@matheusgen_** (underscore confirmé), X **@matheusnpu**, tiktok / f
 - état constaté : vues comparables sur tiktok et youtube ; pas de mesures de vues Facebook/X dans la base ; dernier relevé Instagram au 27 août. les données manquantes restent `—`, avec le dernier relevé connu à côté. il faudra une source autorisée de statistiques Facebook/X et rétablir la collecte Instagram pour avoir les cinq plateformes à jour.
 - `/api/admin/overview` lit ce doc via `getAnalytics()`. la clé n’est volontairement pas ajoutée à `DOC_KEYS` : le navigateur ne doit pas remplacer cet export.
 
-### un brouillon X par jour
+### interface simplifiée et sujets quotidiens
 
-`GET /api/admin/content` consulte les releases officielles GitHub de transformers, vLLM et Ollama (timeout 7 s, cache de source 1 h). sélection datée parmi les releases des sept derniers jours. sans source récente accessible : idée de fond explicitement étiquetée. ce premier moteur est un gabarit déterministe, pas une veille générale ni un appel à un modèle IA. les sept idées de fond tournent chaque semaine.
+Trois cartes : audience, sur X, en vidéo. Le texte de conseils, les cartes de stratégie et la grande accroche météo de la face Matheus ont été retirés. Les limites analytics et l’historique sont repliés ; un indicateur de couverture reste visible. Les archives ne prennent plus une carte entière.
 
-le brouillon se modifie, se copie et s’enregistre ; « marquer publié » est un suivi manuel, aucun appel de publication à X. les brouillons enregistrés sont prioritaires sur les nouvelles suggestions et restent dans l’historique. la recherche de conversations ouvre X : pas encore de sélection automatisée de posts auxquels répondre. le lab actuel filtre principalement des vidéos et ne fournit pas ces fils X.
+`GET /api/admin/content` lit maintenant le doc privé `editorial`, vérifié par `readEditorial()`. Suppression du moteur à releases GitHub et de la rotation de gabarits. Les propositions sont préparées après lecture de sources, selon [CONTENT-EDITORIAL.md](CONTENT-EDITORIAL.md). Chaque édition porte sa vraie date ; une édition ancienne ne s’affiche pas comme celle du jour.
 
-positionnement proposé : IA et ingénierie en pratique, preuves observables, compromis, retours de construction. référence : [dépôt X](https://github.com/xai-org/x-algorithm), consulté le 9 septembre 2026. le classement combine des probabilités prédites pour chaque lecteur ; les poids ne s’appliquent pas directement aux compteurs d’interactions. cohérence de sujet et conversations utiles sont des hypothèses éditoriales à tester, pas une promesse de portée.
+X : un avis court, lien source, autre idée, édition et copie. Le développement est replié. Vidéos : 3–4 accroches sélectionnables, une phrase pour l’angle choisi, source, signal de tendance et déroulé repliés. Un seul tournage destiné aux quatre plateformes, cases de diffusion séparées.
 
-### vidéos : atelier de départ
+La routine Codex `pr-parer-le-contenu-quotidien-de-matheus` est prévue à 7 h Europe/Paris et utilise le modèle de la tâche (`gpt-6-astra` au moment de la configuration). Codex et le Mac doivent être disponibles. Elle prépare les sujets et écrit uniquement dans `editorial` via `scripts/publish-editorial.py` ; aucun tweet ou vidéo n’est publié. Le script conserve l’ancienne édition dans `editorial-history` et remplace le fichier atomiquement.
 
-une idée de test réel, accroche, démonstration, verdict à compléter après l’expérience et question finale. un seul montage, cases de diffusion Instagram / TikTok / Facebook / YouTube. pas de vidéo X. références fournies par Matheus : chrispathway, becoming.lea, consti.in.tech ; aucune imitation de scripts ni analyse de leur style prétendue. le texte est un plan de tournage, pas une vidéo générée.
+`content = { ideas: Todo[], drafts?: Draft[] }` reste le document utilisateur. Les anciennes idées et les brouillons de la V1 sont conservés. Les nouveaux identifiants incluent sujet et édition, pour qu’un ancien gabarit enregistré ne masque pas une nouvelle proposition. Les choix de diffusion et les modifications appartiennent au brouillon concerné.
 
-schéma ajouté, compatible avec les anciennes idées : `content = { ideas: Todo[], drafts?: Draft[] }`, `Draft = { id, day, kind: "x" | "video", title, text, source?, sourceDate?, done, published?: string[] }`. les identifiants du jour sont `x-YYYY-MM-DD` / `video-YYYY-MM-DD`. aucune nouvelle variable d’environnement.
-
-### vérification et exploitation
-
-`npm run build` et `python3 -m unittest discover -s scripts/tests`. le test analytics couvre les jours à Paris, les sources absentes, les nouveaux contenus, les corrections négatives et l’exclusion des comptes de veille. export atomique pour éviter un fichier tronqué. sauvegarde du cron avant branchement : `lab-cron.sh.before-admin-pro` sur le VPS.
+Vérifications : `npm run build`, validation du JSON éditorial, lecture du store, affichage desktop/mobile, changement de sujet, édition puis relecture et case de diffusion dans une session de test isolée.

@@ -18,8 +18,7 @@ import Money from "./cards/Money";
 // "matheus" (le compte content). meme accroche en haut (bonjour, date,
 // heure, meteo), des cartes differentes en dessous. les docs modifiables
 // passent par /api/admin/store, le reste vient d'un seul /api/admin/overview.
-// pour l'instant les deux faces sont vides : on les construit une carte
-// a la fois.
+// chaque face garde ses cartes et ses donnees.
 
 type Side = "mathieu" | "matheus";
 type Status = { kind: "idle" | "saving" | "saved" | "error"; text?: string };
@@ -139,7 +138,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* meme carte que le hero du site : reflet qui suit la souris, legere inclinaison */}
-      <ProfileCard>
+      {side === "matheus" ? <div className="content-heading"><h1>matheus<span>.</span></h1><p>{now ? dateFmt.format(now) : ""}</p></div> : <ProfileCard>
         <div className="admin-hero">
           <div>
             <h1 className="admin-greet">
@@ -163,7 +162,7 @@ export default function AdminDashboard() {
             </p>
           </div>
         </div>
-      </ProfileCard>
+      </ProfileCard>}
 
       {problems.length ? (
         <ul className="problems">
