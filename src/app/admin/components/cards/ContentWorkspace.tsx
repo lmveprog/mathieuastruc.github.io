@@ -44,7 +44,7 @@ export default function ContentWorkspace({ overview, doc, today, onChange }: { o
  const drafts=doc.drafts||[];
  const persist=(d:Draft)=>onChange({...doc,drafts:[...drafts.filter(v=>v.id!==d.id),d]});
  const ideaCount=new Set(editorialIdeas(editorial).map(d=>d.id).concat((doc.ideas||[]).filter(i=>!i.done).map(i=>i.sourceId||i.id))).size;
- const edition=editorial?.day===today?'aujourd’hui':editorial?`du ${editorial.day.slice(8,10)}/${editorial.day.slice(5,7)}`:'';
+ const edition=(day?:string)=>day===today?'aujourd’hui':day?`du ${day.slice(8,10)}/${day.slice(5,7)}`:'';
  return <>
   <div className="content-nav" role="tablist" aria-label="atelier Matheus">{([{key:'studio',label:'studio'},{key:'write',label:'écrire'},{key:'publish',label:'à publier'},{key:'ideas',label:'boîte à idées'}] as const).map(p=><button key={p.key} id={`tab-${p.key}`} role="tab" aria-selected={panel===p.key} aria-controls={`panel-${p.key}`} tabIndex={panel===p.key?0:-1} onClick={()=>choosePanel(p.key)} onKeyDown={e=>{const keys=['studio','write','publish','ideas'] as const;const i=keys.indexOf(p.key);const next=e.key==='ArrowRight'?keys[(i+1)%4]:e.key==='ArrowLeft'?keys[(i+3)%4]:e.key==='Home'?keys[0]:e.key==='End'?keys[3]:null;if(next){e.preventDefault();choosePanel(next);document.getElementById(`tab-${next}`)?.focus();}}}>{p.label}{p.key==='ideas'&&<small>{ideaCount}</small>}</button>)}</div>
   <div id="panel-studio" role="tabpanel" aria-labelledby="tab-studio" hidden={panel!=='studio'} style={{display:panel==='studio'?'contents':'none'}}><StudioAnalytics/></div>
@@ -52,8 +52,8 @@ export default function ContentWorkspace({ overview, doc, today, onChange }: { o
   <div id="panel-publish" role="tabpanel" aria-labelledby="tab-publish" hidden={panel!=='publish'} style={{display:panel==='publish'?'contents':'none'}}>
   {openedDraft&&<Card title={openedDraft.kind==='x'?'post':'script vidéo'} span={12} i={0} aside={<button onClick={()=>setOpenedDraft(null)}>← tous les brouillons</button>} className="content-focused"><h3>{openedDraft.title}</h3><Proposal key={openedDraft.id} choices={[openedDraft]} saved={drafts} onSave={persist} kind={openedDraft.kind} day={openedDraft.day}/></Card>}
   <div style={{display:openedDraft?'none':'contents'}}>
-  <Card title="sur X" span={6} i={1} aside={edition} className="content-proposal"><Proposal key={`x-${editorial?.day}`} choices={editorial?.x||[]} saved={drafts} onSave={persist} kind="x" day={editorial?.day}/></Card>
-  <Card title="en vidéo" span={6} i={2} aside={editorial ? `${editorial.video.length} sujets · ${edition}` : edition} className="content-proposal content-proposal--video"><Proposal key={`video-${editorial?.day}`} choices={editorial?.video||[]} saved={drafts} onSave={persist} kind="video" day={editorial?.day}/></Card>
+  <Card title="sur X" span={6} i={1} aside={edition(editorial?.x[0]?.day)} className="content-proposal"><Proposal key={`x-${editorial?.day}`} choices={editorial?.x||[]} saved={drafts} onSave={persist} kind="x" day={editorial?.day}/></Card>
+  <Card title="en vidéo" span={6} i={2} aside={editorial ? `${editorial.video.length} sujets · ${edition(editorial.video[0]?.day)}` : ''} className="content-proposal content-proposal--video"><Proposal key={`video-${editorial?.day}`} choices={editorial?.video||[]} saved={drafts} onSave={persist} kind="video" day={editorial?.day}/></Card>
   {error && <p className="hint">Propositions indisponibles. Recharge la page pour réessayer.</p>}
   {(drafts.length>0)&&<div className="content-archive"><details><summary>brouillons enregistrés ({drafts.length})</summary>{[...drafts].sort((a,b)=>b.day.localeCompare(a.day)).map(d=><details key={d.id}><summary>{d.day} · {d.kind==='x'?'X':'vidéo'} · {d.title}{d.done?' ✓':''}</summary><p className="content-detail">{d.text}</p></details>)}</details></div>}
   </div>

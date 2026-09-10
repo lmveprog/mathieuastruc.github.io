@@ -156,7 +156,7 @@ Trois cartes : studio, sur X, en vidéo. Le texte de conseils, les cartes de str
 
 X : un avis court, lien source, autre idée, édition et copie. Le développement est replié. Vidéos : 3–4 accroches sélectionnables, une phrase pour l’angle choisi, source, signal de tendance et déroulé repliés. Un seul tournage destiné aux quatre plateformes, cases de diffusion séparées.
 
-La routine Codex `pr-parer-le-contenu-quotidien-de-matheus` est prévue à 7 h Europe/Paris et utilise le modèle de la tâche (`gpt-6-astra` au moment de la configuration). Codex et le Mac doivent être disponibles. Elle prépare les sujets et écrit uniquement dans `editorial` via `scripts/publish-editorial.py` ; aucun tweet ou vidéo n’est publié. Le script conserve l’ancienne édition dans `editorial-history` et remplace le fichier atomiquement.
+La routine Codex `pr-parer-le-contenu-quotidien-de-matheus` passe toutes les cinq minutes, avec X à partir de 6 h et vidéo à partir de 7 h Europe/Paris et utilise le modèle de la tâche (`gpt-6-astra` au moment de la configuration). Codex et le Mac doivent être disponibles. Elle prépare les sujets et écrit uniquement dans `editorial` via `scripts/publish-editorial.py` ; aucun tweet ou vidéo n’est publié. Le script conserve l’ancienne édition dans `editorial-history` et remplace le fichier atomiquement.
 
 `content = { ideas: Todo[], drafts?: Draft[] }` reste le document utilisateur. Les anciennes idées et les brouillons de la V1 sont conservés. Les nouveaux identifiants incluent sujet et édition, pour qu’un ancien gabarit enregistré ne masque pas une nouvelle proposition. Les choix de diffusion et les modifications appartiennent au brouillon concerné.
 
@@ -164,7 +164,7 @@ Vérifications : `npm run build`, validation du JSON éditorial, lecture du stor
 
 ### ajustement éditorial du 9 septembre
 
-La carte vidéo affiche directement le script parlé complet du sujet sélectionné. Copier et modifier portent sur ce même texte. Pas de résumé, de timecodes ou de déroulé. Les posts X peuvent dépasser 280 caractères ; la voix demandée est orale, en minuscules et très peu ponctuée. Le corpus de cinq transcriptions et son analyse sont conservés dans le doc privé `editorial-voice`, jamais dans le dépôt public. Le brief `CONTENT-EDITORIAL.md` définit les critères de la routine quotidienne.
+La carte vidéo affiche directement le script parlé complet du sujet sélectionné. Copier et modifier portent sur ce même texte. Pas de résumé, de timecodes ou de déroulé. Les posts X peuvent dépasser 280 caractères ; la voix demandée est orale, en minuscules et très peu ponctuée. Le corpus de sept transcriptions et son analyse sont conservés dans le doc privé `editorial-voice`, jamais dans le dépôt public. Le brief `CONTENT-EDITORIAL.md` définit les critères de la routine quotidienne.
 
 ### studio analytics (9 septembre)
 
@@ -198,6 +198,8 @@ Navigation de l’atelier fixe en haut pendant le défilement, focus clavier vis
 
 ### écrire un script à la demande
 
-Onglet **écrire** : sujet, lien facultatif, durée 45/60/90 s. Le profil de voix privé utilise sept transcriptions, en priorité les vidéos récentes Navier et Coxon. Astra recherche les faits puis produit uniquement le texte parlé ; les sources sont séparées. Révision libre, copie, modification et ajout volontaire aux brouillons. Le travail en cours survit au rechargement dans la session du navigateur. Une clé API OpenAI ayant accès à Astra doit être connectée une fois, dans le champ mot de passe de cet onglet (facturation API séparée). Elle est chiffrée côté serveur, exclue des routes génériques de documents et jamais envoyée au modèle. Pas de publication sociale automatique.
+Onglet **écrire** : sujet, lien facultatif, durée 45/60/90 s. Sept transcriptions, en priorité Navier et Coxon, servent de référence de voix. La demande rejoint une file privée traitée par Astra via Codex toutes les cinq minutes ; état en attente/écriture en cours, puis script et sources séparées. Aucune clé API ni achat de crédit API : limites Codex habituelles, Mac et Codex disponibles. Révision libre, copie, modification et ajout volontaire aux brouillons. Le travail en cours survit au rechargement de l’onglet.
 
-Validation : `node --test scripts/tests/script-writer.test.mjs`, `npm run build`. Les erreurs API et l’absence de connexion conservent le texte en cours. Les durées sont des estimations, pas des timecodes.
+Routine unique : X à partir de 6 h, vidéos à partir de 7 h, heures de Paris. Les sections conservent des dates indépendantes et sont fusionnées sous verrou. Voir `docs/SCRIPT-WRITER.md`. Les brouillons et publications sociales restent sous contrôle de Matheus.
+
+Validation : `node --test scripts/tests/script-writer.test.mjs`, `python3 -m unittest discover -s scripts/tests`, `npm run build`. Les durées restent indicatives. Pas de lecture/écriture des jobs par les routes génériques de documents.

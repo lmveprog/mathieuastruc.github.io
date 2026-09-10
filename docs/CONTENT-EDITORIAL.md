@@ -44,8 +44,8 @@ Valider puis publier avec `python3 scripts/publish-editorial.py CHEMIN_JSON`. Le
 
 ## routine
 
-Routine quotidienne à 7 h Europe/Paris, attachée à la tâche utilisant `gpt-6-astra`, identifiant `pr-parer-le-contenu-quotidien-de-matheus`. Quatre scripts vidéo et deux posts X. Elle dépend de la disponibilité de Codex et du Mac. Les mises à jour normales restent silencieuses. Pas de publication sociale automatique.
+Routine unique Codex toutes les cinq minutes, attachée à cette tâche utilisant Astra. Elle traite les demandes du site, prépare X à partir de 6 h Europe/Paris et les vidéos à partir de 7 h. Une seule édition par section et par jour. Protocole complet dans `docs/SCRIPT-WRITER.md`. Elle dépend de Codex et du Mac et utilise les limites de l’accès Codex existant. Aucun crédit API ni publication sociale automatique.
 
 ## génération à la demande
 
-L’onglet « écrire » appelle `/api/admin/script` avec un sujet, une source HTTPS facultative et une durée. Astra consulte le web et reçoit le profil privé actualisé à chaque génération. Le texte généré est modifiable et révisable ; l’enregistrement dans les brouillons est volontaire. La clé API se connecte dans l’admin, est vérifiée pour le modèle `gpt-6-astra`, chiffrée AES-256-GCM avec le secret du store et stockée hors des documents publics (`script-config`). Jamais renvoyée au navigateur, jamais placée dans le prompt. `OPENAI_API_KEY` serveur peut aussi être utilisée. Sans clé, le bouton est indisponible et la connexion est proposée ; aucune génération fictive.
+L’onglet écrire dépose un sujet, une source facultative et une durée dans une file privée. Le texte est traité par Astra dans Codex, puis apparaît automatiquement sur le site. Il est modifiable, révisable et enregistrable volontairement dans les brouillons. Aucun champ API. Les demandes/résultats restent côté serveur ; le travail en cours et son identifiant survivent au rechargement dans la session du navigateur.

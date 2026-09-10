@@ -17,7 +17,7 @@ export function readEditorial(raw: unknown): Editorial | null {
  if (!raw || typeof raw !== 'object') return null;
  const e = raw as Editorial;
  if (!/^\d{4}-\d{2}-\d{2}$/.test(e.day) || typeof e.generated !== 'string') return null;
- const valid = (d: Draft, kind: Draft['kind']) => d && d.kind === kind && d.day === e.day && typeof d.id === 'string' && typeof d.title === 'string' && typeof d.text === 'string' && d.text.length > 0 && d.text.length <= 6000 && (!d.sourceDate || typeof d.sourceDate === 'string') && (!d.trend || (typeof d.trend.label === 'string' && typeof d.trend.checkedAt === 'string')) && (!d.detail || (typeof d.detail === 'string' && d.detail.length < 5000));
+ const valid = (d: Draft, kind: Draft['kind']) => d && d.kind === kind && /^\d{4}-\d{2}-\d{2}$/.test(d.day) && typeof d.id === 'string' && typeof d.title === 'string' && typeof d.text === 'string' && d.text.length > 0 && d.text.length <= 6000 && (!d.sourceDate || typeof d.sourceDate === 'string') && (!d.trend || (typeof d.trend.label === 'string' && typeof d.trend.checkedAt === 'string')) && (!d.detail || (typeof d.detail === 'string' && d.detail.length < 5000));
  if (!Array.isArray(e.x) || !e.x.length || !e.x.every(d=>valid(d,'x')) || !Array.isArray(e.video) || !e.video.length || !e.video.every(d=>valid(d,'video'))) return null;
  return { ...e, x: e.x.slice(0,3), video: e.video.slice(0,4) };
 }

@@ -67,6 +67,8 @@ export const getGuests = () => call<{ visitors: number; today: number }>("guests
 
 export const getAnalytics = () => call<{ data: import("./contentPlan").Analytics | null }>("doc/analytics").then((r) => r.data);
 
-// Clé privée chiffrée : jamais exposée par les routes génériques de documents.
-export const putScriptConfig = (data: { encryptedKey?: string }) =>
-  call<{ ok: boolean }>('doc/script-config', {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+// Une demande = un document privé. Pas de liste partagée à écraser.
+export const putScriptJob = (id: string, data: unknown) => {
+  if (!/^sj-[a-f0-9]{28}$/.test(id)) throw new Error('Demande invalide');
+  return call<{ ok: boolean }>(`doc/${id}`, {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+};
