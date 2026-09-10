@@ -4,9 +4,11 @@ Objectif : faire grandir une communauté IA, ingénieurs et gens du milieu. La p
 
 ## avant d’écrire
 
-Lire par SSH `/home/ubuntu/projects/adminstore/store/editorial-voice.json`. Ce document contient cinq transcriptions réelles des vidéos de Matheus et l’analyse de leur écriture. Relire au moins deux transcriptions adaptées au sujet. Elles servent de référence de voix, jamais de preuve factuelle pour une actualité. Ne pas prétendre analyser le montage ou les images à partir des seules transcriptions.
+Lire par SSH `/home/ubuntu/projects/adminstore/store/editorial-voice.json`. Ce document contient sept transcriptions réelles des vidéos de Matheus et l’analyse de leur écriture. Relire au moins deux transcriptions adaptées au sujet. Elles servent de référence de voix, jamais de preuve factuelle pour une actualité. Ne pas prétendre analyser le montage ou les images à partir des seules transcriptions.
 
 La référence X choisie est https://x.com/BetterCallMedhi/status/2097472336257863722, accessible lors de l’analyse via https://threadreaderapp.com/user/BetterCallMedhi. En retenir l’oralité, les minuscules, le débit continu, la faible ponctuation et les arguments concrets. Les formulations, opinions et vérifications doivent être originales. Le message de référence comporte des affirmations à contrôler : ne jamais importer automatiquement sa conclusion sur les mathématiques ou une accusation.
+
+Les transcriptions récentes `navier` et `coxon`, extraites des mots relus des vidéos enregistrées, sont prioritaires pour les actualités : environ 250 mots chacune, neuf paragraphes, explication orale et montée de l’enjeu. Les cinq précédentes restent utiles pour les sujets pédagogiques. Ne pas imposer le format « Jour N ». Les références secondaires chrispathway et 0xloucash sont documentées avec leurs URLs et limites dans le profil privé : construction utile, jamais copie des expressions.
 
 ## sur X
 
@@ -18,7 +20,7 @@ Tout le post est dans `text`. Pas de version raccourcie doublée d’un dévelop
 
 ## en vidéo
 
-Quatre sujets, trois si seulement trois sont solides. Pour chacun, `title` sert uniquement à choisir le sujet ; `text` contient uniquement le script parlé complet, généralement 150–210 mots. La première phrase est directement l’accroche. Écrire le texte que Matheus peut lire face caméra, avec des paragraphes qui laissent respirer.
+Quatre sujets, trois si seulement trois sont solides. Pour chacun, `title` sert uniquement à choisir le sujet ; `text` contient uniquement le script parlé complet, généralement 210–260 mots. La première phrase est directement l’accroche. Écrire le texte que Matheus peut lire face caméra, avec des paragraphes qui laissent respirer.
 
 Retenir ce qui est observé dans ses vidéos : tutoiement, accroche directe, explication accessible, exemple concret, précision sur la limite. Connecteurs naturels comme « en gros », « imagine », « donc », « mais attention », sans les placer mécaniquement. Ponctuation normale pour les scripts vidéo. Le ton sans ponctuation concerne X seulement. Adapter la construction au sujet, ne pas forcer une leçon technique sur une démission ou une controverse.
 
@@ -43,3 +45,7 @@ Valider puis publier avec `python3 scripts/publish-editorial.py CHEMIN_JSON`. Le
 ## routine
 
 Routine quotidienne à 7 h Europe/Paris, attachée à la tâche utilisant `gpt-6-astra`, identifiant `pr-parer-le-contenu-quotidien-de-matheus`. Quatre scripts vidéo et deux posts X. Elle dépend de la disponibilité de Codex et du Mac. Les mises à jour normales restent silencieuses. Pas de publication sociale automatique.
+
+## génération à la demande
+
+L’onglet « écrire » appelle `/api/admin/script` avec un sujet, une source HTTPS facultative et une durée. Astra consulte le web et reçoit le profil privé actualisé à chaque génération. Le texte généré est modifiable et révisable ; l’enregistrement dans les brouillons est volontaire. La clé API se connecte dans l’admin, est vérifiée pour le modèle `gpt-6-astra`, chiffrée AES-256-GCM avec le secret du store et stockée hors des documents publics (`script-config`). Jamais renvoyée au navigateur, jamais placée dans le prompt. `OPENAI_API_KEY` serveur peut aussi être utilisée. Sans clé, le bouton est indisponible et la connexion est proposée ; aucune génération fictive.

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Card from '../Card';
 import StudioAnalytics from './StudioAnalytics';
 import IdeaBox from './IdeaBox';
+import ScriptWriter from './ScriptWriter';
 import type { Overview } from '@/app/api/admin/overview/route';
 import type { ContentDoc } from '../types';
 import { channels, safeLink, editorialIdeas, type Draft, type Editorial } from '@/lib/contentPlan';
@@ -34,8 +35,8 @@ function Proposal({ choices, saved, onSave, kind, day }: { choices: Draft[]; sav
 
 export default function ContentWorkspace({ overview, doc, today, onChange }: { overview: Overview | null; doc: ContentDoc; today: string; onChange: (d: ContentDoc) => void }) {
  const [openedDraft,setOpenedDraft]=useState<Draft|null>(null);
- const [panel,setPanel]=useState<'studio'|'publish'|'ideas'>('studio');
- useEffect(()=>{try {const saved=sessionStorage.getItem('matheus-panel');if(saved==='studio'||saved==='publish'||saved==='ideas')setPanel(saved);}catch{}},[]);
+ const [panel,setPanel]=useState<'studio'|'publish'|'ideas'|'write'>('studio');
+ useEffect(()=>{try {const saved=sessionStorage.getItem('matheus-panel');if(saved==='studio'||saved==='publish'||saved==='ideas'||saved==='write')setPanel(saved);}catch{}},[]);
  const choosePanel=(p:typeof panel)=>{setPanel(p);try{sessionStorage.setItem('matheus-panel',p);}catch{}};
  const [editorial,setEditorial] = useState<Editorial | null>(null);
  const [error,setError] = useState(false);
@@ -45,8 +46,9 @@ export default function ContentWorkspace({ overview, doc, today, onChange }: { o
  const ideaCount=new Set(editorialIdeas(editorial).map(d=>d.id).concat((doc.ideas||[]).filter(i=>!i.done).map(i=>i.sourceId||i.id))).size;
  const edition=editorial?.day===today?'aujourd’hui':editorial?`du ${editorial.day.slice(8,10)}/${editorial.day.slice(5,7)}`:'';
  return <>
-  <div className="content-nav" role="tablist" aria-label="atelier Matheus">{([{key:'studio',label:'studio'},{key:'publish',label:'à publier'},{key:'ideas',label:'boîte à idées'}] as const).map(p=><button key={p.key} id={`tab-${p.key}`} role="tab" aria-selected={panel===p.key} aria-controls={`panel-${p.key}`} tabIndex={panel===p.key?0:-1} onClick={()=>choosePanel(p.key)} onKeyDown={e=>{const keys=['studio','publish','ideas'] as const;const i=keys.indexOf(p.key);const next=e.key==='ArrowRight'?keys[(i+1)%3]:e.key==='ArrowLeft'?keys[(i+2)%3]:e.key==='Home'?keys[0]:e.key==='End'?keys[2]:null;if(next){e.preventDefault();choosePanel(next);document.getElementById(`tab-${next}`)?.focus();}}}>{p.label}{p.key==='ideas'&&<small>{ideaCount}</small>}</button>)}</div>
+  <div className="content-nav" role="tablist" aria-label="atelier Matheus">{([{key:'studio',label:'studio'},{key:'write',label:'écrire'},{key:'publish',label:'à publier'},{key:'ideas',label:'boîte à idées'}] as const).map(p=><button key={p.key} id={`tab-${p.key}`} role="tab" aria-selected={panel===p.key} aria-controls={`panel-${p.key}`} tabIndex={panel===p.key?0:-1} onClick={()=>choosePanel(p.key)} onKeyDown={e=>{const keys=['studio','write','publish','ideas'] as const;const i=keys.indexOf(p.key);const next=e.key==='ArrowRight'?keys[(i+1)%4]:e.key==='ArrowLeft'?keys[(i+3)%4]:e.key==='Home'?keys[0]:e.key==='End'?keys[3]:null;if(next){e.preventDefault();choosePanel(next);document.getElementById(`tab-${next}`)?.focus();}}}>{p.label}{p.key==='ideas'&&<small>{ideaCount}</small>}</button>)}</div>
   <div id="panel-studio" role="tabpanel" aria-labelledby="tab-studio" hidden={panel!=='studio'} style={{display:panel==='studio'?'contents':'none'}}><StudioAnalytics/></div>
+  <div id="panel-write" role="tabpanel" aria-labelledby="tab-write" hidden={panel!=='write'} style={{display:panel==='write'?'contents':'none'}}><ScriptWriter onSave={persist}/></div>
   <div id="panel-publish" role="tabpanel" aria-labelledby="tab-publish" hidden={panel!=='publish'} style={{display:panel==='publish'?'contents':'none'}}>
   {openedDraft&&<Card title={openedDraft.kind==='x'?'post':'script vidéo'} span={12} i={0} aside={<button onClick={()=>setOpenedDraft(null)}>← tous les brouillons</button>} className="content-focused"><h3>{openedDraft.title}</h3><Proposal key={openedDraft.id} choices={[openedDraft]} saved={drafts} onSave={persist} kind={openedDraft.kind} day={openedDraft.day}/></Card>}
   <div style={{display:openedDraft?'none':'contents'}}>

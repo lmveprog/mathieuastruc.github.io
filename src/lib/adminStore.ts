@@ -66,3 +66,7 @@ export const getLab = () => call<Lab>("lab");
 export const getGuests = () => call<{ visitors: number; today: number }>("guests");
 
 export const getAnalytics = () => call<{ data: import("./contentPlan").Analytics | null }>("doc/analytics").then((r) => r.data);
+
+// Clé privée chiffrée : jamais exposée par les routes génériques de documents.
+export const putScriptConfig = (data: { encryptedKey?: string }) =>
+  call<{ ok: boolean }>('doc/script-config', {method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});

@@ -195,3 +195,9 @@ Les sujets de la boîte sont dédupliqués par source (paramètres de suivi igno
 Le studio propose une recherche par titre/réseau et un tri récentes / vues cumulées / progression 24 h. Les métriques absentes restent en fin de classement. Chaque publication a un lien externe direct avec un nom accessible. Le bouton « voir les dernières vidéos » déplace la lecture et le focus vers la liste sans changer le hash Matheus. Les courbes disposent d’un tableau de valeurs replié ; leurs nombreux points ne rallongent plus la navigation par Tab.
 
 Navigation de l’atelier fixe en haut pendant le défilement, focus clavier visible, cibles tactiles agrandies, métadonnées plus lisibles et prise en compte de prefers-reduced-motion. Les titres des cartes admin s’affichent sans déchiffrement animé. La recherche d’idées porte aussi sur l’URL et propose un bouton d’effacement.
+
+### écrire un script à la demande
+
+Onglet **écrire** : sujet, lien facultatif, durée 45/60/90 s. Le profil de voix privé utilise sept transcriptions, en priorité les vidéos récentes Navier et Coxon. Astra recherche les faits puis produit uniquement le texte parlé ; les sources sont séparées. Révision libre, copie, modification et ajout volontaire aux brouillons. Le travail en cours survit au rechargement dans la session du navigateur. Une clé API OpenAI ayant accès à Astra doit être connectée une fois, dans le champ mot de passe de cet onglet (facturation API séparée). Elle est chiffrée côté serveur, exclue des routes génériques de documents et jamais envoyée au modèle. Pas de publication sociale automatique.
+
+Validation : `node --test scripts/tests/script-writer.test.mjs`, `npm run build`. Les erreurs API et l’absence de connexion conservent le texte en cours. Les durées sont des estimations, pas des timecodes.
