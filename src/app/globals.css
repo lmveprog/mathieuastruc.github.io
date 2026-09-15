@@ -432,10 +432,14 @@ h2 {
   display: grid;
   gap: 1.15rem;
 }
-.project-head {
-  position: relative;
+.project-list li {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
 }
 .project-row {
+  flex: 1;
+  min-width: 0;
   display: grid;
   grid-template-columns: 1.75rem minmax(0, 1fr) auto;
   gap: 0.85rem;
@@ -487,15 +491,15 @@ a.project-row:hover .project-detail,
   color: var(--accent);
   text-decoration-color: currentColor;
 }
-.project-detail--link {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  z-index: 1;
-  transform: translateY(-50%);
+/* bout de ligne : le polaroid puis le lien, alignés sur le bord droit */
+.project-side {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
 }
-.project-list li:has(.project-detail--link) .project-row {
-  padding-right: 3.6rem;
+.project-side .project-detail {
+  align-self: auto;
 }
 .platform-icons {
   display: inline-flex;
@@ -521,54 +525,89 @@ a.project-row:hover .project-detail,
   filter: invert(1);
 }
 
-/* photo de la victoire sous impostral : calée sur la colonne de texte,
-   légende en pilule de verre qui rappelle la carte du hero */
-.project-photo {
-  position: relative;
-  width: min(21rem, calc(100% - 2.6rem));
-  margin: 0.75rem 0 0.3rem calc(1.75rem + 0.85rem);
-  aspect-ratio: 2 / 1;
-  border-radius: 11px;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--text-3) 12%, transparent);
-  box-shadow:
-    0 0 0 1px var(--card-border),
-    0 12px 30px color-mix(in srgb, var(--card-shadow) 65%, transparent);
-  transform: translateZ(0); /* safari garde les coins arrondis pendant le zoom */
-}
-.project-photo img {
+/* photo de projet : mini polaroid penché comme ceux des interests,
+   il se redresse quand on survole la ligne et s'ouvre en grand au clic */
+.project-thumb {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 700ms var(--ease-smooth-out);
+  padding: 0.22rem;
+  border: 1px solid var(--card-border);
+  border-radius: 3px;
+  background: var(--card-surface);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--card-shadow) 75%, transparent);
+  cursor: zoom-in;
+  transform: rotate(var(--tilt, -3deg));
+  transition: transform 320ms var(--ease-soft-spring), box-shadow 320ms var(--ease-smooth-out);
 }
-@media (hover: hover) and (pointer: fine) {
-  .project-list li:hover .project-photo img {
-    transform: scale(1.025);
+.project-thumb img {
+  display: block;
+  width: 5.4rem;
+  height: 3.6rem;
+  object-fit: cover;
+  border-radius: 1px;
+  filter: saturate(0.92);
+}
+.project-list li:hover .project-thumb,
+.project-thumb:focus-visible {
+  transform: rotate(0deg) translateY(-3px) scale(1.06);
+  box-shadow: 0 12px 26px var(--card-shadow);
+}
+
+.photo-dialog {
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+  cursor: zoom-out;
+}
+.photo-dialog:focus {
+  outline: none;
+}
+.photo-dialog figure {
+  padding: 0.6rem 0.6rem 0.4rem;
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  background: var(--card-surface);
+  box-shadow: 0 30px 80px rgba(24, 22, 20, 0.28);
+  transform: rotate(-0.6deg);
+  animation: photo-in 380ms var(--ease-smooth-out) both;
+}
+.photo-dialog img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(88vw, 46rem);
+  max-height: 76vh;
+  border-radius: 2px;
+}
+.photo-dialog figcaption {
+  padding-top: 0.45rem;
+  font-family: "Mondwest", "Computer Modern", serif;
+  font-size: 1rem;
+  color: var(--text-2);
+  text-align: center;
+}
+.photo-dialog::backdrop {
+  background: rgba(249, 248, 245, 0.62);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  animation: backdrop-in 260ms ease both;
+}
+:root[data-theme="dark"] .photo-dialog::backdrop {
+  background: rgba(18, 17, 15, 0.68);
+}
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    transform: rotate(-3deg) translateY(14px) scale(0.96);
   }
 }
-.project-photo figcaption {
-  position: absolute;
-  left: 0.5rem;
-  bottom: 0.5rem;
-  padding: 0.2rem 0.55rem 0.22rem;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 999px;
-  background: rgba(253, 252, 249, 0.74);
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
-  backdrop-filter: blur(12px) saturate(120%);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-  color: #181614;
-  font-family: "Mondwest", "Computer Modern", serif;
-  font-size: 0.74rem;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-:root[data-theme="dark"] .project-photo figcaption {
-  border-color: rgba(236, 234, 229, 0.14);
-  background: rgba(27, 26, 23, 0.64);
-  color: #eceae5;
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
 }
 
 /* ── Interests (polaroids) ── */
@@ -734,9 +773,20 @@ footer time {
   .row-list time {
     font-size: 0.92rem;
   }
-  .project-detail--link {
-    top: 0.2rem;
-    transform: none;
+  /* sur mobile le bout de ligne s'empile : le lien en haut, le polaroid dessous */
+  .project-list li {
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  .project-side {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 0.55rem;
+    padding-top: 0.2rem;
+  }
+  .project-thumb img {
+    width: 4.2rem;
+    height: 2.8rem;
   }
   .project-row {
     grid-template-columns: 1.5rem minmax(0, 1fr) auto;
@@ -745,16 +795,6 @@ footer time {
   .project-logo {
     width: 1.5rem;
     height: 1.5rem;
-  }
-  .project-photo {
-    margin-left: calc(1.5rem + 0.7rem);
-    width: min(19rem, calc(100% - 2.2rem));
-    border-radius: 10px;
-  }
-  .project-photo figcaption {
-    left: 0.4rem;
-    bottom: 0.4rem;
-    font-size: 0.68rem;
   }
 }
 
@@ -912,7 +952,8 @@ button:focus-visible,
 }
 @media (prefers-reduced-motion: reduce) {
   .profile-card:hover .portrait { transform: none; }
-  .project-list li:hover .project-photo img { transform: none; }
+  .photo-dialog figure,
+  .photo-dialog::backdrop { animation: none; }
 }
 
 /* Keep the three existing interests together on narrow screens. */

@@ -20,8 +20,7 @@ export default function HoverIndicator() {
     const move = (row: Element) => {
       window.clearTimeout(hideTimer);
       const pageRect = page.getBoundingClientRect();
-      // un projet avec photo : la pilule reste sur sa ligne, pas autour de l'image
-      const rowRect = (row.querySelector(":scope > .project-head") ?? row).getBoundingClientRect();
+      const rowRect = row.getBoundingClientRect();
       const padding = 7;
       const wasVisible = indicator.classList.contains("is-visible");
 

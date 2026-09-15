@@ -6,6 +6,7 @@ import HoverIndicator from "./components/HoverIndicator";
 import LocalTime from "./components/LocalTime";
 import VisitorCount from "./components/VisitorCount";
 import ProfileCard from "./components/ProfileCard";
+import ProjectPhoto from "./components/ProjectPhoto";
 import ThemeToggle from "./components/ThemeToggle";
 
 const experience = [
@@ -79,7 +80,7 @@ type Project = {
   platforms?: boolean;
   extra?: { label: string; href: string };
   detail?: string;
-  photo?: { src: string; alt: string; caption: string };
+  photo?: { thumb: string; full: string; size: [number, number]; alt: string; caption: string; tilt?: number };
 };
 
 
@@ -97,9 +98,12 @@ const projects: Project[] = [
     href: "https://github.com/MistralGagnant/impostralv2",
     extra: { label: "demo", href: "https://youtu.be/wsBaHW688Lc" },
     photo: {
-      src: "/images/projects/impostral-win.webp",
+      thumb: "/images/projects/impostral-win-thumb.webp",
+      full: "/images/projects/impostral-win.webp",
+      size: [1600, 960],
       alt: "The Impostral team holding the Mistral trophies after winning our track at the Mistral AI Hackathon in Paris",
       caption: "track winner · mistral ai hackathon 2026",
+      tilt: -3,
     },
   },
   {
@@ -113,7 +117,15 @@ const projects: Project[] = [
     logo: "/images/projects/humanoid.png",
     desc: "Gesture recognition and an embedded LLM running on a humanoid robot at NTNU.",
     href: "https://youtu.be/QZ8oGMaRq6M",
-    detail: "video",
+    extra: { label: "video", href: "https://youtu.be/QZ8oGMaRq6M" },
+    photo: {
+      thumb: "/images/projects/nao-thumb.webp",
+      full: "/images/projects/nao.webp",
+      size: [1600, 1066],
+      alt: "Mathieu holding the NAO humanoid robot at NTNU",
+      caption: "with nao · ntnu, norway 2025",
+      tilt: 2.5,
+    },
   },
   {
     title: "HCI International 2026 paper",
@@ -182,40 +194,36 @@ export default function Home() {
         <ul className="project-list">
           {projects.map((p) => (
             <li key={p.title}>
-              <div className="project-head">
-                {p.href ? (
-                  <a className="project-row" href={p.href} target="_blank" rel="noreferrer">
-                    <ProjectLogo src={p.logo} />
-                    <span className="project-copy">
-                      <span className="project-title"><DecryptText text={p.title} trigger="hover" hoverParent="li" /></span>
-                      <span className="project-desc">{p.desc}</span>
-                    </span>
-                    {p.detail ? <span className="project-detail">{p.detail}</span> : null}
-                  </a>
-                ) : (
-                  <span className="project-row">
-                    <ProjectLogo src={p.logo} />
-                    <span className="project-copy">
-                      <span className="project-title">
-                        <DecryptText text={p.title} trigger="hover" hoverParent="li" />
-                        {p.platforms ? <PlatformIcons /> : null}
-                      </span>
-                      <span className="project-desc">{p.desc}</span>
-                    </span>
+              {p.href ? (
+                <a className="project-row" href={p.href} target="_blank" rel="noreferrer">
+                  <ProjectLogo src={p.logo} />
+                  <span className="project-copy">
+                    <span className="project-title"><DecryptText text={p.title} trigger="hover" hoverParent="li" /></span>
+                    <span className="project-desc">{p.desc}</span>
                   </span>
-                )}
-                {p.extra ? (
-                  <a className="project-detail project-detail--link" href={p.extra.href} target="_blank" rel="noreferrer">
-                    {p.extra.label}
-                  </a>
-                ) : null}
-              </div>
-              {p.photo ? (
-                <figure className="project-photo">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.photo.src} alt={p.photo.alt} width={880} height={440} loading="lazy" decoding="async" />
-                  <figcaption>{p.photo.caption}</figcaption>
-                </figure>
+                  {p.detail ? <span className="project-detail">{p.detail}</span> : null}
+                </a>
+              ) : (
+                <span className="project-row">
+                  <ProjectLogo src={p.logo} />
+                  <span className="project-copy">
+                    <span className="project-title">
+                      <DecryptText text={p.title} trigger="hover" hoverParent="li" />
+                      {p.platforms ? <PlatformIcons /> : null}
+                    </span>
+                    <span className="project-desc">{p.desc}</span>
+                  </span>
+                </span>
+              )}
+              {p.photo || p.extra ? (
+                <span className="project-side">
+                  {p.photo ? <ProjectPhoto {...p.photo} /> : null}
+                  {p.extra ? (
+                    <a className="project-detail project-detail--link" href={p.extra.href} target="_blank" rel="noreferrer">
+                      {p.extra.label}
+                    </a>
+                  ) : null}
+                </span>
               ) : null}
             </li>
           ))}
