@@ -99,7 +99,7 @@ const projects: Project[] = [
     photo: {
       src: "/images/projects/impostral-win.webp",
       alt: "The Impostral team holding the Mistral trophies after winning our track at the Mistral AI Hackathon in Paris",
-      caption: "mistral ai hackathon · paris, july 2026",
+      caption: "track winner · mistral ai hackathon 2026",
     },
   },
   {
@@ -213,7 +213,7 @@ export default function Home() {
               {p.photo ? (
                 <figure className="project-photo">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.photo.src} alt={p.photo.alt} width={1400} height={700} loading="lazy" decoding="async" />
+                  <img src={p.photo.src} alt={p.photo.alt} width={880} height={440} loading="lazy" decoding="async" />
                   <figcaption>{p.photo.caption}</figcaption>
                 </figure>
               ) : null}
