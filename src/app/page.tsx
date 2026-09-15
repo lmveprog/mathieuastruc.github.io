@@ -109,7 +109,7 @@ const projects: Project[] = [
   {
     title: "AI content creation",
     logo: "/images/projects/matheus.png",
-    desc: "Breaking down AI concepts and news for a wide audience.",
+    desc: "Breaking down AI concepts and news for a 45k+ community.",
     platforms: true,
   },
   {
