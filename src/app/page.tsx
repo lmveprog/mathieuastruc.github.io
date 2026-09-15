@@ -79,6 +79,7 @@ type Project = {
   platforms?: boolean;
   extra?: { label: string; href: string };
   detail?: string;
+  photo?: { src: string; alt: string; caption: string };
 };
 
 
@@ -95,6 +96,11 @@ const projects: Project[] = [
     desc: "Mistral agents infiltrating a real-time social deduction game. 1st in our track, finalist at the Mistral AI Hackathon.",
     href: "https://github.com/MistralGagnant/impostralv2",
     extra: { label: "demo", href: "https://youtu.be/wsBaHW688Lc" },
+    photo: {
+      src: "/images/projects/impostral-win.webp",
+      alt: "The Impostral team holding the Mistral trophies after winning our track at the Mistral AI Hackathon in Paris",
+      caption: "mistral ai hackathon · paris, july 2026",
+    },
   },
   {
     title: "AI content creation",
@@ -176,31 +182,40 @@ export default function Home() {
         <ul className="project-list">
           {projects.map((p) => (
             <li key={p.title}>
-              {p.href ? (
-                <a className="project-row" href={p.href} target="_blank" rel="noreferrer">
-                  <ProjectLogo src={p.logo} />
-                  <span className="project-copy">
-                    <span className="project-title"><DecryptText text={p.title} trigger="hover" hoverParent="li" /></span>
-                    <span className="project-desc">{p.desc}</span>
-                  </span>
-                  {p.detail ? <span className="project-detail">{p.detail}</span> : null}
-                </a>
-              ) : (
-                <span className="project-row">
-                  <ProjectLogo src={p.logo} />
-                  <span className="project-copy">
-                    <span className="project-title">
-                      <DecryptText text={p.title} trigger="hover" hoverParent="li" />
-                      {p.platforms ? <PlatformIcons /> : null}
+              <div className="project-head">
+                {p.href ? (
+                  <a className="project-row" href={p.href} target="_blank" rel="noreferrer">
+                    <ProjectLogo src={p.logo} />
+                    <span className="project-copy">
+                      <span className="project-title"><DecryptText text={p.title} trigger="hover" hoverParent="li" /></span>
+                      <span className="project-desc">{p.desc}</span>
                     </span>
-                    <span className="project-desc">{p.desc}</span>
+                    {p.detail ? <span className="project-detail">{p.detail}</span> : null}
+                  </a>
+                ) : (
+                  <span className="project-row">
+                    <ProjectLogo src={p.logo} />
+                    <span className="project-copy">
+                      <span className="project-title">
+                        <DecryptText text={p.title} trigger="hover" hoverParent="li" />
+                        {p.platforms ? <PlatformIcons /> : null}
+                      </span>
+                      <span className="project-desc">{p.desc}</span>
+                    </span>
                   </span>
-                </span>
-              )}
-              {p.extra ? (
-                <a className="project-detail project-detail--link" href={p.extra.href} target="_blank" rel="noreferrer">
-                  {p.extra.label}
-                </a>
+                )}
+                {p.extra ? (
+                  <a className="project-detail project-detail--link" href={p.extra.href} target="_blank" rel="noreferrer">
+                    {p.extra.label}
+                  </a>
+                ) : null}
+              </div>
+              {p.photo ? (
+                <figure className="project-photo">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.photo.src} alt={p.photo.alt} width={1400} height={700} loading="lazy" decoding="async" />
+                  <figcaption>{p.photo.caption}</figcaption>
+                </figure>
               ) : null}
             </li>
           ))}
