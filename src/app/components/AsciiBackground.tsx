@@ -2,10 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { drawTransformerFlow } from "./transformerFlow";
+import { drawLossLandscape } from "./lossLandscape";
 
 // two particle volumes slowly morphing between a globe and an orbit, plus a
-// wireframe transformer stack sharing their camera. the centre fades out so
-// the motion stays behind the portfolio, never the copy.
+// wireframe transformer stack (top right) and a loss landscape being descended
+// (bottom left) sharing their camera. the centre fades out so the motion stays
+// behind the portfolio, never the copy.
 export default function AsciiBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -91,6 +93,7 @@ export default function AsciiBackground() {
         }
       }
       drawTransformerFlow(ctx, width, height, t, dark, pointerX, pointerY, scroll);
+      drawLossLandscape(ctx, width, height, t, dark, pointerX, pointerY, scroll);
       ctx.globalCompositeOperation = "destination-in";
       ctx.fillStyle = mask;
       ctx.fillRect(0, 0, width, height);
