@@ -252,7 +252,7 @@ export default function Home() {
             <figcaption>basketball</figcaption>
           </figure>
           <figure className="polaroid">
-            <AsciiPolaroid src="/images/interests/associations.jpg" alt="Speaking at a student event" />
+            <AsciiPolaroid src="/images/interests/content-creation.jpg" alt="Speaking at a student event" />
             <figcaption>content creation</figcaption>
           </figure>
           <figure className="polaroid">
