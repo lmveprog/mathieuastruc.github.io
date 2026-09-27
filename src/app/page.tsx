@@ -73,7 +73,6 @@ function PlatformIcons() {
 }
 
 const partners = [
-  { name: "Google DeepMind", src: "/images/projects/partners/deepmind.png" },
   { name: "Voodoo", src: "/images/projects/partners/voodoo.png" },
   { name: "Gradium", src: "/images/projects/partners/gradium.png" },
   { name: "Cognition", src: "/images/projects/partners/cognition.png" },
@@ -112,7 +111,7 @@ function ProjectLogo({ src }: { src?: string }) {
 const projects: Project[] = [
   {
     title: "Didjey",
-    logo: "/images/projects/didjey.png",
+    logo: "/images/projects/deepmind.png",
     desc: "Rhythm game for mobile and desktop, built around dopamine loops. Finalist at the {Tech: Europe} AI Gaming Hack, Google DeepMind x Voodoo.",
     partners: true,
     photo: {
