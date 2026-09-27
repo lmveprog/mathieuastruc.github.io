@@ -72,12 +72,31 @@ function PlatformIcons() {
   );
 }
 
+const partners = [
+  { name: "Google DeepMind", src: "/images/projects/partners/deepmind.png" },
+  { name: "Voodoo", src: "/images/projects/partners/voodoo.png" },
+  { name: "Gradium", src: "/images/projects/partners/gradium.png" },
+  { name: "Cognition", src: "/images/projects/partners/cognition.png" },
+];
+
+function PartnerLogos() {
+  return (
+    <span className="platform-icons partner-logos" aria-label={partners.map((p) => p.name).join(", ")}>
+      {partners.map((p) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={p.name} src={p.src} alt="" title={p.name} width={14} height={14} loading="lazy" decoding="async" />
+      ))}
+    </span>
+  );
+}
+
 type Project = {
   title: string;
   desc: string;
   logo?: string;
   href?: string;
   platforms?: boolean;
+  partners?: boolean;
   extra?: { label: string; href: string };
   detail?: string;
   photo?: { thumb: string; full: string; size: [number, number]; alt: string; caption: string; tilt?: number };
@@ -91,6 +110,20 @@ function ProjectLogo({ src }: { src?: string }) {
 }
 
 const projects: Project[] = [
+  {
+    title: "Didjey",
+    logo: "/images/projects/didjey.png",
+    desc: "Rhythm game for mobile and desktop, built around dopamine loops. Finalist at the {Tech: Europe} AI Gaming Hack, Google DeepMind x Voodoo.",
+    partners: true,
+    photo: {
+      thumb: "/images/projects/didjey-hack-thumb.webp",
+      full: "/images/projects/didjey-hack.webp",
+      size: [1536, 1023],
+      alt: "Mathieu coding Didjey during the {Tech: Europe} AI Gaming Hack in Paris",
+      caption: "finalist · google deepmind x voodoo hack 2026",
+      tilt: 2.5,
+    },
+  },
   {
     title: "Impostral",
     logo: "/images/projects/mistral.png",
@@ -210,6 +243,7 @@ export default function Home() {
                     <span className="project-title">
                       <DecryptText text={p.title} trigger="hover" hoverParent="li" />
                       {p.platforms ? <PlatformIcons /> : null}
+                      {p.partners ? <PartnerLogos /> : null}
                     </span>
                     <span className="project-desc">{p.desc}</span>
                   </span>

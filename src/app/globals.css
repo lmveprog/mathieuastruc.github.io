@@ -513,6 +513,23 @@ a.project-row:hover .project-detail,
   width: 13px;
   height: 13px;
 }
+/* logos des partenaires du hackathon : gris discret, la couleur revient au survol de la ligne */
+.partner-logos img {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+:root[data-theme="dark"] .partner-logos img {
+  background: #f9f8f5;
+  padding: 1px;
+}
+.project-list li:hover .partner-logos img {
+  filter: none;
+  opacity: 1;
+}
 
 /* en dark, les marques dessinées en noir passent sur une tuile claire,
    et mon logo (a clair sur noir) s'inverse pour rester lisible */
