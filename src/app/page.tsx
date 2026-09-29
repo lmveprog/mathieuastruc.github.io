@@ -10,7 +10,7 @@ import ProjectPhoto from "./components/ProjectPhoto";
 import ThemeToggle from "./components/ThemeToggle";
 
 const experience = [
-  { role: "???", org: "", period: "2026-now" },
+  { role: "Forward Deployed Engineer", org: "H Company", logo: "/images/career/fav-hcompany.png", period: "2026-now" },
   { role: "Applied AI Engineer - Master Thesis", org: "Airbus", logo: "/images/career/fav-airbus.png", period: "2026" },
   { role: "Research Engineer Intern", org: "NTNU, Norway", logo: "/images/career/fav-ntnu.png", period: "2025" },
   { role: "Machine Learning Engineer", org: "Comat Specific", logo: "/images/career/fav-comat.png", period: "2025" },
@@ -178,7 +178,7 @@ export default function Home() {
         <ThemeToggle />
         <div className="hero-identity">
           <div className="portrait">
-            <img src="/images/portrait.jpg" alt="Mathieu Astruc" width={384} height={384} decoding="async" fetchPriority="high" />
+            <img src="/images/portrait-fde.jpg" alt="Mathieu Astruc" width={384} height={384} decoding="async" fetchPriority="high" />
           </div>
           <div className="identity-copy">
             <h1 className="hero-name">

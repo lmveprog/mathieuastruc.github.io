@@ -393,6 +393,7 @@ h2 {
 }
 /* la marque vectorielle bdf est nue en clair (comme le swoosh comat)
    et passe sur une tuile blanche en sombre, sinon le bleu se perd */
+:root[data-theme="dark"] .exp-fav[src*="hcompany"] { filter: invert(1); }
 :root[data-theme="dark"] .exp-fav[src*="banque-de-france"] {
   background: #fff;
   padding: 2px;
