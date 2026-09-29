@@ -178,7 +178,7 @@ export default function Home() {
         <ThemeToggle />
         <div className="hero-identity">
           <div className="portrait">
-            <img src="/images/portrait-fde.jpg" alt="Mathieu Astruc" width={384} height={384} decoding="async" fetchPriority="high" />
+            <img src="/images/portrait-2026.jpg" alt="Mathieu Astruc" width={384} height={384} decoding="async" fetchPriority="high" />
           </div>
           <div className="identity-copy">
             <h1 className="hero-name">
